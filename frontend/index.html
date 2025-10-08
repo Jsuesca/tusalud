@@ -44,12 +44,19 @@
       <a href="paginas/chat.html">Chatea con Nosotros</a>
     </div>
     <div class="menu-right">
-      <img src="img/LogosPrincipales/logo persona.png" alt="Usuario" title="Logo Usuario">
-      <div class="auth-buttons">
-        <a href="paginas/login.html" class="login" title="Boton Ingresar">Ingresar</a>
-        <a href="paginas/register.html" class="register" title="Boton Registrarme">Registrarse</a>
-      </div>
-    </div>
+  <img src="img/LogosPrincipales/logo persona.png" alt="Usuario" title="Logo Usuario">
+  <div class="auth-buttons" id="authButtons">
+    <a href="paginas/login.html" class="login" title="Boton Ingresar">Ingresar</a>
+    <a href="paginas/register.html" class="register" title="Boton Registrarme">Registrarse</a>
+  </div>
+
+  <!-- Contenedor para el saludo -->
+  <div id="userGreeting" class="user-greeting" style="display: none;">
+    <span id="nombreUsuario"></span>
+    <button id="logoutBtn" style="margin-left: 10px;">Cerrar sesión</button>
+  </div>
+</div>
+
   </section>
 
   <!-- Nosotros -->
@@ -268,6 +275,37 @@
 
   <!-- Script local donde inicializas el mapa -->
   <script src="../backend/js/mapa.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const authButtons = document.getElementById("authButtons");
+    const userGreeting = document.getElementById("userGreeting");
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+    const nombreSpan = document.getElementById("nombreUsuario");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (nombreUsuario) {
+      // Si el usuario está logueado
+      nombreSpan.textContent = `👋 Hola, ${nombreUsuario}`;
+      userGreeting.style.display = "flex";
+      userGreeting.style.flexDirection = "column";
+      userGreeting.style.alignItems = "center";
+      userGreeting.style.marginTop = "10px";
+      authButtons.style.display = "none";
+    } else {
+      // Si no hay sesión activa
+      userGreeting.style.display = "none";
+      authButtons.style.display = "flex";
+    }
+
+    // Botón cerrar sesión
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("nombreUsuario");
+      location.reload(); // recarga para volver al estado inicial
+    });
+  });
+</script>
 
 
 </body>

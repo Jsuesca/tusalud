@@ -762,3 +762,24 @@ background-color: #ccdbff;
   border-radius: 20px;
   box-shadow: 0 4px 6px #2a4dbf;
 }
+
+.user-greeting {
+  text-align: center;
+  color: #0077b6;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+#logoutBtn {
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#logoutBtn:hover {
+  background-color: #005f8d;
+}

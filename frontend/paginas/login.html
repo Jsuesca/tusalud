@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +14,7 @@
     <div class="auth-card">
       <h2>Iniciar Sesión</h2>
 
-      <form class="auth-form" action="#" method="post">
+      <form id="loginForm" class="auth-form">
         <div class="form-group">
           <label for="email">Correo electrónico:</label>
           <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required>
@@ -31,7 +32,48 @@
           <a href="register.html">Regístrate aquí</a>
         </p>
       </form>
+
+      <!-- Mensaje de respuesta -->
+      <p id="mensaje" style="color: red; text-align: center; margin-top: 10px;"></p>
     </div>
   </section>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const mensaje = document.getElementById("mensaje");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("http://localhost:5000/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          mensaje.textContent = data.mensaje || "Error al iniciar sesión";
+        } else {
+          mensaje.style.color = "green";
+          mensaje.textContent = "Inicio de sesión exitoso ✅";
+
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("nombreUsuario", data.nombre); // 👈 guarda el nombre
+
+          setTimeout(() => {
+            window.location.href = "../index.html";
+          }, 1500);
+        }
+      } catch (error) {
+        mensaje.textContent = "Error de conexión con el servidor.";
+      }
+    });
+  </script>
 </body>
 </html>

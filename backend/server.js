@@ -13,36 +13,31 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// 🔌 Conexión a MongoDB Atlas
+//  Conexión a MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Conectado a MongoDB Atlas"))
   .catch(err => console.error("❌ Error al conectar a MongoDB:", err));
 
-// 📝 Registro
-app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
-
+//  Registro
+app.post("/api/register", async (req, res) => {
   try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ mensaje: "Usuario no encontrado" });
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ mensaje: "Contraseña incorrecta" });
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    res.json({
-      mensaje: "Inicio de sesión exitoso",
-      token,
-      nombre: user.nombre, // 👈 enviamos el nombre
-    });
+    const { nombre, email, password } = req.body;
+    const usuarioExistente = await User.findOne({ email });
+    if (usuarioExistente) {
+      return res.status(400).json({ mensaje: "El usuario ya existe" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const nuevoUsuario = new User({ nombre, email, password: hashedPassword });
+    await nuevoUsuario.save();
+    res.status(201).json({ mensaje: "Usuario registrado exitosamente" });
   } catch (error) {
     res.status(500).json({ mensaje: "Error del servidor" });
   }
 });
 
 
-// 🔑 Login
+
+// Login
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -65,4 +60,4 @@ app.post("/api/login", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Servidor corriendo en puerto ${PORT}`));
+app.listen(PORT, () => console.log(` Servidor corriendo en puerto ${PORT}`));

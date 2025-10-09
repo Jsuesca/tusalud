@@ -8,12 +8,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Lista de médicos con coordenadas
 const medicos = [
-  { nombre: 'Dra. Laura Martínez', especialidad: 'Cardiología', lat: 4.8510, lng: -74.0830 },
-  { nombre: 'Dr. Juan Pérez', especialidad: 'Pediatría', lat: 4.5125, lng: -74.0905 },
-  { nombre: 'Dra. Camila Torres', especialidad: 'Dermatología', lat: 4.6932, lng: -74.1254 },
-  { nombre: 'Dr. Andrés Gómez', especialidad: 'Neurología', lat: 4.6378, lng: -74.0819 },
-  { nombre: 'Dra. Sofía Ramírez', especialidad: 'Ginecología', lat: 4.6612, lng: -74.1686 },
-  { nombre: 'Dr. Carlos Ruiz', especialidad: 'Ortopedia', lat: 4.5555, lng: -74.0921 }
+  { nombre: 'Dra. Carolina Sanchez', especialidad: 'Pediatra', lat: 4.8510, lng: -74.0830 },
+  { nombre: 'Dr. Geronimo Sanchez', especialidad: 'Cardiologo', lat: 4.5125, lng: -74.0905 },
+  { nombre: 'Dra. Leidy Paez', especialidad: 'Psiquiatra', lat: 4.6932, lng: -74.1254 },
+  { nombre: 'Dr. Yamid Lara', especialidad: 'Oftalmologo', lat: 4.6378, lng: -74.0819 },
+  { nombre: 'Dra. Angie leon', especialidad: 'Ginecologa', lat: 4.6612, lng: -74.1686 },
+  { nombre: 'Dr. Cristian Perez', especialidad: 'Neurologo', lat: 4.5555, lng: -74.0921 }
 ];
 
 // Agregar los marcadores al mapa

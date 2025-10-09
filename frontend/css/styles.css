@@ -129,10 +129,10 @@ h2 {
 
 .menu-right img {
   width: 180px;
-  border: 6px solid white;
-  border-radius: 18px;
+  border: 6px solid #ccc;
+  border-radius: 40px;
   padding: 12px;
-  background: #7fbfff;
+  background: #ffffff;
 }
 
 /* Botones login/register */
@@ -146,7 +146,7 @@ h2 {
   font-size: 15x;
   padding: 10px 20px;
   border-radius: 20px;
-  border: 2px solid white;
+  border: 2px solid #ccc;
   background: #4f6ccf;
   color: white;
   cursor: pointer;
@@ -605,9 +605,7 @@ button:hover,
 .btn-atras a:hover {
   background: #2b47a2;
 }
-/* ===============================
-   ESTILOS PARA LOGIN Y REGISTER
-   =============================== */
+/* ======== ESTILOS PARA LOGIN Y REGISTER ======== */
 
 .auth-container {
   display: flex;
@@ -639,7 +637,7 @@ button:hover,
 
 .auth-card h2 {
   margin-bottom: 25px;
-  color: #2a4dbf;
+  color:#4f6ccf;
   font-size: 28px;
   font-weight: 600;
 }
@@ -674,13 +672,13 @@ button:hover,
 
 .auth-card input:focus {
   outline: none;
-  border-color: #2a4dbf;
+  border-color: #4f6ccf;
   box-shadow: 0 0 4px #2a4dbf66;
 }
 
 .btn-primary {
   width: 100%;
-  background: #2a4dbf;
+  background:#4f6ccf;
   color: #ffffff;
   padding: 12px;
   border: none;
@@ -704,7 +702,7 @@ button:hover,
 }
 
 .auth-text a {
-  color: #2a4dbf;
+  color:#4f6ccf;
   font-weight: 600;
   text-decoration: none;
 }
@@ -755,6 +753,9 @@ background-color: #ccdbff;
   background-color: #ccdbff;
 }
 
+
+
+
 #map {
   height: 250px;
   width: 80%;
@@ -765,21 +766,21 @@ background-color: #ccdbff;
 
 .user-greeting {
   text-align: center;
-  color: #0077b6;
+  color: #ffffff;
   font-weight: 600;
   margin-top: 10px;
 }
 
 #logoutBtn {
-  background-color: #0077b6;
+  background-color: #2a4dbf;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
   padding: 6px 12px;
   cursor: pointer;
   transition: 0.3s;
 }
 
 #logoutBtn:hover {
-  background-color: #005f8d;
+  background-color: #2a4dbf;
 }

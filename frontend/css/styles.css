@@ -96,7 +96,7 @@ h2 {
 }
 
 .menu-left img {
-  width: 350px;
+  width: 400px;
   border-radius: 15px;
 }
 
@@ -430,9 +430,18 @@ button:hover,
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin: auto;
+  margin: 40px auto;
+  transition: all 0.3s ease;
 }
 
+@media (max-width: 850px) {
+  .chat-wrapper {
+    width: 95%;
+    height: 90vh;
+  }
+}
+
+/* HEADER */
 .chat-header {
   background: #2a4dbf;
   color: #ffffff;
@@ -440,6 +449,8 @@ button:hover,
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .chat-header .btn-atras {
@@ -450,6 +461,11 @@ button:hover,
   border-radius: 8px;
   font-size: 13px;
   font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.chat-header .btn-atras:hover {
+  background: #b2c8ff;
 }
 
 .chat-header .header-center {
@@ -458,6 +474,7 @@ button:hover,
   justify-content: center;
   flex: 1;
   gap: 20px;
+  text-align: center;
 }
 
 .chat-header .chat-logo {
@@ -468,8 +485,10 @@ button:hover,
 .chat-header h1 {
   font-size: 20px;
   font-weight: bold;
+  margin: 0;
 }
 
+/* CONTENEDOR DEL CHAT */
 .chat-container {
   flex: 1;
   display: flex;
@@ -484,6 +503,7 @@ button:hover,
   display: flex;
   flex-direction: column;
   gap: 10px;
+  scroll-behavior: smooth;
 }
 
 .message {
@@ -492,6 +512,8 @@ button:hover,
   max-width: 75%;
   font-size: 14px;
   line-height: 1.4;
+  animation: fadeIn 0.3s ease;
+  word-wrap: break-word;
 }
 
 .message.user {
@@ -499,6 +521,7 @@ button:hover,
   color: #000000;
   align-self: flex-end;
   border-bottom-right-radius: 2px;
+  box-shadow: 0px 2px 5px rgba(42, 77, 191, 0.2);
 }
 
 .message.bot {
@@ -506,21 +529,31 @@ button:hover,
   color: #000000;
   align-self: flex-start;
   border-bottom-left-radius: 2px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* INPUT */
 .chat-input {
   display: flex;
   border-top: 1px solid #ccc;
   background: #ffffff;
   padding: 10px;
+  align-items: center;
 }
 
 .chat-input input {
   flex: 1;
-  padding: 8px;
+  padding: 8px 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.chat-input input:focus {
+  border-color: #2a4dbf;
+  box-shadow: 0 0 4px rgba(42, 77, 191, 0.3);
 }
 
 .chat-input button {
@@ -532,12 +565,38 @@ button:hover,
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .chat-input button:hover {
   background: #1f3b99;
+  transform: scale(1.03);
 }
+
+/* SCROLLBAR */
+.chat-body::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-body::-webkit-scrollbar-thumb {
+  background-color: #b2c8ff;
+  border-radius: 3px;
+}
+.chat-body::-webkit-scrollbar-thumb:hover {
+  background-color: #2a4dbf;
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* ================== SITEMAP ================== */
 .sitemap-container {
@@ -605,6 +664,7 @@ button:hover,
 .btn-atras a:hover {
   background: #2b47a2;
 }
+
 /* ======== ESTILOS PARA LOGIN Y REGISTER ======== */
 
 .auth-container {
@@ -631,13 +691,20 @@ button:hover,
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .auth-card h2 {
   margin-bottom: 25px;
-  color:#4f6ccf;
+  color: #4f6ccf;
   font-size: 28px;
   font-weight: 600;
 }
@@ -678,7 +745,7 @@ button:hover,
 
 .btn-primary {
   width: 100%;
-  background:#4f6ccf;
+  background: #4f6ccf;
   color: #ffffff;
   padding: 12px;
   border: none;
@@ -702,7 +769,7 @@ button:hover,
 }
 
 .auth-text a {
-  color:#4f6ccf;
+  color: #4f6ccf;
   font-weight: 600;
   text-decoration: none;
 }
@@ -741,10 +808,11 @@ button:hover,
   background-color: #2a4dbf;
 }
 
-.auth-buttons .login:hover{
-background-color: #ccdbff;
+.auth-buttons .login:hover {
+  background-color: #ccdbff;
 
 }
+
 .auth-buttons .register {
   background-color: #f5f5f5;
 }

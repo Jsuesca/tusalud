@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
-  <title>Chat con IA</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Tu salud a un click</title>
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
 
   <div class="chat-wrapper">
     <div class="chat-header">
-      <a href="../index.html" class="btn-atras">← Atrás</a>
-      <div class="header-center">
-        <img src="../img/LogosPrincipales/logo.png" alt="Logo" class="chat-logo">
-        <h1>Chat con IA</h1>
-      </div>
-    </div>
+  <div class="header-center">
+    <h1>Tu salud a un click</h1>
+  </div>
+  <div class="header-right">
+    <a href="../index.html" class="btn-atras">ATRÁS</a>
+  </div>
+</div>
+
 
     <div class="chat-container">
-      <div id="chat-box" class="chat-body"></div>
+      <div id="chat-box" class="chat-body">
+        <div class="message bot"><b>Hola soy Matheus,</b> ¿en qué puedo ayudarte?</div>
+      </div>
 
       <div class="chat-input">
         <input type="text" id="message" placeholder="Escribe tu mensaje...">
@@ -39,7 +45,6 @@
       msgInput.value = "";
 
       try {
-        // Llamada al backend (mismo servidor en puerto 5000)
         const response = await fetch("http://localhost:5000/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -49,12 +54,11 @@
         const data = await response.json();
 
         if (data.reply) {
-          chatBox.innerHTML += `<div class="message bot"><b>IA:</b> ${data.reply}</div>`;
+          chatBox.innerHTML += `<div class="message bot"><b>Matheus:</b> ${data.reply}</div>`;
         } else {
-          chatBox.innerHTML += `<div class="message bot"><b>IA:</b> No se obtuvo respuesta.</div>`;
+          chatBox.innerHTML += `<div class="message bot"><b>Matheus:</b> No se obtuvo respuesta.</div>`;
         }
 
-        // Desplaza hacia abajo automáticamente
         chatBox.scrollTop = chatBox.scrollHeight;
       } catch (error) {
         chatBox.innerHTML += `<div class="message bot"><b>Error:</b> No se pudo conectar con el servidor.</div>`;
@@ -62,4 +66,5 @@
     }
   </script>
 </body>
+
 </html>

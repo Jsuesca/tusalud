@@ -85,10 +85,13 @@ app.post("/api/chat", async (req, res) => {
       max_tokens: 400,
     };
 
-    const headers = {
-      "Authorization": `Bearer ${OPENROUTER_KEY}`,
-      "Content-Type": "application/json",
-    };
+   const headers = {
+  "Authorization": `Bearer ${OPENROUTER_KEY}`,
+  "Content-Type": "application/json",
+  "HTTP-Referer": "http://localhost:5000",  // tu dominio o frontend
+  "X-Title": "TuSalud", // nombre de tu app
+};
+
 
     const orResp = await axios.post("https://openrouter.ai/api/v1/chat/completions", payload, { headers });
 

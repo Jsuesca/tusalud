@@ -342,12 +342,22 @@ button:hover,
   margin: 6px 0 0 0;
 }
 
+
+#map {
+  height: 250px;
+  width: 80%;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px #2a4dbf;
+}
+
 /* ================== FOOTER ================== */
 .footer {
   background: #adc6ff;
   color: #000000;
   padding: 40px 20px;
   border-radius: 15px;
+  
 }
 
 .footer-contenedor {
@@ -453,28 +463,14 @@ button:hover,
   gap: 10px;
 }
 
-.chat-header .btn-atras {
-  background: #ccdbff;
-  color: #2a4dbf;
-  text-decoration: none;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: bold;
-  transition: background 0.2s ease;
-}
-
-.chat-header .btn-atras:hover {
-  background: #b2c8ff;
-}
-
+/* --- Modificación aquí: el título a la izquierda y el botón atrás a la derecha --- */
 .chat-header .header-center {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* texto a la izquierda */
   flex: 1;
   gap: 20px;
-  text-align: center;
+  text-align: left;
 }
 
 .chat-header .chat-logo {
@@ -486,6 +482,24 @@ button:hover,
   font-size: 20px;
   font-weight: bold;
   margin: 0;
+  color: #fff;
+}
+
+/* Botón ATRÁS al lado derecho */
+.chat-header .btn-atras {
+  background: #ccdbff;
+  color: #2a4dbf;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  transition: background 0.2s ease;
+  margin-left: auto; /* empuja el botón a la derecha */
+}
+
+.chat-header .btn-atras:hover {
+  background: #b2c8ff;
 }
 
 /* CONTENEDOR DEL CHAT */
@@ -584,6 +598,7 @@ button:hover,
 .chat-body::-webkit-scrollbar-thumb:hover {
   background-color: #2a4dbf;
 }
+
 
 /* ANIMACIÓN */
 @keyframes fadeIn {
@@ -824,13 +839,6 @@ button:hover,
 
 
 
-#map {
-  height: 250px;
-  width: 80%;
-  margin: 20px auto;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px #2a4dbf;
-}
 
 .user-greeting {
   text-align: center;

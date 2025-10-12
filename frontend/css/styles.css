@@ -88,7 +88,12 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #5c7ed6;
+  background: 
+    linear-gradient(#5c7fd600, #5c7ed6b3),
+    url("../img/LogosPrincipales/fondo1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #ffffff;
   padding: 50px;
   border-radius: 15px;
@@ -98,6 +103,7 @@ h2 {
 .menu-left img {
   width: 400px;
   border-radius: 15px;
+  border: 2px solid #e1e1e1;
 }
 
 .menu-center {
@@ -111,9 +117,10 @@ h2 {
   color: #ffffff;
   background: #4f6ccf;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   text-align: center;
-  transition: background 0.3s;
+  transition: background 0.3s, border 0.3;
+  border:  2px solid #e1e1e1;
 }
 
 .menu-center a:hover {
@@ -145,7 +152,7 @@ h2 {
   text-decoration: none;
   font-size: 15x;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   border: 2px solid #ccc;
   background: #4f6ccf;
   color: white;
@@ -171,6 +178,22 @@ h2 {
   padding: 40px 20px;
   border-radius: 15px;
 }
+
+/* Dividir Misión y Visión */
+.contenedor-nosotros {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap; /* Para que se adapte en pantallas pequeñas */
+}
+
+.mision,
+.vision {
+  flex: 1;
+  min-width: 300px;
+  text-align: justify;
+}
+
 
 /* Especialidades */
 .especialidades {
@@ -432,8 +455,8 @@ button:hover,
 
 /* ================== CHAT ================== */
 .chat-wrapper {
-  width: 800px;
-  height: 800px;
+  width: 600px;
+  height: 500px;
   background: #ffffff;
   border-radius: 20px;
   box-shadow: 0px 6px 20px #ccc;
@@ -809,7 +832,7 @@ button:hover,
   display: inline-block;
   padding: 10px 20px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: #ffffff;
   color: #000000;
   font-size: 16px;

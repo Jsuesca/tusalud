@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.error("❌ Error al conectar a MongoDB:", err));
 
 
-// 🧍 Registro
+// Registro
 app.post("/api/register", async (req, res) => {
   try {
     const { nombre, email, password } = req.body;
@@ -41,7 +41,7 @@ app.post("/api/register", async (req, res) => {
 });
 
 
-// 🔐 Login
+//  Login
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -64,7 +64,7 @@ app.post("/api/login", async (req, res) => {
 });
 
 
-// 💬 CHAT CON IA (OpenRouter)
+// CHAT CON IA (OpenRouter)
 app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
@@ -76,7 +76,7 @@ app.post("/api/chat", async (req, res) => {
       return res.status(500).json({ error: "Falta la API key de OpenRouter" });
     }
 
-    // Modelo a usar (puedes cambiarlo por otro gratuito)
+    // Modelo a usar 
     const model = process.env.OPENROUTER_MODEL || "openai/gpt-3.5-turbo";
 
     const payload = {

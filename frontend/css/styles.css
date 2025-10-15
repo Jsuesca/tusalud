@@ -119,12 +119,13 @@ h2 {
   padding: 10px 20px;
   border-radius: 10px;
   text-align: center;
-  transition: background 0.3s, border 0.3;
-  border:  2px solid #e1e1e1;
+  border: 2px solid #e1e1e1;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .menu-center a:hover {
   background: #3a55b3;
+  transform: scale(1.05);
 }
 
 .menu-right {
@@ -142,30 +143,9 @@ h2 {
   background: #ffffff;
 }
 
-/* Botones login/register */
-.auth-buttons {
-  display: flex;
-  gap: 20px;
-}
 
-.auth-buttons button {
-  text-decoration: none;
-  font-size: 15x;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  background: #4f6ccf;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s, color 0.3s;
-}
 
-.auth-buttons .login:hover,
-.auth-buttons .register:hover {
-  background: white;
-  color: #2a4dbf;
-}
+
 
 /* ================== SECCIONES ================== */
 
@@ -231,18 +211,19 @@ h2 {
 
 button,
 .btn-vermas {
-  background: #3d5dc7;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-top: 10px;
+  background: #4f6ccf;
+  color: #ffffff;
+  border: 2px solid #e1e1e1;
+  padding: 10px 16px;
+  border-radius: 10px;
   cursor: pointer;
+  
 }
 
 button:hover,
 .btn-vermas:hover {
-  background: #2a3e86;
+  background: #3a55b3;
+  transform: scale(1.05);
 }
 
 /* Médicos */
@@ -486,7 +467,7 @@ button:hover,
   gap: 10px;
 }
 
-/* --- Modificación aquí: el título a la izquierda y el botón atrás a la derecha --- */
+/* título a la izquierda yt boton a la derecha */
 .chat-header .header-center {
   display: flex;
   align-items: center;
@@ -510,19 +491,20 @@ button:hover,
 
 /* Botón ATRÁS al lado derecho */
 .chat-header .btn-atras {
-  background: #ccdbff;
-  color: #2a4dbf;
+  background: #4f6ccf;
+  color: #ffffff;
   text-decoration: none;
+  border: 2px solid #ffffff;
   padding: 6px 12px;
   border-radius: 8px;
   font-size: 13px;
   font-weight: bold;
   transition: background 0.2s ease;
-  margin-left: auto; /* empuja el botón a la derecha */
+  margin-left: auto; /* envia el botón a la derecha */
 }
 
 .chat-header .btn-atras:hover {
-  background: #b2c8ff;
+  background: #3a55b3;
 }
 
 /* CONTENEDOR DEL CHAT */
@@ -566,7 +548,7 @@ button:hover,
   color: #000000;
   align-self: flex-start;
   border-bottom-left-radius: 2px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 5px #0000001a;
 }
 
 /* INPUT */
@@ -590,13 +572,13 @@ button:hover,
 
 .chat-input input:focus {
   border-color: #2a4dbf;
-  box-shadow: 0 0 4px rgba(42, 77, 191, 0.3);
+  box-shadow: 0 0 4px #2a4dbf4d;
 }
 
 .chat-input button {
   margin-left: 8px;
   padding: 8px 14px;
-  background: #2a4dbf;
+  background: #4f6ccf;
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -606,7 +588,7 @@ button:hover,
 }
 
 .chat-input button:hover {
-  background: #1f3b99;
+  background: #2a4dbf;
   transform: scale(1.03);
 }
 
@@ -638,12 +620,12 @@ button:hover,
 
 /* ================== SITEMAP ================== */
 .sitemap-container {
-  max-width: 800px;
+  max-width: 500px;
   margin: auto;
   text-align: center;
   background: #ffffff;
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 10px;
   border: 2px solid #3d5dc7;
 }
 
@@ -653,14 +635,19 @@ button:hover,
 }
 
 .sitemap>li>a {
+  background: #3d5dc7;
   font-weight: bold;
-  color: #000;
+  color: #ffffff;
   text-decoration: none;
   display: inline-block;
   padding: 10px 20px;
   border: 2px solid #3d5dc7;
-  border-radius: 20px;
-  margin-bottom: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.sitemap li a:hover{
+  background: #2b47a2;
 }
 
 .sitemap ul {
@@ -677,7 +664,7 @@ button:hover,
   color: white;
   background: #3d5dc7;
   padding: 8px 15px;
-  border-radius: 15px;
+  border-radius: 10px;
   text-decoration: none;
   display: inline-block;
 }
@@ -692,10 +679,10 @@ button:hover,
 
 .btn-atras a {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px 15px;
   background: #3d5dc7;
   color: white;
-  border-radius: 20px;
+  border-radius: 10px;
   text-decoration: none;
 }
 
@@ -828,13 +815,15 @@ button:hover,
   }
 }
 
+/* Botones login/register */
+
 .auth-buttons a {
   display: inline-block;
   padding: 10px 20px;
-  border: none;
+  border: 2px solid #e1e1e1;
   border-radius: 8px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #4f6ccf;
+  color: #ffffff;
   font-size: 16px;
   text-decoration: none;
   cursor: pointer;
@@ -843,22 +832,27 @@ button:hover,
 }
 
 .auth-buttons a:hover {
-  background-color: #2a4dbf;
+  background-color: #4f6ccf;
+  
 }
 
 .auth-buttons .login:hover {
-  background-color: #ccdbff;
+  background-color: #3a55b3;
 
 }
 
 .auth-buttons .register {
-  background-color: #f5f5f5;
+  background-color: #4f6ccf;
 }
 
 .auth-buttons .register:hover {
-  background-color: #ccdbff;
+  background-color: #3a55b3;
 }
 
+.auth-buttons {
+  display: flex;
+  gap: 20px;
+}
 
 
 
@@ -866,14 +860,14 @@ button:hover,
 .user-greeting {
   text-align: center;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 900;
   margin-top: 10px;
 }
 
 #logoutBtn {
-  background-color: #2a4dbf;
-  color: white;
-  border: none;
+  background-color:#4f6ccf;
+  color: #ffffff;
+  border: 2px solid #ffffff;
   border-radius: 7px;
   padding: 6px 12px;
   cursor: pointer;
@@ -881,5 +875,5 @@ button:hover,
 }
 
 #logoutBtn:hover {
-  background-color: #2a4dbf;
+  background-color: #3a55b3;
 }

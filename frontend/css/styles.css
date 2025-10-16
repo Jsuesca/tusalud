@@ -88,7 +88,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: 
+  background:
     linear-gradient(#5c7fd600, #5c7ed6b3),
     url("../img/LogosPrincipales/fondo1.jpg");
   background-size: cover;
@@ -143,7 +143,65 @@ h2 {
   background: #ffffff;
 }
 
+/* Botones login/register */
 
+.auth-buttons a {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  background-color: #4f6ccf;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-align: center;
+}
+
+.auth-buttons a:hover {
+  background-color: #4f6ccf;
+
+}
+
+.auth-buttons .login:hover {
+  background-color: #3a55b3;
+
+}
+
+.auth-buttons .register {
+  background-color: #4f6ccf;
+}
+
+.auth-buttons .register:hover {
+  background-color: #3a55b3;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.user-greeting {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 900;
+  margin-top: 10px;
+}
+
+#logoutBtn {
+  background-color: #4f6ccf;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 7px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#logoutBtn:hover {
+  background-color: #3a55b3;
+}
 
 
 
@@ -159,12 +217,13 @@ h2 {
   border-radius: 15px;
 }
 
-/* Dividir Misión y Visión */
+/* Misión y Visión */
 .contenedor-nosotros {
   display: flex;
   justify-content: space-between;
   gap: 30px;
-  flex-wrap: wrap; /* Para que se adapte en pantallas pequeñas */
+  flex-wrap: wrap;
+  /* Para que se adapte en pantallas pequeñas */
 }
 
 .mision,
@@ -217,7 +276,9 @@ button,
   padding: 10px 16px;
   border-radius: 10px;
   cursor: pointer;
+  margin-top: 30px;
   
+
 }
 
 button:hover,
@@ -361,7 +422,7 @@ button:hover,
   color: #000000;
   padding: 40px 20px;
   border-radius: 15px;
-  
+
 }
 
 .footer-contenedor {
@@ -403,7 +464,7 @@ button:hover,
 }
 
 .footer-col ul li {
-  margin-bottom: 6px;
+  margin-bottom: 25px;
 }
 
 .footer-col ul li a {
@@ -433,6 +494,31 @@ button:hover,
   font-size: 12px;
   color: #333;
 }
+
+/* ================== BOTÓN SUBIR AL INICIO ================== */
+#btnSubir {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #4f6ccf;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 10%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px #00000033;
+  display: none; /* Oculto hasta que el usuario haga scroll */
+  transition: background 0.3s ease, transform 0.2s ease;
+  z-index: 9999;
+}
+
+#btnSubir:hover {
+  background-color: #2a4dbf;
+  transform: scale(1.1);
+}
+
 
 /* ================== CHAT ================== */
 .chat-wrapper {
@@ -471,7 +557,8 @@ button:hover,
 .chat-header .header-center {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* texto a la izquierda */
+  justify-content: flex-start;
+  /* texto a la izquierda */
   flex: 1;
   gap: 20px;
   text-align: left;
@@ -500,7 +587,8 @@ button:hover,
   font-size: 13px;
   font-weight: bold;
   transition: background 0.2s ease;
-  margin-left: auto; /* envia el botón a la derecha */
+  margin-left: auto;
+  /* envia el botón a la derecha */
 }
 
 .chat-header .btn-atras:hover {
@@ -596,10 +684,12 @@ button:hover,
 .chat-body::-webkit-scrollbar {
   width: 6px;
 }
+
 .chat-body::-webkit-scrollbar-thumb {
   background-color: #b2c8ff;
   border-radius: 3px;
 }
+
 .chat-body::-webkit-scrollbar-thumb:hover {
   background-color: #2a4dbf;
 }
@@ -611,6 +701,7 @@ button:hover,
     opacity: 0;
     transform: translateY(5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -646,7 +737,7 @@ button:hover,
   margin-bottom: 10px;
 }
 
-.sitemap li a:hover{
+.sitemap li a:hover {
   background: #2b47a2;
 }
 
@@ -706,9 +797,9 @@ button:hover,
 }
 
 .auth-card {
-  background: rgba(255, 255, 255, 0.96);
+  background: #fffffff5;
   border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 30px #00000033;
   padding: 40px 45px;
   width: 380px;
   text-align: center;
@@ -813,67 +904,4 @@ button:hover,
   .auth-card h2 {
     font-size: 24px;
   }
-}
-
-/* Botones login/register */
-
-.auth-buttons a {
-  display: inline-block;
-  padding: 10px 20px;
-  border: 2px solid #e1e1e1;
-  border-radius: 8px;
-  background-color: #4f6ccf;
-  color: #ffffff;
-  font-size: 16px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: 0.3s ease;
-  text-align: center;
-}
-
-.auth-buttons a:hover {
-  background-color: #4f6ccf;
-  
-}
-
-.auth-buttons .login:hover {
-  background-color: #3a55b3;
-
-}
-
-.auth-buttons .register {
-  background-color: #4f6ccf;
-}
-
-.auth-buttons .register:hover {
-  background-color: #3a55b3;
-}
-
-.auth-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-
-
-
-.user-greeting {
-  text-align: center;
-  color: #ffffff;
-  font-weight: 900;
-  margin-top: 10px;
-}
-
-#logoutBtn {
-  background-color:#4f6ccf;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  border-radius: 7px;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#logoutBtn:hover {
-  background-color: #3a55b3;
 }

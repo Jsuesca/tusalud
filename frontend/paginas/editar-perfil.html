@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Perfil</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="register-body">
+  <section class="auth-container">
+    <div class="auth-card">
+      <h2>Editar Perfil</h2>
+
+      <form id="editForm" class="auth-form">
+        <div class="form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo electrónico:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Nueva contraseña (opcional):</label>
+          <input type="password" id="password" name="password" placeholder="Dejar en blanco si no desea cambiarla">
+        </div>
+
+        <button type="submit" class="editar-btn-guardar">Guardar cambios</button>
+      </form>
+
+      <button id="deleteBtn" class="editar-btn-eliminar">Eliminar cuenta</button>
+      <p id="mensaje" class="mensaje"></p>
+
+      <a href="../index.html" class="editar-btn-volver">Volver</a>
+    </div>
+  </section>
+
+  <script>
+    const token = localStorage.getItem("token");
+    const mensaje = document.getElementById("mensaje");
+
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    // Cargar datos del usuario
+    async function cargarPerfil() {
+      try {
+        const res = await fetch("http://localhost:5000/api/user", {
+          headers: { "Authorization": "Bearer " + token }
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          document.getElementById("nombre").value = data.nombre;
+          document.getElementById("email").value = data.email;
+        } else {
+          mensaje.textContent = data.mensaje || "Error al cargar perfil";
+        }
+      } catch (error) {
+        mensaje.textContent = "Error de conexión con el servidor.";
+      }
+    }
+
+    cargarPerfil();
+
+    // Guardar cambios
+    document.getElementById("editForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombre").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch("http://localhost:5000/api/user", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({ nombre, email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          mensaje.classList.add("mensaje-exito");
+          mensaje.textContent = "Perfil actualizado correctamente ✅";
+          localStorage.setItem("nombreUsuario", nombre);
+        } else {
+          mensaje.classList.add("mensaje-error");
+          mensaje.textContent = data.mensaje || "Error al actualizar perfil.";
+        }
+      } catch (error) {
+        mensaje.classList.add("mensaje-error");
+        mensaje.textContent = "Error al conectar con el servidor.";
+      }
+    });
+
+    // Eliminar cuenta
+    document.getElementById("deleteBtn").addEventListener("click", async () => {
+      if (confirm("¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.")) {
+        try {
+          const res = await fetch("http://localhost:5000/api/user", {
+            method: "DELETE",
+            headers: { "Authorization": "Bearer " + token }
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            alert("Cuenta eliminada correctamente.");
+            localStorage.clear();
+            window.location.href = "register.html";
+          } else {
+            mensaje.textContent = data.mensaje || "Error al eliminar la cuenta.";
+          }
+        } catch (error) {
+          mensaje.textContent = "Error al conectar con el servidor.";
+        }
+      }
+    });
+  </script>
+</body>
+</html>

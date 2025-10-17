@@ -905,3 +905,125 @@ button:hover,
     font-size: 24px;
   }
 }
+
+/* Estilos exclusivos para Editar Perfil  */
+
+.editar-perfil-body {
+  background-color: #f4f7fe;
+  font-family: 'Poppins', sans-serif;
+}
+
+.editar-perfil-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.editar-perfil-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 35px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 20px #0000001a;
+  text-align: left;
+}
+
+.editar-perfil-card h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #4b5de9;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.editar-perfil-form .form-group {
+  margin-bottom: 20px;
+}
+
+.editar-perfil-form label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+.editar-perfil-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #fafbff;
+  transition: all 0.3s ease;
+}
+
+.editar-perfil-form input:focus {
+  border-color: #4b5de9;
+  box-shadow: 0 0 6px #4b5de94d;
+}
+
+/* === Botones === */
+.editar-btn-guardar,
+.editar-btn-eliminar,
+.editar-btn-volver {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+.editar-btn-guardar {
+  background-color: #4CAF50;
+}
+
+.editar-btn-guardar:hover {
+  background-color: #3e8e41;
+  transform: translateY(-1px);
+}
+
+.editar-btn-eliminar {
+  background-color: #f44336;
+}
+
+.editar-btn-eliminar:hover {
+  background-color: #d32f2f;
+  transform: translateY(-1px);
+}
+
+/* === Botón Volver (azul clásico) === */
+.editar-btn-volver {
+  background-color: #3456d1;
+  text-align: center;
+  text-decoration: none;
+}
+
+.editar-btn-volver:hover {
+  background-color: #2746b0;
+  transform: translateY(-1px);
+}
+
+/* === Mensajes === */
+.editar-mensaje {
+  text-align: center;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+.editar-mensaje-exito {
+  color: #28a745;
+}
+
+.editar-mensaje-error {
+  color: #dc3545;
+}

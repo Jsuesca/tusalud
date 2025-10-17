@@ -53,6 +53,7 @@
       <!-- Contenedor para el saludo -->
       <div id="userGreeting" class="user-greeting" style="display: none;">
         <span id="nombreUsuario"></span>
+        <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
         <button id="logoutBtn" style="margin-left: 10px;">Cerrar sesión</button>
       </div>
     </div>
@@ -64,39 +65,39 @@
     <h2>Nosotros</h2>
 
     <div class="contenedor-nosotros">
-    <div class="mision">
-      <h3>Misión:</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit fringilla cubilia magna pretium, fermentum bibendum in
-        torquent primis porttitor ut mollis metus neque nibh, nec eros dapibus tempor odio sociosqu etiam accumsan
-        molestie pharetra. Egestas cras facilisis condimentum donec habitant arcu, sed nascetur molestie habitasse
-        interdum, litora aliquam dictum dictumst mi. Montes senectus suscipit est euismod donec eleifend turpis mattis
-        hendrerit, fames ut facilisi nisl auctor nostra elementum orci leo, duis cubilia quis cursus sociis felis
-        accumsan porttitor.</p>
+      <div class="mision">
+        <h3>Misión:</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit fringilla cubilia magna pretium, fermentum bibendum in
+          torquent primis porttitor ut mollis metus neque nibh, nec eros dapibus tempor odio sociosqu etiam accumsan
+          molestie pharetra. Egestas cras facilisis condimentum donec habitant arcu, sed nascetur molestie habitasse
+          interdum, litora aliquam dictum dictumst mi. Montes senectus suscipit est euismod donec eleifend turpis mattis
+          hendrerit, fames ut facilisi nisl auctor nostra elementum orci leo, duis cubilia quis cursus sociis felis
+          accumsan porttitor.</p>
 
-      Sodales primis senectus netus suscipit lobortis in nisl congue mi litora ultrices habitant non, taciti imperdiet
-      tincidunt sagittis at ultricies vulputate etiam aenean leo tristique luctus. Ornare imperdiet mi mattis
-      tincidunt nibh vulputate in, nam et tortor vitae augue ultrices neque, dui ultricies a scelerisque nisl erat.
-      Aliquet netus sed nulla pellentesque dui nullam fringilla est primis diam, neque ante condimentum libero id
-      eleifend per aptent enim bibendum fermentum, vehicula lacus inceptos auctor sagittis potenti a blandit torquent.
-      </p>
-    </div>
-    <br>
-    <div class="vision">
-      <h3>Visión:</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipiscing elit fringilla cubilia magna pretium, fermentum bibendum in
-        torquent primis porttitor ut mollis metus neque nibh, nec eros dapibus tempor odio sociosqu etiam accumsan
-        molestie pharetra. Egestas cras facilisis condimentum donec habitant arcu, sed nascetur molestie habitasse
-        interdum, litora aliquam dictum dictumst mi. Montes senectus suscipit est euismod donec eleifend turpis mattis
-        hendrerit, fames ut facilisi nisl auctor nostra elementum orci leo, duis cubilia quis cursus sociis felis
-        accumsan porttitor.</p>
+        Sodales primis senectus netus suscipit lobortis in nisl congue mi litora ultrices habitant non, taciti imperdiet
+        tincidunt sagittis at ultricies vulputate etiam aenean leo tristique luctus. Ornare imperdiet mi mattis
+        tincidunt nibh vulputate in, nam et tortor vitae augue ultrices neque, dui ultricies a scelerisque nisl erat.
+        Aliquet netus sed nulla pellentesque dui nullam fringilla est primis diam, neque ante condimentum libero id
+        eleifend per aptent enim bibendum fermentum, vehicula lacus inceptos auctor sagittis potenti a blandit torquent.
+        </p>
+      </div>
+      <br>
+      <div class="vision">
+        <h3>Visión:</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit fringilla cubilia magna pretium, fermentum bibendum in
+          torquent primis porttitor ut mollis metus neque nibh, nec eros dapibus tempor odio sociosqu etiam accumsan
+          molestie pharetra. Egestas cras facilisis condimentum donec habitant arcu, sed nascetur molestie habitasse
+          interdum, litora aliquam dictum dictumst mi. Montes senectus suscipit est euismod donec eleifend turpis mattis
+          hendrerit, fames ut facilisi nisl auctor nostra elementum orci leo, duis cubilia quis cursus sociis felis
+          accumsan porttitor.</p>
 
-      Sodales primis senectus netus suscipit lobortis in nisl congue mi litora ultrices habitant non, taciti imperdiet
-      tincidunt sagittis at ultricies vulputate etiam aenean leo tristique luctus. Ornare imperdiet mi mattis
-      tincidunt nibh vulputate in, nam et tortor vitae augue ultrices neque, dui ultricies a scelerisque nisl erat.
-      Aliquet netus sed nulla pellentesque dui nullam fringilla est primis diam, neque ante condimentum libero id
-      eleifend per aptent enim bibendum fermentum, vehicula lacus inceptos auctor sagittis potenti a blandit torquent.
-      </p>
-    </div>
+        Sodales primis senectus netus suscipit lobortis in nisl congue mi litora ultrices habitant non, taciti imperdiet
+        tincidunt sagittis at ultricies vulputate etiam aenean leo tristique luctus. Ornare imperdiet mi mattis
+        tincidunt nibh vulputate in, nam et tortor vitae augue ultrices neque, dui ultricies a scelerisque nisl erat.
+        Aliquet netus sed nulla pellentesque dui nullam fringilla est primis diam, neque ante condimentum libero id
+        eleifend per aptent enim bibendum fermentum, vehicula lacus inceptos auctor sagittis potenti a blandit torquent.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -274,27 +275,27 @@
 
 
   <!-- Botón para subir al inicio -->
-<button id="btnSubir" title="Volver arriba">↑</button>
+  <button id="btnSubir" title="Volver arriba">↑</button>
 
-<script>
-  // Mostrar el botón al hacer scroll
-  window.addEventListener("scroll", () => {
-    const boton = document.getElementById("btnSubir");
-    if (window.scrollY > 200) {
-      boton.style.display = "block";
-    } else {
-      boton.style.display = "none";
-    }
-  });
-
-  // Subir suavemente al inicio
-  document.getElementById("btnSubir").addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+  <script>
+    /* Mostrar el botón al hacer scroll */
+    window.addEventListener("scroll", () => {
+      const boton = document.getElementById("btnSubir");
+      if (window.scrollY > 200) {
+        boton.style.display = "block";
+      } else {
+        boton.style.display = "none";
+      }
     });
-  });
-</script>
+
+    // Subir suavemente al inicio
+    document.getElementById("btnSubir").addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  </script>
 
 
   <!-- Script de Leaflet -->
@@ -331,6 +332,14 @@
         localStorage.removeItem("nombreUsuario");
         location.reload(); // recarga para volver al estado inicial
       });
+
+      const editProfileBtn = document.getElementById("editProfileBtn");
+      if (editProfileBtn) {
+        editProfileBtn.addEventListener("click", () => {
+          window.location.href = "./paginas/editar-perfil.html";
+        });
+      }
+
     });
   </script>
 

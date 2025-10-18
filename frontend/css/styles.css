@@ -215,7 +215,7 @@ h2 {
   border-radius: 15px;
 }
 
-.nosotros h2{
+.nosotros h2 {
   margin-bottom: 30px;
   font-size: 1.9rem;
   color: #2a4d9c;
@@ -248,7 +248,7 @@ h2 {
   border-radius: 15px;
 }
 
-.especialidades h2{
+.especialidades h2 {
   margin-bottom: 30px;
   font-size: 1.9rem;
   color: #fcfcfc;
@@ -693,7 +693,6 @@ button:hover,
 }
 
 
-
 /*  ---------------------------------------------------------  CHAT.HTML  */
 .chat-wrapper {
   width: 600px;
@@ -775,6 +774,9 @@ button:hover,
   display: flex;
   flex-direction: column;
   background: #ffffff;
+  height: 100%;
+  overflow: hidden;
+  /* evita que se desborde al crecer */
 }
 
 .chat-body {
@@ -785,6 +787,8 @@ button:hover,
   flex-direction: column;
   gap: 10px;
   scroll-behavior: smooth;
+  min-height: 0;
+  /* ✅ clave: evita que empuje el input hacia abajo */
 }
 
 .message {
@@ -815,6 +819,8 @@ button:hover,
 
 /* INPUT */
 .chat-input {
+  flex-shrink: 0;
+  /*  mantiene el input siempre visible */
   display: flex;
   border-top: 1px solid #ccc;
   background: #ffffff;
@@ -884,9 +890,6 @@ button:hover,
 
 /* ------------------- RESPONSIVIDAD CHAT     */
 
-/* ========================== */
-/* 📱  RESPONSIVIDAD CHAT     */
-/* ========================== */
 
 /* Pantallas medianas (tablets) */
 @media (max-width: 850px) {
@@ -895,6 +898,7 @@ button:hover,
     height: 85vh;
     margin: 20px auto;
   }
+
   .chat-header h1 {
     font-size: 18px;
   }

@@ -16,7 +16,7 @@
   font-family: Arial, sans-serif;
 }
 
-/* ================== GENERALES ================== */
+/*  GENERALES  */
 
 /* Body genérico */
 body {
@@ -37,7 +37,7 @@ h2 {
   margin-bottom: 40px;
 }
 
-/* ================== HEADER ================== */
+/*  HEADER  */
 .header {
   display: flex;
   justify-content: space-between;
@@ -83,13 +83,13 @@ h2 {
   cursor: pointer;
 }
 
-/* ================== MENÚ ================== */
+/*  MENU  */
 .menu-block {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background:
-    linear-gradient(#5c7fd600, #5c7ed6b3),
+    linear-gradient(#5c7fd600, #5c7fd679),
     url("../img/LogosPrincipales/fondo1.jpg");
   background-size: cover;
   background-position: center;
@@ -143,7 +143,7 @@ h2 {
   background: #ffffff;
 }
 
-/* Botones login/register */
+/* BOTONES LOGIN Y RESGISTER */
 
 .auth-buttons a {
   display: inline-block;
@@ -203,9 +203,7 @@ h2 {
   background-color: #3a55b3;
 }
 
-
-
-/* ================== SECCIONES ================== */
+/*  SECCIONES  */
 
 /* Nosotros */
 .nosotros {
@@ -217,13 +215,18 @@ h2 {
   border-radius: 15px;
 }
 
+.nosotros h2{
+  margin-bottom: 30px;
+  font-size: 1.9rem;
+  color: #2a4d9c;
+}
+
 /* Misión y Visión */
 .contenedor-nosotros {
   display: flex;
   justify-content: space-between;
   gap: 30px;
   flex-wrap: wrap;
-  /* Para que se adapte en pantallas pequeñas */
 }
 
 .mision,
@@ -234,7 +237,7 @@ h2 {
 }
 
 
-/* Especialidades */
+/* ESPECIALIDADES */
 .especialidades {
   justify-content: space-between;
   background: #5c7ed6;
@@ -243,6 +246,12 @@ h2 {
   margin: 20px;
   padding: 40px 20px;
   border-radius: 15px;
+}
+
+.especialidades h2{
+  margin-bottom: 30px;
+  font-size: 1.9rem;
+  color: #fcfcfc;
 }
 
 .grid-especialidades {
@@ -277,8 +286,6 @@ button,
   border-radius: 10px;
   cursor: pointer;
   margin-top: 30px;
-  
-
 }
 
 button:hover,
@@ -287,7 +294,7 @@ button:hover,
   transform: scale(1.05);
 }
 
-/* Médicos */
+/* MEDICOS */
 .medicos {
   justify-content: space-between;
   text-align: center;
@@ -353,7 +360,7 @@ button:hover,
   box-shadow: 0 14px 30px #223c501f;
 }
 
-/* Contacto */
+/* CONTACTO */
 .contacto {
   background: #5c7ed6;
   padding: 40px 20px;
@@ -407,16 +414,31 @@ button:hover,
   margin: 6px 0 0 0;
 }
 
+/* ------------------------------------------------- Mapa Ubicaciones Medicas */
+
+.mapa {
+  padding: 40px 20px;
+  margin: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.mapa h2 {
+  margin-bottom: 20px;
+  font-size: 1.9rem;
+  color: #2a4d9c;
+}
 
 #map {
   height: 250px;
   width: 80%;
-  margin: 20px auto;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px #2a4dbf;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px #2a4d9c;
 }
 
-/* ================== FOOTER ================== */
+
+/*  FOOTER  */
 .footer {
   background: #adc6ff;
   color: #000000;
@@ -495,7 +517,7 @@ button:hover,
   color: #333;
 }
 
-/* ================== BOTÓN SUBIR AL INICIO ================== */
+/*  -------------------------------------------------------   BOTÓN SUBIR AL INICIO  */
 #btnSubir {
   position: fixed;
   bottom: 25px;
@@ -509,7 +531,9 @@ button:hover,
   font-size: 24px;
   cursor: pointer;
   box-shadow: 0 4px 8px #00000033;
-  display: none; /* Oculto hasta que el usuario haga scroll */
+  display: none;
+
+  /* que este oculto hasta que el usuario haga scroll */
   transition: background 0.3s ease, transform 0.2s ease;
   z-index: 9999;
 }
@@ -519,8 +543,158 @@ button:hover,
   transform: scale(1.1);
 }
 
+/* ----------------------------------------------------  DISEÑO RESPONSIVO PAGINA PRINCIPAL  */
 
-/* ================== CHAT ================== */
+/* Pantallas medianas (tablets y laptops pequeñas) */
+@media (max-width: 1024px) {
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header .search-bar {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .menu-block {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .menu-left img {
+    width: 300px;
+  }
+
+  .grid-especialidades {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-medicos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-contactos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-contenedor {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Pantallas pequeñas (celulares) */
+@media (max-width: 768px) {
+
+  /* Header */
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header .logo img {
+    width: 80px;
+  }
+
+  .header .logo h1 {
+    font-size: 22px;
+  }
+
+  .header .search-bar input {
+    width: 180px;
+  }
+
+  /* Menú */
+  .menu-block {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .menu-left img {
+    width: 220px;
+  }
+
+  .menu-center {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .menu-right {
+    margin-top: 25px;
+  }
+
+  /* Secciones */
+  .grid-especialidades,
+  .grid-medicos,
+  .grid-contactos {
+    grid-template-columns: 1fr;
+  }
+
+  /* Footer */
+  .footer-contenedor {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-logos img {
+    height: 50px;
+    margin: 5px;
+  }
+
+  #map {
+    width: 100%;
+  }
+
+  #btnSubir {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+}
+
+/* Teléfonos muy pequeños (menos de 480px) */
+@media (max-width: 480px) {
+  .header .logo h1 {
+    font-size: 18px;
+  }
+
+  .menu-left img {
+    width: 180px;
+  }
+
+  .auth-buttons a {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .doctor-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .doctor-card p {
+    font-size: 1rem;
+  }
+
+  .footer {
+    padding: 20px 10px;
+  }
+
+  .footer-col ul li {
+    margin-bottom: 12px;
+  }
+
+  .footer-bottom p {
+    font-size: 11px;
+  }
+}
+
+
+
+/*  ---------------------------------------------------------  CHAT.HTML  */
 .chat-wrapper {
   width: 600px;
   height: 500px;
@@ -708,8 +882,97 @@ button:hover,
   }
 }
 
+/* ------------------- RESPONSIVIDAD CHAT     */
 
-/* ================== SITEMAP ================== */
+/* ========================== */
+/* 📱  RESPONSIVIDAD CHAT     */
+/* ========================== */
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 850px) {
+  .chat-wrapper {
+    width: 90%;
+    height: 85vh;
+    margin: 20px auto;
+  }
+  .chat-header h1 {
+    font-size: 18px;
+  }
+}
+
+/* 📱 Celulares */
+@media (max-width: 600px) {
+  body {
+    background: #f4f6ff;
+  }
+
+  .chat-wrapper {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-header {
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .chat-header h1 {
+    font-size: 16px;
+  }
+
+  .chat-header .btn-atras {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .chat-body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .message {
+    max-width: 90%;
+    font-size: 13px;
+  }
+
+  .chat-input {
+    padding: 8px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chat-input input {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .chat-input button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1200px) {
+  .chat-wrapper {
+    max-width: 800px;
+    height: 600px;
+  }
+}
+
+
+
+
+/* ------------------------------------------------- SITEMAP.HTML */
 .sitemap-container {
   max-width: 500px;
   margin: auto;
@@ -781,7 +1044,7 @@ button:hover,
   background: #2b47a2;
 }
 
-/* ======== ESTILOS PARA LOGIN Y REGISTER ======== */
+/* ----------------------------------------------- ESTILOS PARA LOGIN Y REGISTER  */
 
 .auth-container {
   display: flex;
@@ -906,7 +1169,7 @@ button:hover,
   }
 }
 
-/* Estilos exclusivos para Editar Perfil  */
+/* ------------------------------------------------ EDITAR PERFIL  */
 
 .editar-perfil-body {
   background-color: #f4f7fe;
@@ -966,7 +1229,7 @@ button:hover,
   box-shadow: 0 0 6px #4b5de94d;
 }
 
-/* === Botones === */
+/*  Botones guardar eliminar y atras  */
 .editar-btn-guardar,
 .editar-btn-eliminar,
 .editar-btn-volver {

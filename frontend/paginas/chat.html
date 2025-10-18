@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tu salud a un click</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -40,7 +41,7 @@
       const userMsg = msgInput.value.trim();
       if (!userMsg) return;
 
-      // Muestra mensaje del usuario
+      /* Muestra mensaje del usuario */
       chatBox.innerHTML += `<div class="message user"><b>Tú:</b> ${userMsg}</div>`;
       msgInput.value = "";
 

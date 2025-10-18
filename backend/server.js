@@ -126,8 +126,7 @@ function verificarToken(req, res, next) {
   }
 }
 
-/* Obtener datos del usuario autenticado
- */
+/* Obtener datos del usuario autenticado */
 app.get("/api/user", verificarToken, async (req, res) => {
   try {
     const usuario = await User.findById(req.user.id).select("-password");

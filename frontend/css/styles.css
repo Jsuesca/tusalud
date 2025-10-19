@@ -1420,3 +1420,262 @@ body.high-contrast nav {
 .editar-mensaje-error {
   color: #dc3545;
 }
+
+/* despliegue de botones */
+.auth-options {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sub-btn {
+  background-color: #4a6cf7;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.sub-btn:hover {
+  background-color: #3957c3;
+}
+
+
+/* === FORMULARIO REGISTRAR MÉDICO === */
+.form-wrapper {
+  max-width: 500px;
+  margin: 60px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.form-wrapper h2 {
+  text-align: center;
+  color: #2a4dbf;
+  margin-bottom: 20px;
+}
+
+.form-wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-wrapper input,
+.form-wrapper textarea {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.btn-guardar {
+  background: #4f6ccf;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-guardar:hover {
+  background: #2a4dbf;
+}
+
+
+/* === ESTILOS AISLADOS PARA PERFIL DE MÉDICO === */
+.perfil-medico-page {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: #f6f8fb;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+/* Tarjeta del perfil */
+.perfil-medico-page .perfil-card {
+  max-width: 900px;
+  width: 90%;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+/* Cabecera con imagen e info */
+.perfil-medico-page .perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.perfil-medico-page .perfil-header img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007bff;
+}
+
+.perfil-medico-page .perfil-info h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #007bff;
+}
+
+.perfil-medico-page .perfil-info p {
+  margin: 6px 0;
+  color: #555;
+}
+
+/* Secciones */
+.perfil-medico-page .perfil-descripcion,
+.perfil-medico-page .perfil-horario,
+.perfil-medico-page .perfil-agendar {
+  margin-top: 20px;
+}
+
+.perfil-medico-page .perfil-horario {
+  background: #eef5ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Formulario */
+.perfil-medico-page .perfil-agendar {
+  background: #f0f8ff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.perfil-medico-page .perfil-agendar form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.perfil-medico-page input,
+.perfil-medico-page select,
+.perfil-medico-page textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.perfil-medico-page button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.perfil-medico-page button:hover {
+  background: #0056b3;
+}
+
+.perfil-medico-page .perfil-volver {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.perfil-medico-page .perfil-volver:hover {
+  text-decoration: underline;
+}
+
+
+/* === Estilos exclusivos del login médico === */
+.login-medico {
+  background: #f5f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-medico .form-wrapper {
+  width: 360px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.login-medico h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2b3a67;
+}
+
+.login-medico label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-medico input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.login-medico input:focus {
+  border-color: #4f6ccf;
+  outline: none;
+  box-shadow: 0 0 3px rgba(79, 108, 207, 0.3);
+}
+
+.login-medico .btn-guardar {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #4f6ccf;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.login-medico .btn-guardar:hover {
+  background-color: #2a4dbf;
+}
+
+.login-medico p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-medico a {
+  color: #4f6ccf;
+  text-decoration: none;
+}
+
+.login-medico a:hover {
+  text-decoration: underline;
+}
+

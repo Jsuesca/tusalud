@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import User from "./models/user.js";
+import Medico from "./models/medico.js";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,10 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Conectado a MongoDB Atlas"))
   .catch(err => console.error("❌ Error al conectar a MongoDB:", err));
 
+
+/* ==========================
+   USUARIOS NORMALES
+========================== */
 
 /* Registro */
 app.post("/api/register", async (req, res) => {
@@ -39,7 +44,6 @@ app.post("/api/register", async (req, res) => {
     res.status(500).json({ mensaje: "Error del servidor" });
   }
 });
-
 
 /* Login */
 app.post("/api/login", async (req, res) => {
@@ -76,7 +80,6 @@ app.post("/api/chat", async (req, res) => {
       return res.status(500).json({ error: "Falta la API key de OpenRouter" });
     }
 
-    /* Modelo a usar */
     const model = process.env.OPENROUTER_MODEL || "openai/gpt-3.5-turbo";
 
     const payload = {
@@ -88,10 +91,9 @@ app.post("/api/chat", async (req, res) => {
     const headers = {
       "Authorization": `Bearer ${OPENROUTER_KEY}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "http://localhost:5000",  /* tu dominio o frontend */
-      "X-Title": "TuSalud", /* nombre de tu app */
+      "HTTP-Referer": "http://localhost:5000",
+      "X-Title": "TuSalud",
     };
-
 
     const orResp = await axios.post("https://openrouter.ai/api/v1/chat/completions", payload, { headers });
 
@@ -118,8 +120,8 @@ function verificarToken(req, res, next) {
   if (!token) return res.status(401).json({ mensaje: "Acceso denegado. Token faltante." });
 
   try {
-    const verificado = jwt.verify(token, "secretito"); /* Usa tu clave secreta */
-    req.user = verificado; /* Guarda el ID del usuario dentro de req.user */
+    const verificado = jwt.verify(token, "secretito");
+    req.user = verificado;
     next();
   } catch (error) {
     res.status(401).json({ mensaje: "Token inválido o expirado." });
@@ -172,6 +174,104 @@ app.delete("/api/user", verificarToken, async (req, res) => {
 });
 
 
-/* Servidor */
+/* ==========================
+   RUTAS PARA MÉDICOS
+========================== */
+const SECRET_KEY = "clave_super_segura";
+
+/* Registrar médico */
+app.post("/api/medicos/register", async (req, res) => {
+  try {
+    const { nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña } = req.body;
+
+    const medicoExistente = await Medico.findOne({ correo });
+    if (medicoExistente)
+      return res.status(400).json({ mensaje: "Ya existe un médico con ese correo" });
+
+    const hashedPass = await bcrypt.hash(contraseña, 10);
+
+    const nuevoMedico = new Medico({
+      nombre,
+      especialidad,
+      foto,
+      experiencia,
+      descripcion,
+      horario,
+      correo,
+      telefono,
+      contraseña: hashedPass,
+    });
+
+    await nuevoMedico.save();
+    res.status(201).json({ mensaje: "Médico registrado exitosamente" });
+  } catch (error) {
+    console.error("Error al registrar médico:", error);
+    res.status(500).json({ mensaje: "Error en el servidor" });
+  }
+});
+
+/* Login médico */
+app.post("/api/medicos/login", async (req, res) => {
+  try {
+    const { correo, contraseña } = req.body;
+    const medico = await Medico.findOne({ correo });
+    if (!medico) return res.status(404).json({ mensaje: "Correo no encontrado" });
+
+    const match = await bcrypt.compare(contraseña, medico.contraseña);
+    if (!match) return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+
+    const token = jwt.sign({ id: medico._id }, SECRET_KEY, { expiresIn: "2h" });
+    res.json({ mensaje: "Login exitoso", token, medicoId: medico._id });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error en el servidor" });
+  }
+});
+
+/* Obtener perfil médico por ID */
+app.get("/api/medicos/perfil/:id", async (req, res) => {
+  try {
+    const medico = await Medico.findById(req.params.id);
+    if (!medico) return res.status(404).json({ mensaje: "Médico no encontrado" });
+    res.json(medico);
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al obtener perfil" });
+  }
+});
+
+/* Actualizar perfil médico */
+app.put("/api/medicos/:id", async (req, res) => {
+  try {
+    const medico = await Medico.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!medico) return res.status(404).json({ mensaje: "Médico no encontrado" });
+    res.json({ mensaje: "Perfil actualizado", medico });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al actualizar perfil" });
+  }
+});
+
+/* Obtener todos los médicos */
+app.get("/api/medicos", async (req, res) => {
+  try {
+    const medicos = await Medico.find();
+    res.json(medicos);
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al obtener médicos" });
+  }
+});
+
+/* Obtener un médico por ID */
+app.get("/api/medicos/:id", async (req, res) => {
+  try {
+    const medico = await Medico.findById(req.params.id);
+    if (!medico) return res.status(404).json({ mensaje: "Médico no encontrado" });
+    res.json(medico);
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al obtener el médico" });
+  }
+});
+
+/* ==========================
+   SERVIDOR
+========================== */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🔥 Servidor corriendo en http://localhost:${PORT}`));

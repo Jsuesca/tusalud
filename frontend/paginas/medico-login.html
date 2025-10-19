@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Médico</title>
+  <link rel="stylesheet" href="../css/medico-login.css">
+</head>
+<body>
+  <div class="login-medico">
+    <div class="form-wrapper">
+      <h2>Iniciar Sesión Médico</h2>
+      <form id="formLogin">
+        <label>Correo:</label>
+        <input type="email" name="correo" required>
+
+        <label>Contraseña:</label>
+        <input type="password" name="contraseña" required>
+
+        <button type="submit" class="btn-guardar">Ingresar</button>
+      </form>
+      <p>¿No tienes cuenta? <a href="registrar-medico.html">Regístrate aquí</a></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("formLogin");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = Object.fromEntries(new FormData(form).entries());
+
+      try {
+        const res = await fetch("http://localhost:5000/api/medicos/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert("✅ " + data.mensaje);
+          localStorage.setItem("tokenMedico", data.token);
+          localStorage.setItem("medicoId", data.medicoId);
+          window.location.href = "editar-perfil-medico.html";
+        } else {
+          alert("⚠️ " + (data.mensaje || "Credenciales incorrectas."));
+        }
+      } catch (err) {
+        console.error(err);
+        alert("❌ Error al conectar con el servidor.");
+      }
+    });
+  </script>
+</body>
+</html>

@@ -29,6 +29,7 @@
     </div>
   </header>
 
+  
   <!-- Menú -->
   <section class="menu-block">
     <div class="menu-left">
@@ -44,11 +45,34 @@
       <a href="#mapa">Ubicacion de Medicos</a>
     </div>
     <div class="menu-right">
-      <img src="img/LogosPrincipales/logo persona 2.png" alt="Usuario" title="Logo Usuario">
-      <div class="auth-buttons" id="authButtons">
-        <a href="paginas/login.html" class="login" title="Boton Ingresar">Ingresar</a>
-        <a href="paginas/register.html" class="register" title="Boton Registrarme">Registrarse</a>
-      </div>
+  <img src="img/LogosPrincipales/logo persona 2.png" alt="Usuario" title="Logo Usuario">
+
+  <!-- Botones principales -->
+  <div class="auth-buttons" id="authButtons">
+    <button class="login" id="btnIngresar" title="Botón Ingresar">Ingresar</button>
+    <button class="register" id="btnRegistrar" title="Botón Registrarse">Registrarse</button>
+  </div>
+
+  <!-- Subopciones de ingreso -->
+  <div class="auth-options" id="ingresarOpciones" style="display: none;">
+    <a href="paginas/login.html" class="sub-btn">Como Usuario</a>
+    <a href="paginas/medico-login.html" class="sub-btn">Como Médico</a>
+  </div>
+
+  <!-- Subopciones de registro -->
+  <div class="auth-options" id="registrarOpciones" style="display: none;">
+    <a href="paginas/register.html" class="sub-btn">Como Usuario</a>
+    <a href="paginas/registrar-medico.html" class="sub-btn">Como Médico</a>
+  </div>
+
+  <!-- Saludo del usuario -->
+  <div id="userGreeting" class="user-greeting" style="display: none;">
+    <span id="nombreUsuario"></span>
+    <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
+    <button id="logoutBtn" style="margin-left: 10px;">Cerrar sesión</button>
+  </div>
+</div>
+
 
       <!-- Contenedor para el saludo -->
       <div id="userGreeting" class="user-greeting" style="display: none;">
@@ -403,6 +427,25 @@
 
     });
   </script>
+
+  <script>
+  document.getElementById('btnIngresar').addEventListener('click', () => {
+    const ingresarOpciones = document.getElementById('ingresarOpciones');
+    const registrarOpciones = document.getElementById('registrarOpciones');
+    ingresarOpciones.style.display =
+      ingresarOpciones.style.display === 'none' ? 'block' : 'none';
+    registrarOpciones.style.display = 'none';
+  });
+
+  document.getElementById('btnRegistrar').addEventListener('click', () => {
+    const registrarOpciones = document.getElementById('registrarOpciones');
+    const ingresarOpciones = document.getElementById('ingresarOpciones');
+    registrarOpciones.style.display =
+      registrarOpciones.style.display === 'none' ? 'block' : 'none';
+    ingresarOpciones.style.display = 'none';
+  });
+</script>
+
 
 
 

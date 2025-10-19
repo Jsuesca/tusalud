@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Médico</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Pequeños estilos aislados que NO afectan tu CSS global */
+    .form-wrapper {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+
+    .form-wrapper h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .btn-guardar {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #4f6ccf;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-guardar:hover {
+      background-color: #2a4dbf;
+    }
+
+    .btn-atras {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #4f6ccf;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-wrapper">
+    <h2>Registrar Nuevo Médico</h2>
+    <form id="formMedico">
+
+      <label>Nombre:</label>
+      <input type="text" name="nombre" required>
+
+      <label>Especialidad:</label>
+      <input type="text" name="especialidad" required>
+
+      <label>Foto (URL):</label>
+      <input type="text" name="foto" placeholder="Ejemplo: img/doctor1.jpg">
+
+      <label>Experiencia:</label>
+      <input type="text" name="experiencia" required>
+
+      <label>Descripción:</label>
+      <textarea name="descripcion" rows="3" required></textarea>
+
+      <label>Horario:</label>
+      <input type="text" name="horario" required>
+
+      <label>Correo:</label>
+      <input type="email" name="correo" required>
+
+      <label>Teléfono:</label>
+      <input type="text" name="telefono" required>
+
+      <label>Contraseña:</label>
+      <input type="password" name="contraseña" required minlength="6">
+
+      <button type="submit" class="btn-guardar">Registrar</button>
+    </form>
+
+    <a href="../index.html" class="btn-atras">Atrás</a>
+  </div>
+
+  <script>
+    const form = document.getElementById("formMedico");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = Object.fromEntries(new FormData(form).entries());
+
+      try {
+        const res = await fetch("http://localhost:5000/api/medicos/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert("✅ " + data.mensaje);
+          form.reset();
+          window.location.href = "medico-login.html"; // redirige al login médico
+        } else {
+          alert("⚠️ " + (data.mensaje || "Error al registrar médico."));
+        }
+
+      } catch (err) {
+        console.error(err);
+        alert("❌ Error de conexión con el servidor.");
+      }
+    });
+  </script>
+
+</body>
+</html>

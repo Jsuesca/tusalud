@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil del Médico | Tu Salud a un Clic</title>
+  <link rel="stylesheet" href="../css/perfil_medico.css">
+</head>
+
+<body class="perfil-medico-page">
+  <div class="perfil-card">
+    <div class="perfil-header">
+      <img id="foto" src="../img/LogosPrincipales/doctor.png" alt="Foto del médico">
+      <div class="perfil-info">
+        <h2 id="nombre">Cargando...</h2>
+        <p id="especialidad"></p>
+        <p id="correo"></p>
+        <p id="telefono"></p>
+      </div>
+    </div>
+
+    <div class="perfil-descripcion">
+      <h3>Descripción:</h3>
+      <p id="descripcion"></p>
+    </div>
+
+    <div class="perfil-horario">
+      <h3>Horario de atención:</h3>
+      <p id="horario"></p>
+    </div>
+
+    <div class="perfil-agendar">
+      <h3>Agendar una cita con este médico</h3>
+      <form id="formCita">
+        <label for="fecha">Selecciona la fecha:</label>
+        <input type="date" id="fecha" required>
+
+        <label for="hora">Selecciona la hora:</label>
+        <select id="hora" required>
+          <option value="">Seleccione una hora</option>
+          <option>08:00 AM</option>
+          <option>09:00 AM</option>
+          <option>10:00 AM</option>
+          <option>11:00 AM</option>
+          <option>02:00 PM</option>
+          <option>03:00 PM</option>
+          <option>04:00 PM</option>
+        </select>
+
+        <label for="motivo">Motivo de la cita:</label>
+        <textarea id="motivo" placeholder="Describe brevemente el motivo de tu consulta..." rows="3" required></textarea>
+
+        <button type="submit">Agendar cita</button>
+      </form>
+    </div>
+
+    <a href="../index.html" class="perfil-volver">← Volver al inicio</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (!id) {
+      alert("No se encontró el ID del médico.");
+    } else {
+      fetch(`http://localhost:5000/api/medicos/${id}`)
+        .then(res => res.json())
+        .then(medico => {
+          document.getElementById("nombre").textContent = medico.nombre;
+          document.getElementById("especialidad").textContent = medico.especialidad;
+          document.getElementById("correo").textContent = "📧 " + medico.correo;
+          document.getElementById("telefono").textContent = "📞 " + medico.telefono;
+          document.getElementById("descripcion").textContent = medico.descripcion;
+          document.getElementById("horario").textContent = medico.horario;
+          if (medico.foto) {
+            document.getElementById("foto").src = medico.foto;
+          }
+        })
+        .catch(err => console.error("Error al cargar médico:", err));
+    }
+
+    document.getElementById("formCita").addEventListener("submit", e => {
+      e.preventDefault();
+      const fecha = document.getElementById("fecha").value;
+      const hora = document.getElementById("hora").value;
+      const motivo = document.getElementById("motivo").value;
+
+      if (!fecha || !hora || !motivo) {
+        alert("Por favor completa todos los campos.");
+        return;
+      }
+
+      alert(`✅ Cita agendada con éxito para el ${fecha} a las ${hora}.`);
+      e.target.reset();
+    });
+  </script>
+
+</body>
+</html>

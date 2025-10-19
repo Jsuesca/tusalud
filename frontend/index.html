@@ -298,6 +298,66 @@
     });
   </script>
 
+  <!-- === BOTONES DE ACCESIBILIDAD FLOTANTES === -->
+  <div class="accessibility-buttons">
+    <button id="increase-font" title="Aumentar letra">A+</button>
+    <button id="decrease-font" title="Disminuir letra">A-</button>
+    <button id="toggle-mode" title="Cambiar modo">🌙</button>
+  </div>
+
+  <!-- === SCRIPT DE FUNCIONALIDAD === -->
+  <script>
+    const btnIncrease = document.getElementById("increase-font");
+    const btnDecrease = document.getElementById("decrease-font");
+    const btnToggle = document.getElementById("toggle-mode");
+
+    let fontSize = 100; // Tamaño de letra base
+    let mode = 0; // 0 = claro | 1 = oscuro | 2 = contraste
+
+    // Aumentar tamaño
+    btnIncrease.addEventListener("click", () => {
+      fontSize += 10;
+      document.body.style.fontSize = fontSize + "%";
+    });
+
+    // Disminuir tamaño
+    btnDecrease.addEventListener("click", () => {
+      if (fontSize > 60) {
+        fontSize -= 10;
+        document.body.style.fontSize = fontSize + "%";
+      }
+    });
+
+    // Alternar modos (claro → oscuro → contraste → claro)
+    btnToggle.addEventListener("click", () => {
+      mode = (mode + 1) % 3;
+      document.body.classList.remove("dark-mode", "high-contrast");
+
+      if (mode === 1) {
+        // Modo oscuro
+        document.body.classList.add("dark-mode");
+        btnToggle.textContent = "🌙";
+        btnToggle.title = "Modo oscuro";
+      } else if (mode === 2) {
+        // Modo alto contraste
+        document.body.classList.add("high-contrast");
+        btnToggle.textContent = "⚫";
+        btnToggle.title = "Modo alto contraste";
+      } else {
+        // Modo claro
+        btnToggle.textContent = "🌞";
+        btnToggle.title = "Modo claro";
+      }
+    });
+
+    // Reinicia al cerrar o recargar
+    window.addEventListener("beforeunload", () => {
+      document.body.classList.remove("dark-mode", "high-contrast");
+      document.body.style.fontSize = "100%";
+    });
+  </script>
+
+
 
   <!-- Script de Leaflet -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -343,6 +403,7 @@
 
     });
   </script>
+
 
 
 </body>

@@ -440,12 +440,13 @@ button:hover,
 
 /*  FOOTER  */
 .footer {
-  background: #adc6ff;
-  color: #000000;
+  background: linear-gradient(135deg, #2a4dbf, #4f6ccf, #adc6ff);
+  color: #ffffff;
   padding: 40px 20px;
   border-radius: 15px;
-
+  transition: background 0.5s ease;
 }
+
 
 .footer-contenedor {
   display: grid;
@@ -456,12 +457,12 @@ button:hover,
 }
 
 .footer-col h3 {
-  color: #2a4d9c;
+  color: #ffffff;
   margin-bottom: 12px;
 }
 
 .footer-logo {
-  width: 100px;
+  width: 150px;
   margin-bottom: 10px;
 }
 
@@ -491,7 +492,7 @@ button:hover,
 
 .footer-col ul li a {
   text-decoration: none;
-  color: #000;
+  color: #ffffff;
 }
 
 .footer-col ul li a:hover {
@@ -542,6 +543,131 @@ button:hover,
   background-color: #2a4dbf;
   transform: scale(1.1);
 }
+
+/* === BOTONES DE ACCESIBILIDAD === */
+.accessibility-buttons {
+  position: fixed;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.accessibility-buttons button {
+  background-color: #4f6ccf;
+  color: #fff;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px #ffffff40;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.accessibility-buttons button:hover {
+  background-color: #2a4dbf;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.35);
+}
+
+/* === TRANSICIONES === */
+body, header, section, footer, .card, .doctor-card, .contact-card, img, a, p, h1, h2, h3, h4, h5, h6 {
+  transition: background-color 0.4s ease, color 0.4s ease, filter 0.4s ease, border-color 0.4s ease;
+}
+
+/* === MODO OSCURO === */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode header,
+body.dark-mode .menu-block,
+body.dark-mode .nosotros,
+body.dark-mode .especialidades,
+body.dark-mode .medicos,
+body.dark-mode .contacto,
+body.dark-mode footer {
+  background: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .card,
+body.dark-mode .doctor-card,
+body.dark-mode .contact-card {
+  background: #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode a,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+  color: #b2c8ff !important;
+}
+
+body.dark-mode img {
+  filter: brightness(0.85) contrast(1.1);
+}
+
+/* === MODO ALTO CONTRASTE (universal y total) === */
+body.high-contrast {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+body.high-contrast * {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  box-shadow: none !important;
+}
+
+/* enlaces y encabezados */
+body.high-contrast a,
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4,
+body.high-contrast h5,
+body.high-contrast h6 {
+  color: #00b0ff !important;
+}
+
+/* imágenes, íconos y logos */
+body.high-contrast img,
+body.high-contrast svg,
+body.high-contrast logo,
+body.high-contrast .icon {
+  filter: invert(1) grayscale(1) brightness(1.1) contrast(1.2) !important;
+}
+
+/* botones y tarjetas */
+body.high-contrast button,
+body.high-contrast .card,
+body.high-contrast .doctor-card,
+body.high-contrast .contact-card {
+  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #fff !important;
+}
+
+/* menú, header y footer */
+body.high-contrast header,
+body.high-contrast footer,
+body.high-contrast nav {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-top: 1px solid #fff !important;
+  border-bottom: 1px solid #fff !important;
+}
+
 
 /* ----------------------------------------------------  DISEÑO RESPONSIVO PAGINA PRINCIPAL  */
 

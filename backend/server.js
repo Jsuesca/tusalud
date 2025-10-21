@@ -188,8 +188,7 @@ app.post("/api/medicos/register", async (req, res) => {
     if (medicoExistente)
       return res.status(400).json({ mensaje: "Ya existe un médico con ese correo" });
 
-    const hashedPass = await bcrypt.hash(contraseña, 10);
-
+    // ❌ Quita el doble hash — el modelo ya lo hace
     const nuevoMedico = new Medico({
       nombre,
       especialidad,
@@ -199,7 +198,7 @@ app.post("/api/medicos/register", async (req, res) => {
       horario,
       correo,
       telefono,
-      contraseña: hashedPass,
+      contraseña, // aquí la contraseña va sin hash
     });
 
     await nuevoMedico.save();
@@ -209,6 +208,7 @@ app.post("/api/medicos/register", async (req, res) => {
     res.status(500).json({ mensaje: "Error en el servidor" });
   }
 });
+
 
 /* Login médico */
 app.post("/api/medicos/login", async (req, res) => {

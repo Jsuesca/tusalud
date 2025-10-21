@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Login Médico</title>
-  <link rel="stylesheet" href="../css/medico-login.css">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
   <div class="login-medico">
     <div class="form-wrapper">
@@ -40,9 +42,27 @@
 
         if (res.ok) {
           alert("✅ " + data.mensaje);
+
+          // Guardamos token e ID
           localStorage.setItem("tokenMedico", data.token);
           localStorage.setItem("medicoId", data.medicoId);
-          window.location.href = "editar-perfil-medico.html";
+
+          // 🔹 Ahora obtenemos los datos del médico y los guardamos
+          const medicoResp = await fetch(`http://localhost:5000/api/medicos/${data.medicoId}`);
+          const medico = await medicoResp.json();
+
+          localStorage.setItem("medicoLogueado", JSON.stringify(medico));
+
+          // ✅ Guardamos también el nombre del médico para el saludo
+          // Ajusta el campo según cómo venga desde tu backend (por ejemplo medico.nombre o medico.nombreCompleto)
+          localStorage.setItem("nombreMedico", medico.nombre || medico.nombreCompleto || "Médico");
+
+          // Redirigir al panel médico
+          window.location.href = "panel-medico.html";
+
+
+          // Redirigir al panel médico
+          window.location.href = "panel-medico.html";
         } else {
           alert("⚠️ " + (data.mensaje || "Credenciales incorrectas."));
         }
@@ -53,4 +73,5 @@
     });
   </script>
 </body>
+
 </html>

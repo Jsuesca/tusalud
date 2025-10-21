@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel del Médico | Tu Salud a un Clic</title>
+
+  <!-- CSS general -->
+  <link rel="stylesheet" href="../css/styles.css">
+  <!-- CSS específico del panel -->
+  <link rel="stylesheet" href="../css/panel-medico.css">
+</head>
+
+<body>
+  <div class="panel-medico">
+    <h1>Bienvenido, <span id="nombreMedico">Médico</span></h1>
+
+    <div class="info-personal">
+      <h2>Información Personal</h2>
+      <p><strong>Especialidad:</strong> <span id="especialidad"></span></p>
+      <p><strong>Correo:</strong> <span id="correo"></span></p>
+      <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
+      <p><strong>Horario:</strong> <span id="horario"></span></p>
+    </div>
+
+    <div class="acciones">
+      <button id="editarPerfil">✏️ Editar Perfil</button>
+      <button id="irPrincipal">🏠 Ir a Página Principal</button>
+      <button id="cerrarSesion">🚪 Cerrar Sesión</button>
+    </div>
+
+    <div class="citas">
+      <h2>Citas Asignadas</h2>
+      <div id="listaCitas">
+        <p>No tienes citas agendadas por ahora.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Verificar sesión del médico
+    const medicoLogueado = JSON.parse(localStorage.getItem("medicoLogueado"));
+
+    if (!medicoLogueado) {
+      alert("⚠️ Debes iniciar sesión como médico para acceder a este panel.");
+      window.location.href = "medico-login.html";
+    } else {
+      document.getElementById("nombreMedico").textContent = medicoLogueado.nombre;
+      document.getElementById("especialidad").textContent = medicoLogueado.especialidad;
+      document.getElementById("correo").textContent = medicoLogueado.correo;
+      document.getElementById("telefono").textContent = medicoLogueado.telefono;
+      document.getElementById("horario").textContent = medicoLogueado.horario;
+    }
+
+    // Botones
+    document.getElementById("editarPerfil").addEventListener("click", () => {
+      window.location.href = "editar-perfil-medico.html";
+    });
+
+    document.getElementById("irPrincipal").addEventListener("click", () => {
+      window.location.href = "../index.html";
+    });
+
+    document.getElementById("cerrarSesion").addEventListener("click", () => {
+      localStorage.removeItem("medicoLogueado");
+      localStorage.removeItem("tokenMedico");
+      localStorage.removeItem("medicoId");
+      alert("Sesión cerrada correctamente.");
+      window.location.href = "../index.html";
+    });
+  </script>
+</body>
+</html>

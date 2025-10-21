@@ -29,7 +29,7 @@
     </div>
   </header>
 
-  
+
   <!-- Menú -->
   <section class="menu-block">
     <div class="menu-left">
@@ -44,6 +44,8 @@
       <a href="paginas/chat.html">Chat Medico</a>
       <a href="#mapa">Ubicacion de Medicos</a>
     </div>
+    
+
     <div class="menu-right">
   <img src="img/LogosPrincipales/logo persona 2.png" alt="Usuario" title="Logo Usuario">
 
@@ -64,23 +66,27 @@
     <a href="paginas/register.html" class="sub-btn">Como Usuario</a>
     <a href="paginas/registrar-medico.html" class="sub-btn">Como Médico</a>
   </div>
-
-  <!-- Saludo del usuario -->
-  <div id="userGreeting" class="user-greeting" style="display: none;">
-    <span id="nombreUsuario"></span>
-    <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
-    <button id="logoutBtn" style="margin-left: 10px;">Cerrar sesión</button>
-  </div>
 </div>
 
 
-      <!-- Contenedor para el saludo -->
-      <div id="userGreeting" class="user-greeting" style="display: none;">
-        <span id="nombreUsuario"></span>
-        <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
-        <button id="logoutBtn" style="margin-left: 10px;">Cerrar sesión</button>
-      </div>
+    <!-- Saludo del usuario -->
+    <div id="userGreeting" class="user-greeting" style="display: none;">
+      <span id="nombreUsuario"></span>
+      <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
+      <button id="logoutBtn" style="margin-left: 10px;">Cerrar sesión</button>
     </div>
+    </div>
+
+
+
+   <!-- Saludo del médico -->
+<div id="medicoGreeting" class="user-greeting" style="display: none;">
+  <span id="nombreMedicoSaludo"></span>
+  <button id="panelMedicoBtn" class="btn-edit-profile">Ir a mi panel</button>
+  <button id="logoutMedicoBtn" style="margin-left: 10px;">Cerrar sesión</button>
+</div>
+
+
 
   </section>
 
@@ -237,9 +243,9 @@
 
   <!-- Mapa de ubicaciones médicas -->
   <section id="mapa" class="mapa">
-  <h2>Ubicación de Médicos</h2>
-  <div id="map"></div>
-</section>
+    <h2>Ubicación de Médicos</h2>
+    <div id="map"></div>
+  </section>
 
 
   <!--Footer-->
@@ -390,61 +396,128 @@
   <script src="../backend/js/mapa.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const authButtons = document.getElementById("authButtons");
-      const userGreeting = document.getElementById("userGreeting");
-      const nombreUsuario = localStorage.getItem("nombreUsuario");
-      const nombreSpan = document.getElementById("nombreUsuario");
-      const logoutBtn = document.getElementById("logoutBtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const authButtons = document.getElementById("authButtons");
+  const userGreeting = document.getElementById("userGreeting");
+  const medicoGreeting = document.getElementById("medicoGreeting");
 
-      if (nombreUsuario) {
-        // Si el usuario está logueado
-        nombreSpan.textContent = `👋 Hola, ${nombreUsuario}`;
-        userGreeting.style.display = "flex";
-        userGreeting.style.flexDirection = "column";
-        userGreeting.style.alignItems = "center";
-        userGreeting.style.marginTop = "10px";
-        authButtons.style.display = "none";
-      } else {
-        // Si no hay sesión activa
-        userGreeting.style.display = "none";
-        authButtons.style.display = "flex";
-      }
+  const nombreUsuario = localStorage.getItem("nombreUsuario");
+  const nombreMedico = localStorage.getItem("nombreMedico");
 
-      // Botón cerrar sesión
-      logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("nombreUsuario");
-        location.reload(); // recarga para volver al estado inicial
-      });
+  // === SALUDO DE USUARIO ===
+  if (nombreUsuario) {
+    document.getElementById("nombreUsuario").textContent = `👋 Hola, ${nombreUsuario}`;
+    userGreeting.style.display = "flex";
+    userGreeting.style.flexDirection = "column";
+    userGreeting.style.alignItems = "center";
+    userGreeting.style.marginTop = "10px";
+    authButtons.style.display = "none";
 
-      const editProfileBtn = document.getElementById("editProfileBtn");
-      if (editProfileBtn) {
-        editProfileBtn.addEventListener("click", () => {
-          window.location.href = "./paginas/editar-perfil.html";
-        });
-      }
-
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("nombreUsuario");
+      location.reload();
     });
-  </script>
 
-  <script>
-  document.getElementById('btnIngresar').addEventListener('click', () => {
-    const ingresarOpciones = document.getElementById('ingresarOpciones');
-    const registrarOpciones = document.getElementById('registrarOpciones');
-    ingresarOpciones.style.display =
-      ingresarOpciones.style.display === 'none' ? 'block' : 'none';
-    registrarOpciones.style.display = 'none';
+    const editProfileBtn = document.getElementById("editProfileBtn");
+    if (editProfileBtn) {
+      editProfileBtn.addEventListener("click", () => {
+        window.location.href = "./paginas/editar-perfil.html";
+      });
+    }
+  }
+
+  // === SALUDO DE MÉDICO ===
+  else if (nombreMedico) {
+    const nombreSpan = document.getElementById("nombreMedicoSaludo");
+    const esFemenino = nombreMedico.trim().toLowerCase().endsWith("a");
+    const prefijo = esFemenino ? "Dra." : "Dr.";
+    nombreSpan.textContent = `👋 Bienvenido(a), ${prefijo} ${nombreMedico}`;
+
+    medicoGreeting.style.display = "flex";
+    medicoGreeting.style.flexDirection = "column";
+    medicoGreeting.style.alignItems = "center";
+    medicoGreeting.style.marginTop = "10px";
+    authButtons.style.display = "none";
+
+    // Botón: Ir a panel del médico
+    document.getElementById("panelMedicoBtn").addEventListener("click", () => {
+      window.location.href = "./paginas/panel-medico.html";
+    });
+
+    // Botón: Cerrar sesión
+    document.getElementById("logoutMedicoBtn").addEventListener("click", () => {
+      localStorage.removeItem("tokenMedico");
+      localStorage.removeItem("nombreMedico");
+      location.reload();
+    });
+  }
+
+  // === SI NADIE ESTÁ LOGUEADO ===
+  else {
+    userGreeting.style.display = "none";
+    medicoGreeting.style.display = "none";
+    authButtons.style.display = "flex";
+  }
+});
+</script>
+
+
+ <script>
+  const btnIngresar = document.getElementById("btnIngresar");
+  const btnRegistrar = document.getElementById("btnRegistrar");
+  const ingresarOpciones = document.getElementById("ingresarOpciones");
+  const registrarOpciones = document.getElementById("registrarOpciones");
+
+  function mostrarOpciones(boton, contenedorMostrar, contenedorOcultar) {
+    // Oculta el otro contenedor
+    contenedorOcultar.style.display = "none";
+
+    // Si ya está visible, lo ocultamos
+    if (contenedorMostrar.style.display === "block") {
+      contenedorMostrar.style.display = "none";
+      return;
+    }
+
+    // Calcula la posición exacta del botón
+    const rect = boton.getBoundingClientRect();
+    const scrollTop = window.scrollY;
+    const scrollLeft = window.scrollX;
+
+    // Aplica estilo flotante sin tocar tu CSS global
+    contenedorMostrar.style.position = "absolute";
+    contenedorMostrar.style.top = `${rect.bottom + scrollTop + 5}px`;
+    contenedorMostrar.style.left = `${rect.left + scrollLeft}px`;
+    contenedorMostrar.style.background = "white";
+    contenedorMostrar.style.border = "1px solid #ccc";
+    contenedorMostrar.style.borderRadius = "6px";
+    contenedorMostrar.style.padding = "8px";
+    contenedorMostrar.style.boxShadow = "0 2px 6px rgba(0,0,0,0.15)";
+    contenedorMostrar.style.zIndex = "1000";
+    contenedorMostrar.style.display = "block";
+  }
+
+  // Eventos para mostrar debajo del botón correspondiente
+  btnIngresar.addEventListener("click", (e) => {
+    e.stopPropagation();
+    mostrarOpciones(btnIngresar, ingresarOpciones, registrarOpciones);
   });
 
-  document.getElementById('btnRegistrar').addEventListener('click', () => {
-    const registrarOpciones = document.getElementById('registrarOpciones');
-    const ingresarOpciones = document.getElementById('ingresarOpciones');
-    registrarOpciones.style.display =
-      registrarOpciones.style.display === 'none' ? 'block' : 'none';
-    ingresarOpciones.style.display = 'none';
+  btnRegistrar.addEventListener("click", (e) => {
+    e.stopPropagation();
+    mostrarOpciones(btnRegistrar, registrarOpciones, ingresarOpciones);
+  });
+
+  // Cierra los menús al hacer clic fuera
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".auth-options") && !e.target.closest(".auth-buttons")) {
+      ingresarOpciones.style.display = "none";
+      registrarOpciones.style.display = "none";
+    }
   });
 </script>
+
+
 
 
 

@@ -166,35 +166,49 @@
 
   <!-- Médicos -->
   <section id="medicos" class="medicos">
-    <h2>Buscar Médicos</h2>
-    <div class="grid-medicos">
-      <div class="doctor-card"><img src="img/LogosPrincipales/doctor.png" alt="doctor" title="foto Doctor">
-        <h3>Dr. Geronimo Sanchez</h3>
-        <p>Cardiologo</p>
-      </div>
-      <div class="doctor-card"><img src="img/LogosPrincipales/doctora.png" alt="doctora" title="foto Doctora">
-        <h3>Dra. Carolina Sanchez</h3>
-        <p>Pediatra</p>
-      </div>
-      <div class="doctor-card"><img src="img/LogosPrincipales/doctor.png" alt="doctor" title="Foto Doctor">
-        <h3>Dr. Cristian Perez</h3>
-        <p>Neurologo</p>
-      </div>
-      <div class="doctor-card"><img src="img/LogosPrincipales/doctora.png" alt="doctora" title="Foto Doctora">
-        <h3>Dra. Leidy Paéz</h3>
-        <p>Psiquiatra</p>
-      </div>
-      <div class="doctor-card"><img src="img/LogosPrincipales/doctor.png" alt="doctor" title="Foto Doctor">
-        <h3>Dr. Yamid Lara</h3>
-        <p>Oftalmologo</p>
-      </div>
-      <div class="doctor-card"><img src="img/LogosPrincipales/doctora.png" alt="doctora" title="Foto Doctora">
-        <h3>Dra. Anguie León</h3>
-        <p>Ginecologa</p>
-      </div>
+  <h2>Buscar Médicos</h2>
+  <div class="grid-medicos">
+
+    <div class="doctor-card" data-id="1">
+      <img src="img/LogosPrincipales/doctor.png" alt="doctor" title="foto Doctor">
+      <h3>Dr. Geronimo Sanchez</h3>
+      <p>Cardiólogo</p>
     </div>
-    <button class="btn-vermas">Ver más</button>
-  </section>
+
+    <div class="doctor-card" data-id="2">
+      <img src="img/LogosPrincipales/doctora.png" alt="doctora" title="foto Doctora">
+      <h3>Dra. Carolina Sanchez</h3>
+      <p>Pediatra</p>
+    </div>
+
+    <div class="doctor-card" data-id="3">
+      <img src="img/LogosPrincipales/doctor.png" alt="doctor" title="Foto Doctor">
+      <h3>Dr. Cristian Perez</h3>
+      <p>Neurólogo</p>
+    </div>
+
+    <div class="doctor-card" data-id="4">
+      <img src="img/LogosPrincipales/doctora.png" alt="doctora" title="Foto Doctora">
+      <h3>Dra. Leidy Páez</h3>
+      <p>Psiquiatra</p>
+    </div>
+
+    <div class="doctor-card" data-id="5">
+      <img src="img/LogosPrincipales/doctor.png" alt="doctor" title="Foto Doctor">
+      <h3>Dr. Yamid Lara</h3>
+      <p>Oftalmólogo</p>
+    </div>
+
+    <div class="doctor-card" data-id="6">
+      <img src="img/LogosPrincipales/doctora.png" alt="doctora" title="Foto Doctora">
+      <h3>Dra. Anguie León</h3>
+      <p>Ginecóloga</p>
+    </div>
+
+  </div>
+  <button class="btn-vermas">Ver más</button>
+</section>
+
 
   <!-- Contacto -->
   <section id="contacto" class="contacto">
@@ -516,6 +530,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 </script>
+
+<script>
+  // --- Redirigir al perfil del médico al hacer clic ---
+  document.querySelectorAll(".doctor-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const id = card.dataset.id;
+      // Redirige al perfil correspondiente sin alterar el diseño
+      window.location.href = `paginas/perfil-medico.html?id=${id}`;
+
+    });
+  });
+</script>
+
 
 
 

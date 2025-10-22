@@ -227,14 +227,14 @@ app.post("/api/medicos/login", async (req, res) => {
   }
 });
 
-/* Obtener perfil médico por ID */
-app.get("/api/medicos/perfil/:id", async (req, res) => {
+/* Obtener médico por ID (perfil público o privado) */
+app.get("/api/medicos/:id", async (req, res) => {
   try {
-    const medico = await Medico.findById(req.params.id);
+    const medico = await Medico.findById(req.params.id).select("-contraseña"); // 🔐 oculta la contraseña
     if (!medico) return res.status(404).json({ mensaje: "Médico no encontrado" });
     res.json(medico);
   } catch (error) {
-    res.status(500).json({ mensaje: "Error al obtener perfil" });
+    res.status(500).json({ mensaje: "Error al obtener médico" });
   }
 });
 
@@ -248,6 +248,7 @@ app.put("/api/medicos/:id", async (req, res) => {
     res.status(500).json({ mensaje: "Error al actualizar perfil" });
   }
 });
+
 
 /* Obtener todos los médicos */
 app.get("/api/medicos", async (req, res) => {

@@ -8,29 +8,34 @@
 </head>
 
 <body class="perfil-medico-page">
+
   <div class="perfil-card">
+    <!-- Encabezado con foto e información principal -->
     <div class="perfil-header">
-      <img id="foto" src="../img/LogosPrincipales/doctor.png" alt="Foto del médico">
+      <img id="foto" src="../img/LogosPrincipales/doctor.png" alt="Foto del médico" class="perfil-foto">
       <div class="perfil-info">
-        <h2 id="nombre">Cargando...</h2>
-        <p id="especialidad"></p>
-        <p id="correo"></p>
-        <p id="telefono"></p>
+        <h2 id="nombre" class="perfil-nombre">Cargando...</h2>
+        <p id="especialidad" class="perfil-especialidad"></p>
+        <p id="correo" class="perfil-correo"></p>
+        <p id="telefono" class="perfil-telefono"></p>
       </div>
     </div>
 
-    <div class="perfil-descripcion">
-      <h3>Descripción:</h3>
-      <p id="descripcion"></p>
+    <!-- Descripción -->
+    <div class="perfil-seccion perfil-descripcion">
+      <h3>Descripción</h3>
+      <p id="descripcion">Sin descripción disponible.</p>
     </div>
 
-    <div class="perfil-horario">
-      <h3>Horario de atención:</h3>
-      <p id="horario"></p>
+    <!-- Horario -->
+    <div class="perfil-seccion perfil-horario">
+      <h3>Horario de atención</h3>
+      <p id="horario">No especificado.</p>
     </div>
 
-    <div class="perfil-agendar">
-      <h3>Agendar una cita con este médico</h3>
+    <!-- Agendar cita -->
+    <div class="perfil-seccion perfil-agendar">
+      <h3>Agendar una cita</h3>
       <form id="formCita">
         <label for="fecha">Selecciona la fecha:</label>
         <input type="date" id="fecha" required>
@@ -50,7 +55,7 @@
         <label for="motivo">Motivo de la cita:</label>
         <textarea id="motivo" placeholder="Describe brevemente el motivo de tu consulta..." rows="3" required></textarea>
 
-        <button type="submit">Agendar cita</button>
+        <button type="submit" class="btn-agendar">Agendar cita</button>
       </form>
     </div>
 
@@ -58,30 +63,46 @@
   </div>
 
   <script>
+    // --- CARGAR PERFIL DESDE URL Y BACKEND ---
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
 
     if (!id) {
-      alert("No se encontró el ID del médico.");
+      alert("⚠ No se encontró el ID del médico en la URL.");
     } else {
-      fetch(`http://localhost:5000/api/medicos/${id}`)
-        .then(res => res.json())
-        .then(medico => {
-          document.getElementById("nombre").textContent = medico.nombre;
-          document.getElementById("especialidad").textContent = medico.especialidad;
-          document.getElementById("correo").textContent = "📧 " + medico.correo;
-          document.getElementById("telefono").textContent = "📞 " + medico.telefono;
-          document.getElementById("descripcion").textContent = medico.descripcion;
-          document.getElementById("horario").textContent = medico.horario;
-          if (medico.foto) {
-            document.getElementById("foto").src = medico.foto;
-          }
-        })
-        .catch(err => console.error("Error al cargar médico:", err));
+      cargarPerfil(id);
     }
 
+    async function cargarPerfil(id) {
+      try {
+        const res = await fetch(`http://localhost:5000/api/medicos/${id}`);
+        if (!res.ok) throw new Error("Error al obtener los datos del médico");
+
+        const medico = await res.json();
+
+        document.getElementById("nombre").textContent = medico.nombre || "Nombre no disponible";
+        document.getElementById("especialidad").textContent = medico.especialidad || "Sin especialidad registrada";
+        document.getElementById("correo").textContent = medico.correo ? `📧 ${medico.correo}` : "";
+        document.getElementById("telefono").textContent = medico.telefono ? `📞 ${medico.telefono}` : "";
+        document.getElementById("descripcion").textContent = medico.descripcion || "No hay descripción disponible.";
+        document.getElementById("horario").textContent = medico.horario || "Horario no especificado.";
+        document.getElementById("foto").src = medico.foto || "../img/LogosPrincipales/doctor.png";
+      } catch (error) {
+        console.error(error);
+        document.querySelector(".perfil-card").innerHTML = `
+          <div class="error-carga">
+            <h2>⚠ Error al cargar el perfil</h2>
+            <p>No fue posible obtener la información del médico.</p>
+            <a href="../index.html" class="perfil-volver">Volver al inicio</a>
+          </div>
+        `;
+      }
+    }
+
+    // --- AGENDAR CITA ---
     document.getElementById("formCita").addEventListener("submit", e => {
       e.preventDefault();
+
       const fecha = document.getElementById("fecha").value;
       const hora = document.getElementById("hora").value;
       const motivo = document.getElementById("motivo").value;
@@ -91,6 +112,7 @@
         return;
       }
 
+      // Aquí podrías enviar la cita a tu backend con fetch()
       alert(`✅ Cita agendada con éxito para el ${fecha} a las ${hora}.`);
       e.target.reset();
     });

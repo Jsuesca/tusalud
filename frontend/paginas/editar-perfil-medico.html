@@ -8,48 +8,113 @@
 <body>
   <div class="form-wrapper">
     <h2>Editar Mi Perfil</h2>
+
+    <!-- Formulario se inyecta dinámicamente -->
     <form id="formEditar"></form>
-    <button id="btnGuardar" class="btn-guardar">Guardar Cambios</button>
+
+    <div style="display:flex; gap:10px; justify-content:center; margin-top:12px;">
+      <button id="btnGuardar" class="btn-guardar">Guardar Cambios</button>
+      <!-- Botón para volver al panel sin guardar -->
+      <button id="btnVolverPanel" class="btn-guardar" type="button">← Volver al Panel Médico</button>
+    </div>
   </div>
 
   <script>
     const form = document.getElementById("formEditar");
     const medicoId = localStorage.getItem("medicoId");
+    const token = localStorage.getItem("tokenMedico");
 
+    if (!medicoId) {
+      alert("No se encontró sesión de médico. Por favor inicia sesión.");
+      window.location.href = "medico-login.html";
+    }
+
+    // Cargar perfil del médico y rellenar el formulario
     async function cargarPerfil() {
-      const res = await fetch(`http://localhost:5000/api/medicos/perfil/${medicoId}`);
-      const medico = await res.json();
+      try {
+        const res = await fetch(`http://localhost:5000/api/medicos/perfil/${medicoId}`, {
+          headers: token ? { "Authorization": "Bearer " + token } : {}
+        });
+        const medico = await res.json();
 
-      form.innerHTML = `
-        <label>Nombre:</label>
-        <input name="nombre" value="${medico.nombre}">
-        <label>Especialidad:</label>
-        <input name="especialidad" value="${medico.especialidad}">
-        <label>Experiencia:</label>
-        <input name="experiencia" value="${medico.experiencia}">
-        <label>Descripción:</label>
-        <textarea name="descripcion">${medico.descripcion}</textarea>
-        <label>Horario:</label>
-        <input name="horario" value="${medico.horario}">
-        <label>Correo:</label>
-        <input name="correo" value="${medico.correo}">
-        <label>Teléfono:</label>
-        <input name="telefono" value="${medico.telefono}">
-      `;
+        if (!res.ok) {
+          alert(medico.mensaje || "Error al cargar el perfil.");
+          return;
+        }
+
+        // Inyectar inputs (usé atributos name iguales a los del modelo)
+        form.innerHTML = `
+          <label>Nombre:</label>
+          <input name="nombre" value="${medico.nombre ?? ''}" required>
+
+          <label>Especialidad:</label>
+          <input name="especialidad" value="${medico.especialidad ?? ''}">
+
+          <label>Experiencia:</label>
+          <input name="experiencia" value="${medico.experiencia ?? ''}">
+
+          <label>Descripción:</label>
+          <textarea name="descripcion">${medico.descripcion ?? ''}</textarea>
+
+          <label>Horario:</label>
+          <input name="horario" value="${medico.horario ?? ''}">
+
+          <label>Correo:</label>
+          <input name="correo" value="${medico.correo ?? ''}" required>
+
+          <label>Teléfono:</label>
+          <input name="telefono" value="${medico.telefono ?? ''}">
+        `;
+      } catch (err) {
+        console.error("Error cargarPerfil:", err);
+        alert("Error de conexión al cargar perfil.");
+      }
     }
 
     cargarPerfil();
 
-    document.getElementById("btnGuardar").addEventListener("click", async () => {
+    // Guardar cambios (envía PUT al endpoint, incluye token si existe)
+    document.getElementById("btnGuardar").addEventListener("click", async (e) => {
+      e.preventDefault();
       const datos = Object.fromEntries(new FormData(form).entries());
-      const res = await fetch(`http://localhost:5000/api/medicos/${medicoId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos)
-      });
 
-      const data = await res.json();
-      alert(data.mensaje);
+      try {
+        const headers = { "Content-Type": "application/json" };
+        if (token) headers["Authorization"] = "Bearer " + token;
+
+        const res = await fetch(`http://localhost:5000/api/medicos/${medicoId}`, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify(datos)
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          // El backend puede devolver { mensaje, medico } o solo { mensaje }
+          const actualizado = data.medico || data;
+          // Si el objeto actualizado tiene campos del médico, guardarlo en localStorage
+          if (actualizado && (actualizado.nombre || actualizado.correo)) {
+            localStorage.setItem("medicoLogueado", JSON.stringify(actualizado));
+            // también mantener nombreMedico para el saludo en index
+            if (actualizado.nombre) localStorage.setItem("nombreMedico", actualizado.nombre);
+          }
+
+          alert(data.mensaje || "Perfil actualizado correctamente.");
+          // Redirigir al panel del médico para ver cambios
+          window.location.href = "panel-medico.html";
+        } else {
+          alert(data.mensaje || "Error al actualizar perfil.");
+        }
+      } catch (err) {
+        console.error("Error al guardar:", err);
+        alert("Error al conectar con el servidor.");
+      }
+    });
+
+    // Volver al panel sin guardar
+    document.getElementById("btnVolverPanel").addEventListener("click", () => {
+      window.location.href = "panel-medico.html";
     });
   </script>
 </body>

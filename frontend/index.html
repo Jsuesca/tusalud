@@ -169,7 +169,7 @@
   <h2>Buscar Médicos</h2>
   <div class="grid-medicos">
 
-    <div class="doctor-card" data-id="1">
+    <div class="doctor-card" data-id="68f6e038eaf9a974bae2dd99">
       <img src="img/LogosPrincipales/doctor.png" alt="doctor" title="foto Doctor">
       <h3>Dr. Geronimo Sanchez</h3>
       <p>Cardiólogo</p>
@@ -543,6 +543,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 </script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".tarjeta-medico").forEach(tarjeta => {
+      tarjeta.addEventListener("click", () => {
+        const id = tarjeta.getAttribute("data-id");
+        if (id) {
+          window.location.href = `paginas/perfil-medico.html?id=${id}`;
+        } else {
+          alert("⚠ No se encontró el ID del médico.");
+        }
+      });
+    });
+  });
+</script>
 
 
 

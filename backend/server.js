@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import axios from "axios";
 import User from "./models/user.js";
 import Medico from "./models/medico.js";
+import Cita from "./models/cita.js"; // 👈 Modelo de citas
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -15,7 +16,7 @@ import { fileURLToPath } from "url";
 // CONFIGURACIÓN INICIAL
 // =============================
 dotenv.config();
-const app = express(); // 👈 debe ir antes de usar app.use()
+const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +24,7 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "frontend"))); // sirve tu carpeta frontend
+app.use(express.static(path.join(__dirname, "frontend"))); // Sirve tu carpeta frontend
 
 // =============================
 // CONEXIÓN A MONGODB
@@ -36,14 +37,12 @@ mongoose.connect(process.env.MONGO_URI)
 // USUARIOS NORMALES
 // =============================
 
-// Registro
+// Registro usuario
 app.post("/api/register", async (req, res) => {
   try {
     const { nombre, email, password } = req.body;
     const usuarioExistente = await User.findOne({ email });
-    if (usuarioExistente) {
-      return res.status(400).json({ mensaje: "El usuario ya existe" });
-    }
+    if (usuarioExistente) return res.status(400).json({ mensaje: "El usuario ya existe" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const nuevoUsuario = new User({ nombre, email, password: hashedPassword });
@@ -51,6 +50,7 @@ app.post("/api/register", async (req, res) => {
 
     res.status(201).json({ mensaje: "Usuario registrado exitosamente" });
   } catch (error) {
+    console.error("❌ Error al registrar usuario:", error);
     res.status(500).json({ mensaje: "Error del servidor" });
   }
 });
@@ -68,6 +68,7 @@ app.post("/api/login", async (req, res) => {
     const token = jwt.sign({ id: usuario._id }, "secretito", { expiresIn: "1h" });
     res.json({ mensaje: "Login exitoso", token, nombre: usuario.nombre });
   } catch (error) {
+    console.error("❌ Error al iniciar sesión:", error);
     res.status(500).json({ mensaje: "Error al iniciar sesión" });
   }
 });
@@ -109,15 +110,15 @@ const SECRET_KEY = "clave_super_segura";
 app.post("/api/medicos/register", async (req, res) => {
   try {
     const { nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña } = req.body;
-
     const medicoExistente = await Medico.findOne({ correo });
-    if (medicoExistente)
-      return res.status(400).json({ mensaje: "Ya existe un médico con ese correo" });
+    if (medicoExistente) return res.status(400).json({ mensaje: "Ya existe un médico con ese correo" });
 
     const nuevoMedico = new Medico({ nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña });
     await nuevoMedico.save();
+
     res.status(201).json({ mensaje: "Médico registrado exitosamente" });
   } catch (error) {
+    console.error("❌ Error al registrar médico:", error);
     res.status(500).json({ mensaje: "Error en el servidor" });
   }
 });
@@ -135,6 +136,7 @@ app.post("/api/medicos/login", async (req, res) => {
     const token = jwt.sign({ id: medico._id }, SECRET_KEY, { expiresIn: "2h" });
     res.json({ mensaje: "Login exitoso", token, medicoId: medico._id });
   } catch (error) {
+    console.error("❌ Error al iniciar sesión médico:", error);
     res.status(500).json({ mensaje: "Error en el servidor" });
   }
 });
@@ -145,11 +147,12 @@ app.get("/api/medicos", async (req, res) => {
     const medicos = await Medico.find().select("-contraseña");
     res.json(medicos);
   } catch (error) {
+    console.error("❌ Error al obtener médicos:", error);
     res.status(500).json({ mensaje: "Error al obtener médicos" });
   }
 });
 
-// Obtener médico por ID (solo una versión)
+// Obtener médico por ID
 app.get("/api/medicos/:id", async (req, res) => {
   try {
     const medico = await Medico.findById(req.params.id).select("-contraseña");
@@ -168,6 +171,43 @@ app.put("/api/medicos/:id", async (req, res) => {
     res.json({ mensaje: "Perfil actualizado", medico });
   } catch (error) {
     res.status(500).json({ mensaje: "Error al actualizar perfil" });
+  }
+});
+
+// =============================
+// 📅 CITAS
+// =============================
+
+// Registrar nueva cita
+app.post("/api/citas", async (req, res) => {
+  try {
+    const { pacienteNombre, pacienteCorreo, medicoId, fecha, hora, motivo } = req.body;
+
+    if (!pacienteNombre || !pacienteCorreo || !medicoId || !fecha || !hora || !motivo) {
+      return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
+    }
+
+    const nuevaCita = new Cita({ pacienteNombre, pacienteCorreo, medicoId, fecha, hora, motivo });
+    await nuevaCita.save();
+
+    res.status(201).json({ mensaje: "Cita registrada exitosamente" });
+  } catch (error) {
+    console.error("❌ Error al registrar cita:", error);
+    res.status(500).json({ mensaje: "Error al registrar cita" });
+  }
+});
+
+// Obtener citas por médico
+app.get("/api/citas", async (req, res) => {
+  try {
+    const { medicoId } = req.query;
+    if (!medicoId) return res.status(400).json({ mensaje: "Falta el ID del médico" });
+
+    const citas = await Cita.find({ medicoId }).sort({ fecha: 1 });
+    res.json(citas);
+  } catch (error) {
+    console.error("❌ Error al obtener citas:", error);
+    res.status(500).json({ mensaje: "Error al obtener citas" });
   }
 });
 

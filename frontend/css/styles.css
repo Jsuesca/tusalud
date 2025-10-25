@@ -143,7 +143,18 @@ h2 {
   background: #ffffff;
 }
 
-/* BOTONES LOGIN Y RESGISTER */
+/* ===========================
+   🔹 BOTONES LOGIN Y REGISTER
+=========================== */
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 120px; /* 🔹 deja espacio debajo de la foto */
+  position: relative;
+  z-index: 10;
+}
 
 .auth-buttons a {
   display: inline-block;
@@ -155,69 +166,35 @@ h2 {
   font-size: 16px;
   text-decoration: none;
   cursor: pointer;
-  transition: 0.3s ease;
   text-align: center;
+  transition: background-color 0.3s ease;
+  position: relative; /* 🔹 permite ubicar el menú debajo */
+  z-index: 20;
 }
 
 .auth-buttons a:hover {
-  background-color: #4f6ccf;
-
-}
-
-.auth-buttons .login:hover {
-  background-color: #3a55b3;
-
-}
-
-.auth-buttons .register {
-  background-color: #4f6ccf;
-}
-
-.auth-buttons .register:hover {
   background-color: #3a55b3;
 }
 
-.auth-buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.user-greeting {
-  text-align: center;
-  color: #ffffff;
-  font-weight: 900;
-  margin-top: 10px;
-}
-
-#logoutBtn {
-  background-color: #4f6ccf;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  border-radius: 7px;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#logoutBtn:hover {
-  background-color: #3a55b3;
-}
-
-/* --- Opciones flotantes de ingreso/registro --- */
+/* ===========================
+   🔹 OPCIONES FLOTANTES LOGIN
+=========================== */
 .auth-options {
   position: absolute;
+  top: 100%; /* 🔹 aparece justo debajo del botón */
+  left: 50%;
+  transform: translateX(-50%);
   display: none;
   background: #ffffff;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 8px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  z-index: 9999;
   min-width: 160px;
   animation: fadeIn 0.2s ease-in-out;
 }
 
-/* Estilo de los enlaces dentro de los menús */
 .auth-options .sub-btn {
   display: block;
   text-decoration: none;
@@ -225,13 +202,14 @@ h2 {
   padding: 8px 16px;
   transition: background 0.2s ease;
   font-size: 14px;
+  text-align: center;
 }
 
 .auth-options .sub-btn:hover {
   background: #f2f2f2;
 }
 
-/* Animación suave al aparecer */
+/* 🔹 Animación suave */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -243,58 +221,54 @@ h2 {
   }
 }
 
-
-/* 🔹 Contenedor del saludo del médico */
-#medicoGreeting {
-  display: flex !important;
-  flex-direction: column !important; /* ✅ Foto encima del saludo */
-  align-items: center !important;
-  justify-content: center;
+/* ===========================
+   🔹 SALUDO DE USUARIO
+=========================== */
+.user-greeting {
   text-align: center;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-/* 🔹 Imagen del médico */
-#medicoGreeting .foto-medico {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 6px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-}
-
-/* 🔹 Botones del saludo del médico */
-#medicoGreeting .botones-saludo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 6px;
-}
-
-/* ==== AJUSTE FINAL: SALUDO DEL MÉDICO (aislado, no afecta nada existente) ==== */
-
-#medicoGreeting {
-  display: flex !important;
-  flex-direction: column !important; /* Imagen arriba, saludo abajo */
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center;
-  gap: 8px;
+  color: #ffffff;
+  font-weight: 900;
   margin-top: 10px;
   position: relative;
   z-index: 10;
 }
 
-#medicoGreeting img.foto-medico {
-  width: 80px;
-  height: 80px;
+#logoutBtn {
+  background-color: #4f6ccf;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 7px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#logoutBtn:hover {
+  background-color: #3a55b3;
+}
+
+/* ===========================
+   🔹 SALUDO DEL MÉDICO
+=========================== */
+#medicoGreeting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  margin-top: 120px;
+  position: relative;
+  z-index: 10;
+}
+
+#medicoGreeting .foto-medico {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  display: block;
-  margin: 0 auto 8px auto;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 #medicoGreeting #nombreMedicoSaludo {
@@ -311,13 +285,32 @@ h2 {
   border-radius: 7px;
   padding: 6px 12px;
   cursor: pointer;
-  transition: 0.3s;
   font-weight: 600;
+  transition: background-color 0.3s;
 }
 
 #medicoGreeting .btn-edit-profile:hover,
 #medicoGreeting #logoutMedicoBtn:hover {
   background-color: #3a55b3;
+}
+
+/* ===========================
+   🔹 IMAGEN DEL USUARIO ENCIMA DEL SALUDO
+=========================== */
+.menu-right {
+  position: relative;
+}
+
+.menu-right img[title="Logo Usuario"] {
+  position: absolute;
+  top: -60px; /* 🔹 imagen arriba */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  object-fit: cover;
+  z-index: 5;
 }
 
 
@@ -1920,3 +1913,104 @@ body.high-contrast nav {
   background-color: #0056b3;
 }
 
+/* ==== Estilos exclusivos del perfil del médico ==== */
+
+/* Contenedor general */
+.perfil-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #222;
+}
+
+/* Encabezado del perfil */
+.perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 2px solid #e5e5e5;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.perfil-header img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2d89ef;
+}
+
+/* Información del médico */
+.perfil-info h2 {
+  font-size: 1.8rem;
+  color: #2d89ef;
+  margin-bottom: 6px;
+}
+
+.perfil-info p {
+  margin: 4px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Secciones de descripción, horario y contacto */
+.perfil-descripcion,
+.perfil-horario,
+.perfil-contacto {
+  margin-bottom: 20px;
+}
+
+.perfil-descripcion h3,
+.perfil-horario h3,
+.perfil-contacto h3 {
+  color: #2d89ef;
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+
+.perfil-descripcion p,
+.perfil-horario p,
+.perfil-contacto p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Botón de volver */
+.btn-volver {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #2d89ef;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #1e5bb8;
+}
+
+/* Modo responsive */
+@media (max-width: 600px) {
+  .perfil-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .perfil-header img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .perfil-info h2 {
+    font-size: 1.5rem;
+  }
+}

@@ -15,6 +15,7 @@
   <div class="panel-medico">
     <h1>Bienvenido, <span id="nombreMedico">Médico</span></h1>
 
+    <!-- Información personal -->
     <div class="info-personal">
       <h2>Información Personal</h2>
       <p><strong>Especialidad:</strong> <span id="especialidad"></span></p>
@@ -23,25 +24,30 @@
       <p><strong>Horario:</strong> <span id="horario"></span></p>
     </div>
 
+    <!-- Botones -->
     <div class="acciones">
       <button id="editarPerfil">✏️ Editar Perfil</button>
       <button id="irPrincipal">🏠 Ir a Página Principal</button>
       <button id="cerrarSesion">🚪 Cerrar Sesión</button>
     </div>
 
+    <!-- Citas -->
     <div class="citas">
       <h2>Citas Asignadas</h2>
       <div id="listaCitas">
-        <p>No tienes citas agendadas por ahora.</p>
+        <p>Cargando citas...</p>
       </div>
     </div>
   </div>
 
   <script>
-    // Verificar sesión del médico
+    // =============================
+    // VERIFICAR SESIÓN DEL MÉDICO
+    // =============================
     const medicoLogueado = JSON.parse(localStorage.getItem("medicoLogueado"));
+    const token = localStorage.getItem("tokenMedico");
 
-    if (!medicoLogueado) {
+    if (!medicoLogueado || !token) {
       alert("⚠️ Debes iniciar sesión como médico para acceder a este panel.");
       window.location.href = "medico-login.html";
     } else {
@@ -52,7 +58,50 @@
       document.getElementById("horario").textContent = medicoLogueado.horario;
     }
 
-    // Botones
+    // =============================
+    // CARGAR CITAS DEL MÉDICO
+    // =============================
+    async function cargarCitas() {
+      try {
+        const response = await fetch(`http://localhost:5000/api/citas?medicoId=${medicoLogueado._id}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("Error al obtener las citas");
+
+        const citas = await response.json();
+        const lista = document.getElementById("listaCitas");
+        lista.innerHTML = "";
+
+        if (citas.length === 0) {
+          lista.innerHTML = "<p>No tienes citas agendadas por ahora.</p>";
+          return;
+        }
+
+        citas.forEach(cita => {
+          const div = document.createElement("div");
+          div.classList.add("cita");
+          div.innerHTML = `
+            <p><strong>Paciente:</strong> ${cita.pacienteNombre}</p>
+            <p><strong>Fecha:</strong> ${new Date(cita.fecha).toLocaleDateString()}</p>
+            <p><strong>Hora:</strong> ${cita.hora}</p>
+            <p><strong>Motivo:</strong> ${cita.motivo}</p>
+            <hr>
+          `;
+          lista.appendChild(div);
+        });
+
+      } catch (error) {
+        console.error("❌ Error al cargar las citas:", error);
+        document.getElementById("listaCitas").innerHTML = "<p>Error al cargar citas.</p>";
+      }
+    }
+
+    cargarCitas();
+
+    // =============================
+    // BOTONES
+    // =============================
     document.getElementById("editarPerfil").addEventListener("click", () => {
       window.location.href = "editar-perfil-medico.html";
     });

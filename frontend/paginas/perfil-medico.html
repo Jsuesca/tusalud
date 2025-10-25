@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil del Médico</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <div class="perfil-container">
+    <div class="perfil-header">
+      <img id="foto" src="../img/default-doctor.jpg" alt="Foto del médico">
+      <div class="perfil-info">
+        <h2 id="nombre">Nombre del Médico</h2>
+        <p id="especialidad">Especialidad</p>
+        <p id="experiencia">Experiencia</p>
+      </div>
+    </div>
+
+    <div class="perfil-descripcion">
+      <h3>Descripción</h3>
+      <p id="descripcion"></p>
+    </div>
+
+    <div class="perfil-horario">
+      <h3>Horario de Atención</h3>
+      <p id="horario"></p>
+    </div>
+
+    <!-- 📅 FORMULARIO DE CITA -->
+    <div class="perfil-cita">
+      <h3>Solicitar una cita</h3>
+      <form id="form-cita">
+        <input type="text" id="pacienteNombre" placeholder="Tu nombre completo" required>
+        <input type="email" id="pacienteCorreo" placeholder="Tu correo electrónico" required>
+        <input type="date" id="fecha" required>
+        <input type="time" id="hora" required>
+        <textarea id="motivo" placeholder="Motivo de la cita" required></textarea>
+        <button type="submit">Reservar cita</button>
+      </form>
+    </div>
+
+    <!-- 📞 CONTACTO -->
+    <div class="perfil-contacto">
+      <h3>Contacto</h3>
+      <p><strong>Correo:</strong> <span id="correo"></span></p>
+      <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
+    </div>
+
+    <a href="../index.html" class="btn-volver">← Volver</a>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+
+      if (!id) {
+        alert("❌ No se encontró el ID del médico en la URL");
+        return;
+      }
+
+      try {
+        // ✅ Obtener datos del médico
+        const response = await fetch(`http://localhost:5000/api/medicos/${id}`);
+        if (!response.ok) throw new Error("Error al obtener los datos del médico");
+
+        const medico = await response.json();
+
+        // Asignar datos al perfil
+        document.getElementById("nombre").textContent = medico.nombre;
+        document.getElementById("especialidad").textContent = medico.especialidad;
+        document.getElementById("experiencia").textContent = medico.experiencia;
+        document.getElementById("descripcion").textContent = medico.descripcion;
+        document.getElementById("horario").textContent = medico.horario;
+        document.getElementById("correo").textContent = medico.correo;
+        document.getElementById("telefono").textContent = medico.telefono;
+        document.getElementById("foto").src = medico.foto || "../img/default-doctor.jpg";
+
+        // 📆 Registrar cita
+        const form = document.getElementById("form-cita");
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const pacienteNombre = document.getElementById("pacienteNombre").value;
+          const pacienteCorreo = document.getElementById("pacienteCorreo").value;
+          const fecha = document.getElementById("fecha").value;
+          const hora = document.getElementById("hora").value;
+          const motivo = document.getElementById("motivo").value;
+
+          try {
+            const response = await fetch("http://localhost:5000/api/citas", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ medicoId: id, pacienteNombre, pacienteCorreo, fecha, hora, motivo })
+            });
+
+            if (!response.ok) throw new Error("Error al registrar la cita");
+
+            alert("✅ Cita registrada exitosamente");
+            form.reset();
+          } catch (error) {
+            console.error(error);
+            alert("❌ No se pudo registrar la cita");
+          }
+        });
+      } catch (error) {
+        console.error(error);
+        alert("⚠️ No se pudo cargar el perfil del médico.");
+      }
+    });
+  </script>
+</body>
+</html>

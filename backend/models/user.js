@@ -16,6 +16,27 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  telefono: {
+    type: String,
+    default: "",
+  },
+  direccion: {
+    type: String,
+    default: "",
+  },
+  fechaNacimiento: {
+    type: Date,
+    default: null,
+  },
+  documento: {
+    type: String,
+    default: "",
+  },
+  sexo: {
+    type: String,
+    enum: ["Masculino", "Femenino", "Otro"],
+    default: "Otro",
+  },
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

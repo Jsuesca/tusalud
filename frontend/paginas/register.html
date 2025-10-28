@@ -14,6 +14,7 @@
       <h2>Registro de Usuario</h2>
 
       <form id="registerForm" class="auth-form" action="#" method="post">
+        <!-- 🔹 Campos existentes -->
         <div class="form-group">
           <label for="nombre">Nombre completo:</label>
           <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
@@ -34,6 +35,36 @@
           <input type="password" id="confirmar" name="confirmar" placeholder="Repite la contraseña" required>
         </div>
 
+        <!-- 🔹 NUEVOS CAMPOS -->
+        <div class="form-group">
+          <label for="telefono">Teléfono:</label>
+          <input type="text" id="telefono" name="telefono" placeholder="Ej: 3001234567">
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Ingresa tu dirección">
+        </div>
+
+        <div class="form-group">
+          <label for="documento">Documento de identidad:</label>
+          <input type="text" id="documento" name="documento" placeholder="Ej: 123456789">
+        </div>
+
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha de nacimiento:</label>
+          <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+        </div>
+
+        <div class="form-group">
+          <label for="sexo">Sexo:</label>
+          <select id="sexo" name="sexo">
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro" selected>Otro</option>
+          </select>
+        </div>
+
         <button type="submit" class="btn-primary">Registrarse</button>
 
         <p class="auth-text">
@@ -51,10 +82,15 @@
     document.getElementById("registerForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const nombre = document.getElementById("nombre").value;
-      const email = document.getElementById("email").value;
+      const nombre = document.getElementById("nombre").value.trim();
+      const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
       const confirmar = document.getElementById("confirmar").value;
+      const telefono = document.getElementById("telefono").value.trim();
+      const direccion = document.getElementById("direccion").value.trim();
+      const documento = document.getElementById("documento").value.trim();
+      const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+      const sexo = document.getElementById("sexo").value;
       const mensaje = document.getElementById("mensaje");
 
       if (password !== confirmar) {
@@ -67,7 +103,16 @@
         const res = await fetch("http://localhost:5000/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nombre, email, password }),
+          body: JSON.stringify({
+            nombre,
+            email,
+            password,
+            telefono,
+            direccion,
+            documento,
+            fechaNacimiento,
+            sexo
+          }),
         });
 
         const data = await res.json();
@@ -76,7 +121,7 @@
           mensaje.textContent = data.mensaje || "Registro exitoso ✅";
           mensaje.style.color = "green";
 
-          // Redirige al login 
+          // Redirige al login después de 2 segundos
           setTimeout(() => {
             window.location.href = "login.html";
           }, 2000);
@@ -85,6 +130,7 @@
           mensaje.style.color = "red";
         }
       } catch (error) {
+        console.error(error);
         mensaje.textContent = "Error al conectar con el servidor.";
         mensaje.style.color = "red";
       }

@@ -15,13 +15,42 @@
 
       <form id="editForm" class="auth-form">
         <div class="form-group">
-          <label for="nombre">Nombre:</label>
+          <label for="nombre">Nombre completo:</label>
           <input type="text" id="nombre" name="nombre" required>
         </div>
 
         <div class="form-group">
           <label for="email">Correo electrónico:</label>
           <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono:</label>
+          <input type="text" id="telefono" name="telefono" placeholder="Ej: 3001234567">
+        </div>
+
+        <div class="form-group">
+          <label for="direccion">Dirección:</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Ingresa tu dirección">
+        </div>
+
+        <div class="form-group">
+          <label for="documento">Documento de identidad:</label>
+          <input type="text" id="documento" name="documento" placeholder="Ej: 123456789">
+        </div>
+
+        <div class="form-group">
+          <label for="fechaNacimiento">Fecha de nacimiento:</label>
+          <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+        </div>
+
+        <div class="form-group">
+          <label for="sexo">Sexo:</label>
+          <select id="sexo" name="sexo">
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -47,7 +76,7 @@
       window.location.href = "login.html";
     }
 
-    // Cargar datos del usuario
+    // ✅ Cargar datos del usuario
     async function cargarPerfil() {
       try {
         const res = await fetch("http://localhost:5000/api/user", {
@@ -57,24 +86,36 @@
         const data = await res.json();
 
         if (res.ok) {
-          document.getElementById("nombre").value = data.nombre;
-          document.getElementById("email").value = data.email;
+          document.getElementById("nombre").value = data.nombre || "";
+          document.getElementById("email").value = data.email || "";
+          document.getElementById("telefono").value = data.telefono || "";
+          document.getElementById("direccion").value = data.direccion || "";
+          document.getElementById("documento").value = data.documento || "";
+          document.getElementById("fechaNacimiento").value = data.fechaNacimiento ? data.fechaNacimiento.split("T")[0] : "";
+          document.getElementById("sexo").value = data.sexo || "Otro";
         } else {
-          mensaje.textContent = data.mensaje || "Error al cargar perfil";
+          mensaje.textContent = data.mensaje || "Error al cargar el perfil.";
+          mensaje.style.color = "red";
         }
       } catch (error) {
         mensaje.textContent = "Error de conexión con el servidor.";
+        mensaje.style.color = "red";
       }
     }
 
     cargarPerfil();
 
-    // Guardar cambios
+    // ✅ Guardar cambios
     document.getElementById("editForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const nombre = document.getElementById("nombre").value;
-      const email = document.getElementById("email").value;
+      const nombre = document.getElementById("nombre").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const direccion = document.getElementById("direccion").value.trim();
+      const documento = document.getElementById("documento").value.trim();
+      const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+      const sexo = document.getElementById("sexo").value;
       const password = document.getElementById("password").value;
 
       try {
@@ -84,26 +125,35 @@
             "Content-Type": "application/json",
             "Authorization": "Bearer " + token
           },
-          body: JSON.stringify({ nombre, email, password })
+          body: JSON.stringify({
+            nombre,
+            email,
+            telefono,
+            direccion,
+            documento,
+            fechaNacimiento,
+            sexo,
+            password
+          })
         });
 
         const data = await res.json();
 
         if (res.ok) {
-          mensaje.classList.add("mensaje-exito");
           mensaje.textContent = "Perfil actualizado correctamente ✅";
+          mensaje.style.color = "green";
           localStorage.setItem("nombreUsuario", nombre);
         } else {
-          mensaje.classList.add("mensaje-error");
           mensaje.textContent = data.mensaje || "Error al actualizar perfil.";
+          mensaje.style.color = "red";
         }
       } catch (error) {
-        mensaje.classList.add("mensaje-error");
         mensaje.textContent = "Error al conectar con el servidor.";
+        mensaje.style.color = "red";
       }
     });
 
-    // Eliminar cuenta
+    // ❌ Eliminar cuenta
     document.getElementById("deleteBtn").addEventListener("click", async () => {
       if (confirm("¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.")) {
         try {
@@ -129,3 +179,4 @@
   </script>
 </body>
 </html>
+

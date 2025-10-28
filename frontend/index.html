@@ -70,7 +70,7 @@
       <!-- Saludo de usuario -->
       <div id="userGreeting" class="user-greeting" style="display: none;">
         <span id="nombreUsuario"></span>
-        <button id="editProfileBtn" class="btn-edit-profile">Editar perfil</button>
+        <button id="editProfileBtn" class="btn-edit-profile">Mi perfil</button>
         <button id="logoutBtn" style="margin-left: 10px;">Cerrar sesión</button>
       </div>
 
@@ -91,35 +91,37 @@
     <div class="contenedor-nosotros">
       <div class="mision">
         <h3>Misión:</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit fringilla cubilia magna pretium, fermentum bibendum in
-          torquent primis porttitor ut mollis metus neque nibh, nec eros dapibus tempor odio sociosqu etiam accumsan
-          molestie pharetra. Egestas cras facilisis condimentum donec habitant arcu, sed nascetur molestie habitasse
-          interdum, litora aliquam dictum dictumst mi. Montes senectus suscipit est euismod donec eleifend turpis mattis
-          hendrerit, fames ut facilisi nisl auctor nostra elementum orci leo, duis cubilia quis cursus sociis felis
-          accumsan porttitor.</p>
+        <p>Nuestra visión es posicionarnos como la plataforma digital de referencia en la atención médica especializada,
+          ofreciendo un espacio integral que acerque a las personas a profesionales de la salud calificados, con el
+          respaldo de la tecnología, la innovación y la confianza.
+          Aspiramos a construir un ecosistema donde el acceso a la salud sea universal, ágil y transparente, eliminando
+          las barreras físicas, económicas y de tiempo que tradicionalmente dificultan la comunicación entre pacientes y
+          médicos.</p>
 
-        Sodales primis senectus netus suscipit lobortis in nisl congue mi litora ultrices habitant non, taciti imperdiet
-        tincidunt sagittis at ultricies vulputate etiam aenean leo tristique luctus. Ornare imperdiet mi mattis
-        tincidunt nibh vulputate in, nam et tortor vitae augue ultrices neque, dui ultricies a scelerisque nisl erat.
-        Aliquet netus sed nulla pellentesque dui nullam fringilla est primis diam, neque ante condimentum libero id
-        eleifend per aptent enim bibendum fermentum, vehicula lacus inceptos auctor sagittis potenti a blandit torquent.
+        Queremos ser un aliado estratégico en la transformación digital del sector salud, promoviendo una cultura de
+        prevención, atención oportuna y bienestar continuo.
+        A través de herramientas digitales intuitivas, buscamos que los usuarios puedan encontrar el especialista
+        adecuado, conocer su perfil profesional, agendar citas en línea y mantener un seguimiento médico constante, todo
+        en un entorno seguro y confiable. Visualizamos un futuro en el que cada persona tenga en sus manos el poder de
+        gestionar su salud con facilidad y
+        respaldo profesional, impulsando una red de servicios médicos interconectados, accesibles y centrados en el ser
+        humano.
         </p>
       </div>
       <br>
       <div class="vision">
         <h3>Visión:</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit fringilla cubilia magna pretium, fermentum bibendum in
-          torquent primis porttitor ut mollis metus neque nibh, nec eros dapibus tempor odio sociosqu etiam accumsan
-          molestie pharetra. Egestas cras facilisis condimentum donec habitant arcu, sed nascetur molestie habitasse
-          interdum, litora aliquam dictum dictumst mi. Montes senectus suscipit est euismod donec eleifend turpis mattis
-          hendrerit, fames ut facilisi nisl auctor nostra elementum orci leo, duis cubilia quis cursus sociis felis
-          accumsan porttitor.</p>
+        <p>Nuestra misión es facilitar el acceso a la atención médica especializada a través de una plataforma digital
+          que conecte a los usuarios con médicos certificados de diversas áreas, brindando información clara,
+          actualizada y verificable sobre cada profesional.
+          Nos enfocamos en ofrecer una herramienta práctica y segura que permita buscar especialistas, conocer su
+          experiencia, revisar opiniones de otros pacientes y agendar citas en línea, todo desde un mismo lugar.</p>
 
-        Sodales primis senectus netus suscipit lobortis in nisl congue mi litora ultrices habitant non, taciti imperdiet
-        tincidunt sagittis at ultricies vulputate etiam aenean leo tristique luctus. Ornare imperdiet mi mattis
-        tincidunt nibh vulputate in, nam et tortor vitae augue ultrices neque, dui ultricies a scelerisque nisl erat.
-        Aliquet netus sed nulla pellentesque dui nullam fringilla est primis diam, neque ante condimentum libero id
-        eleifend per aptent enim bibendum fermentum, vehicula lacus inceptos auctor sagittis potenti a blandit torquent.
+        A través de la innovación tecnológica, buscamos mejorar la comunicación entre pacientes y profesionales de la
+        salud, optimizar los tiempos de atención y garantizar un servicio basado en la confianza, la transparencia y la
+        satisfacción del usuario.
+        Nuestro compromiso es ser un puente entre la necesidad de atención médica y la disponibilidad de profesionales
+        calificados, contribuyendo así al fortalecimiento del sistema de salud y al bienestar general de la comunidad.
         </p>
       </div>
     </div>
@@ -406,71 +408,71 @@
   <script src="../backend/js/mapa.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const authButtons = document.getElementById("authButtons");
-      const userGreeting = document.getElementById("userGreeting");
-      const medicoGreeting = document.getElementById("medicoGreeting");
+  document.addEventListener("DOMContentLoaded", () => {
+    const authButtons = document.getElementById("authButtons");
+    const userGreeting = document.getElementById("userGreeting");
+    const medicoGreeting = document.getElementById("medicoGreeting");
 
-      const nombreUsuario = localStorage.getItem("nombreUsuario");
-      const nombreMedico = localStorage.getItem("nombreMedico");
+    const nombreUsuario = localStorage.getItem("nombreUsuario");
+    const nombreMedico = localStorage.getItem("nombreMedico");
 
-      // === SALUDO DE USUARIO ===
-      if (nombreUsuario) {
-        document.getElementById("nombreUsuario").textContent = `👋 Hola, ${nombreUsuario}`;
-        userGreeting.style.display = "flex";
-        userGreeting.style.flexDirection = "column";
-        userGreeting.style.alignItems = "center";
-        userGreeting.style.marginTop = "10px";
-        authButtons.style.display = "none";
+    // === SALUDO DE USUARIO ===
+    if (nombreUsuario) {
+      document.getElementById("nombreUsuario").textContent = `👋 Hola, ${nombreUsuario}`;
+      userGreeting.style.display = "flex";
+      userGreeting.style.flexDirection = "column";
+      userGreeting.style.alignItems = "center";
+      userGreeting.style.marginTop = "10px";
+      authButtons.style.display = "none";
 
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("nombreUsuario");
-          location.reload();
-        });
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("nombreUsuario");
+        location.reload();
+      });
 
-        const editProfileBtn = document.getElementById("editProfileBtn");
-        if (editProfileBtn) {
-          editProfileBtn.addEventListener("click", () => {
-            window.location.href = "./paginas/editar-perfil.html";
-          });
-        }
-      }
-
-      // === SALUDO DE MÉDICO ===
-      else if (nombreMedico) {
-        const nombreSpan = document.getElementById("nombreMedicoSaludo");
-        const esFemenino = nombreMedico.trim().toLowerCase().endsWith("a");
-        const prefijo = esFemenino ? "Dra." : "Dr.";
-        nombreSpan.textContent = `👋 Bienvenido(a), ${prefijo} ${nombreMedico}`;
-
-        medicoGreeting.style.display = "flex";
-        medicoGreeting.style.flexDirection = "column";
-        medicoGreeting.style.alignItems = "center";
-        medicoGreeting.style.marginTop = "10px";
-        authButtons.style.display = "none";
-
-        // Botón: Ir a panel del médico
-        document.getElementById("panelMedicoBtn").addEventListener("click", () => {
-          window.location.href = "./paginas/panel-medico.html";
-        });
-
-        // Botón: Cerrar sesión
-        document.getElementById("logoutMedicoBtn").addEventListener("click", () => {
-          localStorage.removeItem("tokenMedico");
-          localStorage.removeItem("nombreMedico");
-          location.reload();
+      const editProfileBtn = document.getElementById("editProfileBtn");
+      if (editProfileBtn) {
+        editProfileBtn.addEventListener("click", () => {
+          // 🔄 Ahora lleva a perfil.html en lugar de editar directamente
+          window.location.href = "./paginas/perfil.html";
         });
       }
+    }
 
-      // === SI NADIE ESTÁ LOGUEADO ===
-      else {
-        userGreeting.style.display = "none";
-        medicoGreeting.style.display = "none";
-        authButtons.style.display = "flex";
-      }
-    });
-  </script>
+    // === SALUDO DE MÉDICO ===
+    else if (nombreMedico) {
+      const nombreSpan = document.getElementById("nombreMedicoSaludo");
+      const esFemenino = nombreMedico.trim().toLowerCase().endsWith("a");
+      const prefijo = esFemenino ? "Dra." : "Dr.";
+      nombreSpan.textContent = `👋 Bienvenido(a), ${prefijo} ${nombreMedico}`;
+
+      medicoGreeting.style.display = "flex";
+      medicoGreeting.style.flexDirection = "column";
+      medicoGreeting.style.alignItems = "center";
+      medicoGreeting.style.marginTop = "10px";
+      authButtons.style.display = "none";
+
+      document.getElementById("panelMedicoBtn").addEventListener("click", () => {
+        window.location.href = "./paginas/panel-medico.html";
+      });
+
+      document.getElementById("logoutMedicoBtn").addEventListener("click", () => {
+        localStorage.removeItem("tokenMedico");
+        localStorage.removeItem("nombreMedico");
+        location.reload();
+      });
+    }
+
+    // === SI NADIE ESTÁ LOGUEADO ===
+    else {
+      userGreeting.style.display = "none";
+      medicoGreeting.style.display = "none";
+      authButtons.style.display = "flex";
+    }
+  });
+</script>
+
 
 
   <script>

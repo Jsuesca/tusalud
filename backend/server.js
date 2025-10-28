@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import axios from "axios";
 import User from "./models/user.js";
 import Medico from "./models/medico.js";
-import Cita from "./models/cita.js"; // 👈 Modelo de citas
+import Cita from "./models/cita.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -24,7 +24,7 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "frontend"))); // Sirve tu carpeta frontend
+app.use(express.static(path.join(__dirname, "frontend"))); // Sirve carpeta frontend
 
 // =============================
 // CONEXIÓN A MONGODB
@@ -70,6 +70,69 @@ app.post("/api/login", async (req, res) => {
   } catch (error) {
     console.error("❌ Error al iniciar sesión:", error);
     res.status(500).json({ mensaje: "Error al iniciar sesión" });
+  }
+});
+
+// =============================
+// PERFIL DE USUARIO (VER / EDITAR / ELIMINAR)
+// =============================
+
+// Middleware para verificar token
+function autenticarUsuario(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  if (!authHeader) return res.status(401).json({ mensaje: "Token no proporcionado" });
+
+  const token = authHeader.split(" ")[1];
+  jwt.verify(token, "secretito", (err, decoded) => {
+    if (err) return res.status(403).json({ mensaje: "Token inválido o expirado" });
+    req.userId = decoded.id;
+    next();
+  });
+}
+
+// Obtener perfil
+app.get("/api/user", autenticarUsuario, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+    if (!user) return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    res.json(user);
+  } catch (error) {
+    console.error("❌ Error al obtener perfil:", error);
+    res.status(500).json({ mensaje: "Error al obtener perfil" });
+  }
+});
+
+// Actualizar perfil
+app.put("/api/user", autenticarUsuario, async (req, res) => {
+  try {
+    const { nombre, email, password, telefono, direccion, fechaNacimiento, documento, sexo } = req.body;
+
+    const datosActualizados = { nombre, email, telefono, direccion, fechaNacimiento, documento, sexo };
+
+    // Si cambia contraseña
+    if (password && password.trim() !== "") {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      datosActualizados.password = hashedPassword;
+    }
+
+    const user = await User.findByIdAndUpdate(req.userId, datosActualizados, { new: true }).select("-password");
+    if (!user) return res.status(404).json({ mensaje: "Usuario no encontrado" });
+
+    res.json({ mensaje: "Perfil actualizado correctamente", user });
+  } catch (error) {
+    console.error("❌ Error al actualizar perfil:", error);
+    res.status(500).json({ mensaje: "Error al actualizar perfil" });
+  }
+});
+
+// Eliminar cuenta
+app.delete("/api/user", autenticarUsuario, async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.userId);
+    res.json({ mensaje: "Cuenta eliminada exitosamente" });
+  } catch (error) {
+    console.error("❌ Error al eliminar cuenta:", error);
+    res.status(500).json({ mensaje: "Error al eliminar cuenta" });
   }
 });
 
@@ -177,12 +240,9 @@ app.put("/api/medicos/:id", async (req, res) => {
 // =============================
 // 📅 CITAS
 // =============================
-
-// Registrar nueva cita
 app.post("/api/citas", async (req, res) => {
   try {
     const { pacienteNombre, pacienteCorreo, medicoId, fecha, hora, motivo } = req.body;
-
     if (!pacienteNombre || !pacienteCorreo || !medicoId || !fecha || !hora || !motivo) {
       return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
     }
@@ -197,7 +257,6 @@ app.post("/api/citas", async (req, res) => {
   }
 });
 
-// Obtener citas por médico
 app.get("/api/citas", async (req, res) => {
   try {
     const { medicoId } = req.query;

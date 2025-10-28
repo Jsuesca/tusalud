@@ -28,7 +28,7 @@
     </div>
 
     <!-- 📅 FORMULARIO DE CITA -->
-    <div class="perfil-cita">
+    <div class="perfil-cita" style="display:none;">
       <h3>Solicitar una cita</h3>
       <form id="form-cita">
         <input type="text" id="pacienteNombre" placeholder="Tu nombre completo" required>
@@ -77,33 +77,56 @@
         document.getElementById("telefono").textContent = medico.telefono;
         document.getElementById("foto").src = medico.foto || "../img/default-doctor.jpg";
 
-        // 📆 Registrar cita
-        const form = document.getElementById("form-cita");
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
+        // === 🔐 CONTROL DE ACCESO AL FORMULARIO DE CITA ===
+        const seccionCita = document.querySelector(".perfil-cita");
+        const nombreUsuario = localStorage.getItem("nombreUsuario");
+        const nombreMedico = localStorage.getItem("nombreMedico");
 
-          const pacienteNombre = document.getElementById("pacienteNombre").value;
-          const pacienteCorreo = document.getElementById("pacienteCorreo").value;
-          const fecha = document.getElementById("fecha").value;
-          const hora = document.getElementById("hora").value;
-          const motivo = document.getElementById("motivo").value;
+        if (nombreUsuario) {
+          // Mostrar el formulario solo si el usuario está logueado
+          seccionCita.style.display = "block";
 
-          try {
-            const response = await fetch("http://localhost:5000/api/citas", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ medicoId: id, pacienteNombre, pacienteCorreo, fecha, hora, motivo })
-            });
+          // 📆 Registrar cita
+          const form = document.getElementById("form-cita");
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-            if (!response.ok) throw new Error("Error al registrar la cita");
+            const pacienteNombre = document.getElementById("pacienteNombre").value;
+            const pacienteCorreo = document.getElementById("pacienteCorreo").value;
+            const fecha = document.getElementById("fecha").value;
+            const hora = document.getElementById("hora").value;
+            const motivo = document.getElementById("motivo").value;
 
-            alert("✅ Cita registrada exitosamente");
-            form.reset();
-          } catch (error) {
-            console.error(error);
-            alert("❌ No se pudo registrar la cita");
-          }
-        });
+            try {
+              const response = await fetch("http://localhost:5000/api/citas", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ medicoId: id, pacienteNombre, pacienteCorreo, fecha, hora, motivo })
+              });
+
+              if (!response.ok) throw new Error("Error al registrar la cita");
+
+              alert("✅ Cita registrada exitosamente");
+              form.reset();
+            } catch (error) {
+              console.error(error);
+              alert("❌ No se pudo registrar la cita");
+            }
+          });
+        } else {
+          // Usuario no logueado → ocultar formulario y mostrar aviso
+          seccionCita.style.display = "none";
+          const aviso = document.createElement("div");
+          aviso.classList.add("aviso-login");
+          aviso.innerHTML = `
+            <p style="text-align:center; padding:10px; background:#fff3cd; border:1px solid #ffeeba; border-radius:6px; margin-top:10px;">
+              ⚠️ Inicia sesión como usuario para poder agendar una cita.
+              <br>
+              <a href="../index.html" style="color:#007bff; text-decoration:underline;">Ir a iniciar sesión</a>
+            </p>
+          `;
+          document.querySelector(".perfil-container").insertBefore(aviso, seccionCita);
+        }
       } catch (error) {
         console.error(error);
         alert("⚠️ No se pudo cargar el perfil del médico.");

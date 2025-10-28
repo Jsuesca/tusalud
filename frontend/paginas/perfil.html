@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Perfil | TuSalud</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/perfil.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+
+<body class="perfil-body">
+  <section class="perfil-container">
+    <h2>Mi Perfil</h2>
+
+    <div id="perfil-info" class="perfil-info">
+      <!-- Aquí se cargan los datos del usuario -->
+    </div>
+
+    <div class="btn-container">
+      <button id="editarBtn">Editar Perfil</button>
+      <button id="logoutBtn" style="background:#ef233c; margin-left:10px;">Cerrar Sesión</button>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("⚠️ Debes iniciar sesión para ver tu perfil.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        // 🔹 Petición al backend para obtener datos del usuario autenticado
+        const res = await fetch("http://localhost:5000/api/user", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error("No se pudo obtener la información del perfil");
+        }
+
+        const user = await res.json();
+        const perfilDiv = document.getElementById("perfil-info");
+
+        perfilDiv.innerHTML = `
+          <div><strong>Nombre:</strong> ${user.nombre || "-"}</div>
+          <div><strong>Email:</strong> ${user.email || "-"}</div>
+          <div><strong>Teléfono:</strong> ${user.telefono || "-"}</div>
+          <div><strong>Dirección:</strong> ${user.direccion || "-"}</div>
+          <div><strong>Documento:</strong> ${user.documento || "-"}</div>
+          <div><strong>Sexo:</strong> ${user.sexo || "-"}</div>
+          <div><strong>Fecha de nacimiento:</strong> ${
+            user.fechaNacimiento
+              ? new Date(user.fechaNacimiento).toLocaleDateString("es-CO")
+              : "-"
+          }</div>
+          <div><strong>Cuenta creada:</strong> ${
+            user.createdAt
+              ? new Date(user.createdAt).toLocaleDateString("es-CO")
+              : "-"
+          }</div>
+        `;
+
+        // Botón editar
+        document.getElementById("editarBtn").addEventListener("click", () => {
+          window.location.href = "editar-perfil.html";
+        });
+
+        // Botón cerrar sesión
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("nombreUsuario");
+          alert("Sesión cerrada correctamente.");
+          window.location.href = "../index.html";
+        });
+
+      } catch (error) {
+        console.error("❌ Error al cargar perfil:", error);
+        alert("Error al cargar los datos del perfil.");
+      }
+    });
+  </script>
+</body>
+</html>

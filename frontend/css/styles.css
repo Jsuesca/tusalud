@@ -2014,3 +2014,92 @@ body.high-contrast nav {
     font-size: 1.5rem;
   }
 }
+
+
+/* === ESTILOS EXCLUSIVOS PARA perfil.html === */
+
+.perfil-body {
+  background-color: #f4f7fb;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.perfil-container {
+  background: #fff;
+  width: 90%;
+  max-width: 700px;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #0077b6;
+  font-weight: 600;
+}
+
+.perfil-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.perfil-info div {
+  background: #f9f9f9;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e3e3e3;
+  transition: background 0.3s ease;
+}
+
+.perfil-info div:hover {
+  background: #e9f6ff;
+}
+
+.perfil-info strong {
+  display: block;
+  color: #0077b6;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.btn-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-container button {
+  background: #0077b6;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-container button:hover {
+  background: #023e8a;
+  transform: scale(1.05);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .perfil-info {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-container {
+    padding: 20px;
+  }
+}

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Editar Perfil Médico</title>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
   <div class="form-wrapper">
     <h2>Editar Mi Perfil</h2>
@@ -32,9 +34,10 @@
     // Cargar perfil del médico y rellenar el formulario
     async function cargarPerfil() {
       try {
-        const res = await fetch(`http://localhost:5000/api/medicos/perfil/${medicoId}`, {
+        const res = await fetch(`http://127.0.0.1:5000/api/medicos/${medicoId}`, {
           headers: token ? { "Authorization": "Bearer " + token } : {}
         });
+
         const medico = await res.json();
 
         if (!res.ok) {
@@ -118,4 +121,5 @@
     });
   </script>
 </body>
+
 </html>

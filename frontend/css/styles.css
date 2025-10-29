@@ -89,8 +89,8 @@ h2 {
   justify-content: space-between;
   align-items: center;
   background:
-    linear-gradient(#5c7fd600, #5c7fd679),
-    url("../img/LogosPrincipales/fondo1.jpg");
+    linear-gradient(#5c7fd607, #5c7fd600),
+    url("../img/LogosPrincipales/fondo3.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -150,7 +150,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   margin-top: 120px; /* 🔹 deja espacio debajo de la foto */
   position: relative;
   z-index: 10;
@@ -295,23 +295,63 @@ h2 {
 }
 
 /* ===========================
-   🔹 IMAGEN DEL USUARIO ENCIMA DEL SALUDO
+   🔹 MENÚ DE USUARIO (IMAGEN + SALUDO + BOTONES)
 =========================== */
 .menu-right {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  background: #ffffff00;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 12px #00000026;
 }
 
+/* Imagen del usuario */
 .menu-right img[title="Logo Usuario"] {
-  position: absolute;
-  top: -60px; /* 🔹 imagen arriba */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 200px;
-  border-radius: 20px;
+  width: 150px;
+  height: 150px;
+  border-radius: 10%;
   object-fit: cover;
-  z-index: 5;
+  margin-bottom: 5px; /* 🔹 separa de los textos */
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  z-index: 1;
 }
+
+/* Saludo */
+.user-greeting {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Botones debajo */
+.menu-right .btn-editar,
+.menu-right #logoutBtn {
+  background-color: #4f6ccf;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 7px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 600;
+  width: 120px;
+}
+
+.menu-right .btn-editar:hover,
+.menu-right #logoutBtn:hover {
+  background-color: #3a55b3;
+}
+
 
 
 
@@ -587,7 +627,12 @@ button:hover,
 
 /*  FOOTER  */
 .footer {
-  background: linear-gradient(135deg, #2a4dbf, #4f6ccf, #adc6ff);
+  background:
+    linear-gradient(#010e86b0, #0207497c),
+    url("../img/LogosPrincipales/footer.jpg");
+    background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: #ffffff;
   padding: 40px 20px;
   border-radius: 15px;
@@ -643,26 +688,26 @@ button:hover,
 }
 
 .footer-col ul li a:hover {
-  color: #2a4d9c;
+  color: #ffffff;
   text-decoration: underline;
 }
 
 .footer-bottom {
   margin-top: 30px;
   padding-top: 15px;
-  border-top: 1px solid #2a4d9c;
+  border-top: 1px solid #f8f8f8;
   text-align: center;
 }
 
 .footer-logos img {
-  height: 60px;
+  height: 80px;
   margin: 0 10px;
 }
 
 .footer-bottom p {
   margin-top: 10px;
-  font-size: 12px;
-  color: #333;
+  font-size: 16px;
+  color: #ececec;
 }
 
 /*  -------------------------------------------------------   BOTÓN SUBIR AL INICIO  */
@@ -691,7 +736,9 @@ button:hover,
   transform: scale(1.1);
 }
 
-/* === BOTONES DE ACCESIBILIDAD === */
+/* ==============================
+   ♿ BOTÓN DE ALTO CONTRASTE
+============================== */
 .accessibility-buttons {
   position: fixed;
   top: 50%;
@@ -699,121 +746,137 @@ button:hover,
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   z-index: 9999;
 }
 
 .accessibility-buttons button {
-  background-color: #4f6ccf;
-  color: #fff;
+  background-color: #000000;
+  color: #ffffff;
   border: 2px solid #ffffff;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 48px;
+  height: 48px;
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 8px #ffffff40;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
 .accessibility-buttons button:hover {
-  background-color: #2a4dbf;
+  background-color: #1a1a1a;
   transform: scale(1.1);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.35);
 }
 
-/* === TRANSICIONES === */
+/* ==============================
+   🌈 TRANSICIÓN SUAVE
+============================== */
 body, header, section, footer, .card, .doctor-card, .contact-card, img, a, p, h1, h2, h3, h4, h5, h6 {
   transition: background-color 0.4s ease, color 0.4s ease, filter 0.4s ease, border-color 0.4s ease;
 }
 
-/* === MODO OSCURO === */
-body.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
-}
-
-body.dark-mode header,
-body.dark-mode .menu-block,
-body.dark-mode .nosotros,
-body.dark-mode .especialidades,
-body.dark-mode .medicos,
-body.dark-mode .contacto,
-body.dark-mode footer {
-  background: #1e1e1e !important;
-  color: #ffffff !important;
-}
-
-body.dark-mode .card,
-body.dark-mode .doctor-card,
-body.dark-mode .contact-card {
-  background: #2a2a2a !important;
-  color: #ffffff !important;
-}
-
-body.dark-mode a,
-body.dark-mode h1,
-body.dark-mode h2,
-body.dark-mode h3 {
-  color: #b2c8ff !important;
-}
-
-body.dark-mode img {
-  filter: brightness(0.85) contrast(1.1);
-}
-
-/* === MODO ALTO CONTRASTE (universal y total) === */
+/* ==============================
+   ⚫ MODO ALTO CONTRASTE
+============================== */
 body.high-contrast {
   background-color: #000 !important;
-  color: #fff !important;
+  color: #ffffff !important;
 }
 
+/* === Estructura general === */
 body.high-contrast * {
-  background-color: #000 !important;
-  color: #fff !important;
-  border-color: #fff !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
   box-shadow: none !important;
 }
 
-/* enlaces y encabezados */
-body.high-contrast a,
+/* === Encabezados y texto === */
 body.high-contrast h1,
 body.high-contrast h2,
 body.high-contrast h3,
 body.high-contrast h4,
 body.high-contrast h5,
 body.high-contrast h6 {
-  color: #00b0ff !important;
+  color: #00b8ff !important;
+  font-weight: 700;
 }
 
-/* imágenes, íconos y logos */
-body.high-contrast img,
-body.high-contrast svg,
-body.high-contrast logo,
-body.high-contrast .icon {
-  filter: invert(1) grayscale(1) brightness(1.1) contrast(1.2) !important;
+/* === Enlaces === */
+body.high-contrast a {
+  color: #00b8ff !important;
+  text-decoration: underline;
 }
 
-/* botones y tarjetas */
+body.high-contrast a:hover {
+  color: #66d1ff !important;
+}
+
+/* === Botones === */
 body.high-contrast button,
+body.high-contrast .btn,
+body.high-contrast input[type="submit"],
+body.high-contrast input[type="button"] {
+  background-color: #000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.high-contrast button:hover,
+body.high-contrast .btn:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* === Tarjetas y contenedores === */
 body.high-contrast .card,
 body.high-contrast .doctor-card,
 body.high-contrast .contact-card {
+  border: 2px solid #ffffff !important;
+  background-color: #000 !important;
+  color: #ffffff !important;
+}
+
+/* === Imágenes e íconos === */
+body.high-contrast img,
+body.high-contrast svg,
+body.high-contrast .icon,
+body.high-contrast [title="Logo Usuario"] {
+  filter: invert(1) brightness(1.2) contrast(1.3) !important;
+}
+
+/* === Header, nav y footer === */
+body.high-contrast header,
+body.high-contrast footer,
+body.high-contrast nav {
+  background-color: #000 !important;
+  border-top: 1px solid #fff !important;
+  border-bottom: 1px solid #fff !important;
+}
+
+/* === Formularios === */
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea {
   background-color: #000 !important;
   color: #fff !important;
   border: 2px solid #fff !important;
 }
 
-/* menú, header y footer */
-body.high-contrast header,
-body.high-contrast footer,
-body.high-contrast nav {
-  background-color: #000 !important;
-  color: #fff !important;
-  border-top: 1px solid #fff !important;
-  border-bottom: 1px solid #fff !important;
+body.high-contrast input::placeholder,
+body.high-contrast textarea::placeholder {
+  color: #aaa !important;
 }
+
+/* === Separador visual (para estética profesional) === */
+body.high-contrast hr {
+  border: 1px solid #fff !important;
+  opacity: 0.5;
+}
+
 
 
 /* ----------------------------------------------------  DISEÑO RESPONSIVO PAGINA PRINCIPAL  */
@@ -1260,27 +1323,33 @@ body.high-contrast nav {
   border: 2px solid #3d5dc7;
 }
 
+/* Quitar espacios y listas */
 .sitemap {
   list-style: none;
   padding: 0;
 }
 
-.sitemap>li>a {
+/* BOTONES PRINCIPALES */
+.sitemap > li > a {
   background: #3d5dc7;
   font-weight: bold;
   color: #ffffff;
   text-decoration: none;
-  display: inline-block;
-  padding: 10px 20px;
+  display: block;
+  width: 100%;
+  padding: 12px 0;
   border: 2px solid #3d5dc7;
   border-radius: 10px;
   margin-bottom: 10px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .sitemap li a:hover {
   background: #2b47a2;
 }
 
+/* SUBENLACES */
 .sitemap ul {
   list-style: none;
   padding: 0;
@@ -1294,32 +1363,42 @@ body.high-contrast nav {
 .sitemap ul li a {
   color: white;
   background: #3d5dc7;
-  padding: 8px 15px;
+  padding: 12px 0;
   border-radius: 10px;
   text-decoration: none;
-  display: inline-block;
+  display: block;
+  width: 100%;
+  text-align: center;
+  border: 2px solid #3d5dc7;
+  box-sizing: border-box;
 }
 
 .sitemap ul li a:hover {
   background: #2b47a2;
 }
 
+/* BOTÓN ATRÁS */
 .btn-atras {
   margin-top: 30px;
 }
 
 .btn-atras a {
-  display: inline-block;
-  padding: 10px 15px;
+  display: block;
+  width: 100%;
+  padding: 12px 0;
   background: #3d5dc7;
   color: white;
   border-radius: 10px;
   text-decoration: none;
+  text-align: center;
+  border: 2px solid #3d5dc7;
+  box-sizing: border-box;
 }
 
 .btn-atras a:hover {
   background: #2b47a2;
 }
+
 
 /* ----------------------------------------------- ESTILOS PARA LOGIN Y REGISTER  */
 

@@ -475,7 +475,7 @@ button:hover,
   transform: scale(1.05);
 }
 
-/* MEDICOS */
+/* ================================================= MEDICOS */
 .medicos {
   justify-content: space-between;
   text-align: center;
@@ -751,7 +751,7 @@ button:hover,
 }
 
 .accessibility-buttons button {
-  background-color: #000000;
+  background-color: #2a4dbf;
   color: #ffffff;
   border: 2px solid #ffffff;
   border-radius: 50%;
@@ -1029,7 +1029,28 @@ body.high-contrast hr {
 }
 
 
-/*  ---------------------------------------------------------  CHAT.HTML  */
+/*  ----------------------------------------------------------------------------------------  CHAT.HTML  */
+
+/* === Fondo exclusivo para chat.html === */
+body.chat-body {
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #000000;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
+}
+
+
 .chat-wrapper {
   width: 600px;
   height: 500px;
@@ -1224,7 +1245,7 @@ body.high-contrast hr {
   }
 }
 
-/* ------------------- RESPONSIVIDAD CHAT     */
+/* ---------------------------------------------------------------------- RESPONSIVIDAD CHAT     */
 
 
 /* Pantallas medianas (tablets) */
@@ -1312,7 +1333,28 @@ body.high-contrast hr {
 
 
 
-/* ------------------------------------------------- SITEMAP.HTML */
+/* ----------------------------------------------------------------------------------- SITEMAP.HTML */
+/* === Fondo exclusivo para mapa-sitio.html === */
+body.sitemap-body {
+ background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #000000;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
+}
+
+
+
 .sitemap-container {
   max-width: 500px;
   margin: auto;
@@ -1400,19 +1442,28 @@ body.high-contrast hr {
 }
 
 
-/* ----------------------------------------------- ESTILOS PARA LOGIN Y REGISTER  */
+/* -------------------------------------------------------------------------- ESTILOS PARA LOGIN Y REGISTER  */
 
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #5c7ed6, #6a5acd);
-  background-image: url("../img/LogosPrincipales/logo.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 420px auto;
-  font-family: "Poppins", sans-serif;
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #000000;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
 }
 
 .auth-card {
@@ -1525,11 +1576,24 @@ body.high-contrast hr {
   }
 }
 
-/* ------------------------------------------------ EDITAR PERFIL  */
+/* ---------------------------------------------------------------------------------------- EDITAR PERFIL  */
 
-.editar-perfil-body {
-  background-color: #f4f7fe;
-  font-family: 'Poppins', sans-serif;
+body.register-body {
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #000000;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
 }
 
 .editar-perfil-container {
@@ -1670,7 +1734,27 @@ body.high-contrast hr {
 }
 
 
-/* === FORMULARIO REGISTRAR MÉDICO === */
+/* ================================================================= FORMULARIO REGISTRAR MÉDICO === */
+/* === Fondo exclusivo para registrar-medico.html === */
+body.registrar-medico-body {
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #000000;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
+}
+
+
 .form-wrapper {
   max-width: 500px;
   margin: 60px auto;
@@ -1715,11 +1799,25 @@ body.high-contrast hr {
 }
 
 
-/* === ESTILOS AISLADOS PARA PERFIL DE MÉDICO === */
+/* ============================================================ ESTILOS AISLADOS PARA PERFIL DE MÉDICO === */
 .perfil-medico-page {
   font-family: 'Poppins', sans-serif;
   margin: 0;
-  background-color: #f6f8fb;
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #fff;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -1827,14 +1925,28 @@ body.high-contrast hr {
 }
 
 
-/* ==== SECCIÓN: LOGIN MÉDICO ==== */
-/* Estos estilos están aislados para no afectar otras partes del sitio */
+/* ======================================================================== SECCIÓN: LOGIN MÉDICO ==== */
+
 .login-medico {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f7f7f7; /* Fondo suave y neutro */
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #fff;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
 }
 
 .login-medico .form-wrapper {
@@ -1911,79 +2023,114 @@ body.high-contrast hr {
 
 
 
-/* === PANEL MÉDICO === */
-/* Todo está dentro de .panel-medico para evitar interferir con otros estilos */
+/* ============================================================================ 
+   PANEL MÉDICO — Estilos exclusivos
+============================================================================ */
 
+/* === Fondo exclusivo del panel === */
+.panel-body {
+  background:
+    linear-gradient(
+      to bottom right,
+      rgba(0, 27, 54, 0.6),
+      rgba(0, 102, 204, 0.6),
+      rgba(255, 255, 255, 0.3)
+    ),
+    url("../img/LogosPrincipales/fondo1.jpeg"); /* ⚠️ Elimina espacios en el nombre del archivo */
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #001b36; /* color de respaldo */
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 0;
+}
+
+/* === Contenedor principal === */
 .panel-medico {
   max-width: 900px;
   margin: 50px auto;
   background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px 40px;
-  font-family: 'Poppins', sans-serif;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  padding: 40px;
+  backdrop-filter: blur(3px);
 }
 
+/* === Encabezado === */
 .panel-medico h1 {
   color: #0077cc;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
+  font-weight: 600;
 }
 
+/* === Sección de información personal === */
 .panel-medico .info-personal {
   background-color: #f7f9fc;
-  padding: 15px 20px;
-  border-radius: 8px;
-  margin-bottom: 25px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
 }
 
 .panel-medico .info-personal p {
   margin: 8px 0;
   color: #333;
+  font-size: 15px;
 }
 
+/* === Botones === */
 .panel-medico .acciones {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .panel-medico .acciones button {
   background-color: #0077cc;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 12px 24px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 15px;
   transition: 0.3s;
 }
 
 .panel-medico .acciones button:hover {
   background-color: #005fa3;
+  transform: scale(1.05);
 }
 
+/* === Citas === */
 .panel-medico .citas {
   background: #f1f5f9;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .panel-medico .citas h2 {
   color: #0077cc;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .panel-medico .citas p {
   color: #555;
 }
 
+/* === Botón principal === */
 #irPrincipal {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 12px 24px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
@@ -1992,9 +2139,31 @@ body.high-contrast hr {
   background-color: #0056b3;
 }
 
-/* ==== Estilos exclusivos del perfil del médico ==== */
+
+/* ==================================================== Estilos exclusivos del perfil del médico ==== */
 
 /* Contenedor general */
+body {
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #fff;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 40px 10px;
+}
+
+
 .perfil-container {
   max-width: 800px;
   margin: 40px auto;
@@ -2095,10 +2264,24 @@ body.high-contrast hr {
 }
 
 
-/* === ESTILOS EXCLUSIVOS PARA perfil.html === */
+/* ========================================================================== ESTILOS EXCLUSIVOS PARA perfil.html === */
 
 .perfil-body {
-  background-color: #f4f7fb;
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #fff;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
   font-family: 'Poppins', sans-serif;
   color: #333;
   min-height: 100vh;
@@ -2182,3 +2365,125 @@ body.high-contrast hr {
     padding: 20px;
   }
 }
+
+
+/* ===== Estilos exclusivos para la página de médicos ===== */
+
+.medicos-section {
+  padding: 60px 10%;
+  text-align: center;
+  background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #fff;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
+
+}
+
+
+
+.medicos-section h1 {
+  font-size: 2rem;
+  color: #2a4d9c;
+  margin-bottom: 40px;
+}
+
+.medicos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+/* Cada tarjeta médica */
+.medico-card {
+  display: block;
+  text-decoration: none; /* 🔹 Elimina el subrayado */
+  color: inherit;        /* 🔹 Mantiene el color del texto original */
+  background: #4f6ccf;
+  border-radius: 10px;
+  
+  /* 🌟 Borde y sombra profesional */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), 
+              0 0 10px #ffffff4d;
+
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.medico-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 
+              0 0 15px rgba(79, 108, 207, 0.4);
+}
+
+
+.medico-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.medico-card img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 15px;
+  border-radius: 50px;
+  border: 2px solid #ffffff;
+}
+
+.medico-card h3 {
+  color: #fdfdfd;
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.medico-card .especialidad {
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.medico-card p {
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+/* --- BOTÓN ATRÁS (más pequeño y centrado) --- */
+.btn-atras {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-atras a {
+  display: inline-block;
+  padding: 10px 16px;
+  background: #3d5dc7;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 2px solid white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  width: auto;          /* 🔹 evita que ocupe todo el ancho */
+  min-width: 100px;     /* 🔹 tamaño mínimo para mantener forma */
+  text-align: center;
+}
+
+.btn-atras a:hover {
+  background: #2b47a2;
+  transform: scale(1.05);
+}
+

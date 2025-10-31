@@ -9,7 +9,9 @@
 <body>
   <div class="perfil-container">
     <div class="perfil-header">
-      <img id="foto" src="../img/default-doctor.jpg" alt="Foto del médico">
+      <!-- 👇 Foto predeterminada del proyecto -->
+      <img id="foto" class="foto-medico" src="../img/LogosPrincipales/doctor.png" alt="Foto del médico">
+
       <div class="perfil-info">
         <h2 id="nombre">Nombre del Médico</h2>
         <p id="especialidad">Especialidad</p>
@@ -47,7 +49,7 @@
       <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
     </div>
 
-    <a href="../index.html" class="btn-volver">← Volver</a>
+    <a href="../index.html" class="btn-volver">Volver</a>
   </div>
 
   <script>
@@ -75,18 +77,17 @@
         document.getElementById("horario").textContent = medico.horario;
         document.getElementById("correo").textContent = medico.correo;
         document.getElementById("telefono").textContent = medico.telefono;
-        document.getElementById("foto").src = medico.foto || "../img/default-doctor.jpg";
+
+        // 👇 Si no hay foto en la base de datos, usar la predeterminada
+        document.getElementById("foto").src = medico.foto || "../img/LogosPrincipales/doctor.png";
 
         // === 🔐 CONTROL DE ACCESO AL FORMULARIO DE CITA ===
         const seccionCita = document.querySelector(".perfil-cita");
         const nombreUsuario = localStorage.getItem("nombreUsuario");
-        const nombreMedico = localStorage.getItem("nombreMedico");
 
         if (nombreUsuario) {
-          // Mostrar el formulario solo si el usuario está logueado
           seccionCita.style.display = "block";
 
-          // 📆 Registrar cita
           const form = document.getElementById("form-cita");
           form.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -105,7 +106,6 @@
               });
 
               if (!response.ok) throw new Error("Error al registrar la cita");
-
               alert("✅ Cita registrada exitosamente");
               form.reset();
             } catch (error) {
@@ -114,7 +114,6 @@
             }
           });
         } else {
-          // Usuario no logueado → ocultar formulario y mostrar aviso
           seccionCita.style.display = "none";
           const aviso = document.createElement("div");
           aviso.classList.add("aviso-login");

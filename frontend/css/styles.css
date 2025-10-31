@@ -37,12 +37,13 @@ h2 {
   margin-bottom: 40px;
 }
 
-/*  HEADER  */
+/*  =================================================================================HEADER  */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
+  background: #ffffffa4;
+  border-radius: 10px;
   padding: 10px 20px;
   border-bottom: 2px solid #cdd9f0;
 }
@@ -58,27 +59,28 @@ h2 {
 }
 
 .header .logo h1 {
+  align-items: center;
   color: #2a4dbf;
-  font-size: 30px;
+  font-size: 35px;
   font-weight: bold;
 }
 
 .header .search-bar {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 20px;
 }
 
 .header .search-bar input {
-  padding: 6px 10px;
+  padding: 10px 10px;
   border: 3px solid #000000;
   border-radius: 4px;
   width: 250px;
 }
 
 .header .search-bar button {
-  background: #4f6ccf;
-  border: #000000;
+  background: #3859b388;
+  border: 3px solid #00000027;
   font-size: 25px;
   cursor: pointer;
 }
@@ -143,9 +145,7 @@ h2 {
   background: #ffffff;
 }
 
-/* ===========================
-   🔹 BOTONES LOGIN Y REGISTER
-=========================== */
+/* ========================================================= BOTONES LOGIN Y REGISTER */
 .auth-buttons {
   display: flex;
   justify-content: center;
@@ -168,7 +168,7 @@ h2 {
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s ease;
-  position: relative; /* 🔹 permite ubicar el menú debajo */
+  position: relative; 
   z-index: 20;
 }
 
@@ -176,12 +176,10 @@ h2 {
   background-color: #3a55b3;
 }
 
-/* ===========================
-   🔹 OPCIONES FLOTANTES LOGIN
-=========================== */
+/* ======================================================= OPCIONES FLOTANTES LOGIN == */
 .auth-options {
   position: absolute;
-  top: 100%; /* 🔹 aparece justo debajo del botón */
+  top: 100%; 
   left: 50%;
   transform: translateX(-50%);
   display: none;
@@ -221,9 +219,7 @@ h2 {
   }
 }
 
-/* ===========================
-   🔹 SALUDO DE USUARIO
-=========================== */
+/* ================================================= SALUDO DE USUARIO  */
 .user-greeting {
   text-align: center;
   color: #ffffff;
@@ -247,9 +243,7 @@ h2 {
   background-color: #3a55b3;
 }
 
-/* ===========================
-   🔹 SALUDO DEL MÉDICO
-=========================== */
+/* ======================================================== SALUDO DEL MÉDICO  */
 #medicoGreeting {
   display: flex;
   flex-direction: column;
@@ -294,9 +288,7 @@ h2 {
   background-color: #3a55b3;
 }
 
-/* ===========================
-   🔹 MENÚ DE USUARIO (IMAGEN + SALUDO + BOTONES)
-=========================== */
+/* ============================================================== MENÚ DE USUARIO (IMAGEN + SALUDO + BOTONES)  */
 .menu-right {
   position: relative;
   display: flex;
@@ -317,7 +309,7 @@ h2 {
   height: 150px;
   border-radius: 10%;
   object-fit: cover;
-  margin-bottom: 5px; /* 🔹 separa de los textos */
+  margin-bottom: 5px; 
   position: relative;
   top: 0;
   left: 0;
@@ -357,10 +349,10 @@ h2 {
 
 /*  SECCIONES  */
 
-/* Nosotros */
+/* ========================================================================== Nosotros */
 .nosotros {
   justify-content: space-between;
-  background: #ccdbff;
+  background: #ccdbffaf;
   color: #000000;
   margin: 20px;
   padding: 40px 20px;
@@ -370,10 +362,10 @@ h2 {
 .nosotros h2 {
   margin-bottom: 30px;
   font-size: 1.9rem;
-  color: #2a4d9c;
+  color: #ffffff;
 }
 
-/* Misión y Visión */
+/* ===============================================================================Misión y Visión */
 .contenedor-nosotros {
   display: flex;
   justify-content: space-between;
@@ -388,11 +380,11 @@ h2 {
   text-align: justify;
 }
 
-/* 🔹 Recuadros individuales para Misión y Visión */
+/* Recuadros individuales para Misión y Visión */
 .mision,
 .vision {
-  background: #ffffff; /* Fondo blanco dentro del recuadro azul */
-  border: 2px solid #b3c7ff; /* Borde suave azul */
+  background: #ffffff; 
+  border: 2px solid #b3c7ff; 
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -418,10 +410,10 @@ h2 {
 }
 
 
-/* ESPECIALIDADES */
+/*================================================================== ESPECIALIDADES */
 .especialidades {
   justify-content: space-between;
-  background: #5c7ed6;
+  background: #5c7fd6bd;
   text-align: center;
   color: #000000;
   margin: 20px;
@@ -475,12 +467,12 @@ button:hover,
   transform: scale(1.05);
 }
 
-/* ================================================= MEDICOS */
+/* =================================================================== MEDICOS */
 .medicos {
   justify-content: space-between;
   text-align: center;
   margin: 20px;
-  background: #ccdbff;
+  background: #ccdbffb7;
   padding: 40px 20px;
   border-radius: 15px;
 }
@@ -488,7 +480,7 @@ button:hover,
 .medicos h2 {
   margin-bottom: 30px;
   font-size: 1.9rem;
-  color: #2a4d9c;
+  color: #ffffff;
 }
 
 .grid-medicos {
@@ -547,9 +539,9 @@ button:hover,
 }
 
 
-/* CONTACTO */
+/* ============================================================CONTACTO */
 .contacto {
-  background: #5c7ed6;
+  background: #5c7fd6b2;
   padding: 40px 20px;
   margin: 20px;
   border-radius: 15px;
@@ -613,7 +605,7 @@ button:hover,
 .mapa h2 {
   margin-bottom: 20px;
   font-size: 1.9rem;
-  color: #2a4d9c;
+  color: #ffffff;
 }
 
 #map {
@@ -625,11 +617,11 @@ button:hover,
 }
 
 
-/*  FOOTER  */
+/* ============================================================================== FOOTER  */
 .footer {
   background:
     linear-gradient(#010e86b0, #0207497c),
-    url("../img/LogosPrincipales/footer.jpg");
+    url("../img/LogosPrincipales/fondo3.jpg");
     background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -715,7 +707,7 @@ button:hover,
   position: fixed;
   bottom: 25px;
   right: 25px;
-  background-color: #4f6ccf;
+  background-color: #4f6dcfb6;
   color: #ffffff;
   border: 2px solid #ffffff;
   border-radius: 10%;
@@ -736,9 +728,7 @@ button:hover,
   transform: scale(1.1);
 }
 
-/* ==============================
-   ♿ BOTÓN DE ALTO CONTRASTE
-============================== */
+/* ================================================== BOTÓN DE ALTO CONTRASTE */
 .accessibility-buttons {
   position: fixed;
   top: 50%;
@@ -751,7 +741,7 @@ button:hover,
 }
 
 .accessibility-buttons button {
-  background-color: #2a4dbf;
+  background-color: #2a4dbfa2;
   color: #ffffff;
   border: 2px solid #ffffff;
   border-radius: 50%;
@@ -769,16 +759,12 @@ button:hover,
   transform: scale(1.1);
 }
 
-/* ==============================
-   🌈 TRANSICIÓN SUAVE
-============================== */
+/* ========================================================== TRANSICIÓN SUAVE  */
 body, header, section, footer, .card, .doctor-card, .contact-card, img, a, p, h1, h2, h3, h4, h5, h6 {
   transition: background-color 0.4s ease, color 0.4s ease, filter 0.4s ease, border-color 0.4s ease;
 }
 
-/* ==============================
-   ⚫ MODO ALTO CONTRASTE
-============================== */
+/* ===================================================================  MODO ALTO CONTRASTE  */
 body.high-contrast {
   background-color: #000 !important;
   color: #ffffff !important;
@@ -1351,6 +1337,7 @@ body.sitemap-body {
   background-repeat: no-repeat;  /* Evita que se repita */
   color: #000000;                   /* Hace que el texto contraste bien */
   font-family: Arial, sans-serif;
+  
 }
 
 
@@ -1363,6 +1350,7 @@ body.sitemap-body {
   padding: 20px;
   border-radius: 10px;
   border: 2px solid #3d5dc7;
+  box-shadow: 0px 6px 20px #ccc;
 }
 
 /* Quitar espacios y listas */
@@ -1469,11 +1457,11 @@ body.sitemap-body {
 .auth-card {
   background: #fffffff5;
   border-radius: 20px;
-  box-shadow: 0 8px 30px #00000033;
   padding: 40px 45px;
   width: 380px;
   text-align: center;
   animation: fadeIn 0.8s ease forwards;
+  box-shadow: 0px 6px 20px #ffffff;
 }
 
 @keyframes fadeIn {
@@ -1601,6 +1589,7 @@ body.register-body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  box-shadow: 0px 6px 20px #ccc;
 }
 
 .editar-perfil-card {
@@ -1735,7 +1724,7 @@ body.register-body {
 
 
 /* ================================================================= FORMULARIO REGISTRAR MÉDICO === */
-/* === Fondo exclusivo para registrar-medico.html === */
+
 body.registrar-medico-body {
   background: 
     linear-gradient(
@@ -1761,7 +1750,7 @@ body.registrar-medico-body {
   background: #fff;
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0px 6px 20px #ccc;
 }
 
 .form-wrapper h2 {
@@ -1799,25 +1788,24 @@ body.registrar-medico-body {
 }
 
 
-/* ============================================================ ESTILOS AISLADOS PARA PERFIL DE MÉDICO === */
+/* ============================================================    PERFIL DE MÉDICO   */
+
 .perfil-medico-page {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   background: 
     linear-gradient(
       to bottom right, 
-      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
-      rgba(0, 102, 204, 0.6),  /* azul medio */
-      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+      rgba(0, 27, 54, 0.6),
+      rgba(0, 102, 204, 0.6),
+      rgba(255, 255, 255, 0.3)
     ),
-    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
-
-  background-size: cover;        /* La imagen cubre toda la pantalla */
-  background-position: center;   /* Centra la imagen */
-  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
-  background-repeat: no-repeat;  /* Evita que se repita */
-  color: #fff;                   /* Hace que el texto contraste bien */
-  font-family: Arial, sans-serif;
+    url("../img/LogosPrincipales/fondo 1.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -1829,27 +1817,39 @@ body.registrar-medico-body {
 .perfil-medico-page .perfil-card {
   max-width: 900px;
   width: 90%;
-  background: white;
+  background: #ffffff;
   border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  padding: 25px 30px;
+  color: #222;
 }
 
-/* Cabecera con imagen e info */
+/* Cabecera con imagen e información */
 .perfil-medico-page .perfil-header {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
+  border-bottom: 2px solid #e5e5e5;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.perfil-medico-page .perfil-header img {
+/* Imagen del médico */
+.perfil-medico-page .perfil-header .foto-medico {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #007bff;
+  border: 4px solid #007bff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
 
+.perfil-medico-page .perfil-header .foto-medico:hover {
+  transform: scale(1.05);
+}
+
+/* Información del médico */
 .perfil-medico-page .perfil-info h2 {
   margin: 0;
   font-size: 1.8rem;
@@ -1861,7 +1861,7 @@ body.registrar-medico-body {
   color: #555;
 }
 
-/* Secciones */
+/* Secciones del perfil */
 .perfil-medico-page .perfil-descripcion,
 .perfil-medico-page .perfil-horario,
 .perfil-medico-page .perfil-agendar {
@@ -1870,11 +1870,11 @@ body.registrar-medico-body {
 
 .perfil-medico-page .perfil-horario {
   background: #eef5ff;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 10px;
 }
 
-/* Formulario */
+/* Formulario de agendamiento */
 .perfil-medico-page .perfil-agendar {
   background: #f0f8ff;
   padding: 20px;
@@ -1894,6 +1894,7 @@ body.registrar-medico-body {
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  color: #333;
 }
 
 .perfil-medico-page button {
@@ -1911,6 +1912,7 @@ body.registrar-medico-body {
   background: #0056b3;
 }
 
+/* Botón de volver */
 .perfil-medico-page .perfil-volver {
   display: block;
   text-align: center;
@@ -1922,6 +1924,23 @@ body.registrar-medico-body {
 
 .perfil-medico-page .perfil-volver:hover {
   text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .perfil-medico-page .perfil-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .perfil-medico-page .perfil-header .foto-medico {
+    width: 120px;
+    height: 120px;
+  }
+
+  .perfil-medico-page .perfil-info h2 {
+    font-size: 1.5rem;
+  }
 }
 
 
@@ -1953,7 +1972,7 @@ body.registrar-medico-body {
   background: #ffffff;
   padding: 30px 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px #fff;
   max-width: 380px;
   width: 100%;
 }
@@ -2023,11 +2042,9 @@ body.registrar-medico-body {
 
 
 
-/* ============================================================================ 
-   PANEL MÉDICO — Estilos exclusivos
-============================================================================ */
+/* ============================================================================   PANEL MÉDICO */
 
-/* === Fondo exclusivo del panel === */
+/* === Fondo edel panel === */
 .panel-body {
   background:
     linear-gradient(
@@ -2036,7 +2053,7 @@ body.registrar-medico-body {
       rgba(0, 102, 204, 0.6),
       rgba(255, 255, 255, 0.3)
     ),
-    url("../img/LogosPrincipales/fondo1.jpeg"); /* ⚠️ Elimina espacios en el nombre del archivo */
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* ⚠️ Elimina espacios en el nombre del archivo */
 
   background-size: cover;
   background-position: center;

@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <title>Registrar Médico</title>
   <link rel="stylesheet" href="../css/styles.css">
- 
 </head>
-<body class="registrar-medico-body"> <!-- ✅ clase agregada -->
 
+<body class="registrar-medico-body">
   <div class="form-wrapper">
     <h2>Registrar Nuevo Médico</h2>
-    <form id="formMedico">
 
+    <form id="formMedico">
       <label>Nombre:</label>
       <input type="text" name="nombre" required>
 
@@ -39,14 +38,21 @@
       <label>Contraseña:</label>
       <input type="password" name="contraseña" required minlength="6">
 
-      <button type="submit" class="btn-guardar">Registrar</button>
+      <!-- ✅ Botones alineados -->
+      <div style="display: flex; justify-content: center; gap: 10px; margin-top: 15px;">
+        <button type="submit" class="btn-guardar">Registrar</button>
+        <button type="button" class="btn-guardar" id="btnAtras">Atrás</button>
+      </div>
     </form>
-
-    <a href="../index.html" class="btn-atras">Atrás</a>
   </div>
 
   <script>
     const form = document.getElementById("formMedico");
+
+    // ✅ Redirigir al hacer clic en "Atrás"
+    document.getElementById("btnAtras").addEventListener("click", () => {
+      window.location.href = "../index.html";
+    });
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -65,7 +71,7 @@
         if (res.ok) {
           alert("✅ " + data.mensaje);
           form.reset();
-          window.location.href = "medico-login.html"; // redirige al login médico
+          window.location.href = "medico-login.html";
         } else {
           alert("⚠️ " + (data.mensaje || "Error al registrar médico."));
         }
@@ -76,6 +82,5 @@
       }
     });
   </script>
-
 </body>
 </html>

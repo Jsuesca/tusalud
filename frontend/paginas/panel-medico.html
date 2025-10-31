@@ -11,9 +11,17 @@
   <link rel="stylesheet" href="../css/panel-medico.css">
 </head>
 
-<body>
+<body class="panel-body">
   <div class="panel-medico">
     <h1>Bienvenido, <span id="nombreMedico">Médico</span></h1>
+
+    <!-- 👇 Foto del médico (predeterminada o personalizada) -->
+    <div class="foto-container" style="text-align:center; margin-bottom: 20px;">
+      <img id="fotoMedico" 
+           src="../img/LogosPrincipales/doctor.png" 
+           alt="Foto del médico" 
+           style="width:130px; height:130px; border-radius:50%; object-fit:cover; border:2px solid #ccc;">
+    </div>
 
     <!-- Información personal -->
     <div class="info-personal">
@@ -56,6 +64,10 @@
       document.getElementById("correo").textContent = medicoLogueado.correo;
       document.getElementById("telefono").textContent = medicoLogueado.telefono;
       document.getElementById("horario").textContent = medicoLogueado.horario;
+
+      // 👇 Mostrar foto del médico si existe, o usar la predeterminada
+      const foto = medicoLogueado.foto || "../img/LogosPrincipales/doctor.png";
+      document.getElementById("fotoMedico").src = foto;
     }
 
     // =============================

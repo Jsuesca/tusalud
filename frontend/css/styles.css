@@ -2073,7 +2073,7 @@ body.registrar-medico-body {
   margin: 50px auto;
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 18px #ffffff;
   padding: 40px;
   backdrop-filter: blur(3px);
 }
@@ -2187,7 +2187,8 @@ body {
   padding: 25px;
   background-color: #ffffff;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px #ffffff;
+   padding: 40px;
   font-family: "Segoe UI", Arial, sans-serif;
   color: #222;
 }
@@ -2315,7 +2316,7 @@ body {
   max-width: 700px;
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px #ffffff;
 }
 
 .perfil-container h2 {

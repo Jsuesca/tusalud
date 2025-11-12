@@ -21,6 +21,7 @@
 
     <div class="btn-container">
       <button id="editarBtn">Editar Perfil</button>
+      <button id="homeBtn" style="background:#3a86ff; margin-left:10px;">Ir a página principal</button>
       <button id="logoutBtn" style="background:#ef233c; margin-left:10px;">Cerrar Sesión</button>
     </div>
   </section>
@@ -74,6 +75,11 @@
         // Botón editar
         document.getElementById("editarBtn").addEventListener("click", () => {
           window.location.href = "editar-perfil.html";
+        });
+
+        // 🏠 Nuevo botón: ir a página principal
+        document.getElementById("homeBtn").addEventListener("click", () => {
+          window.location.href = "../index.html";
         });
 
         // Botón cerrar sesión

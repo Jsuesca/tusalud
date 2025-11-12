@@ -21,10 +21,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "frontend"))); // Sirve carpeta frontend
+app.use(express.static(path.join(__dirname, "frontend")));
 
 // =============================
 // CONEXIÓN A MONGODB
@@ -37,17 +36,29 @@ mongoose.connect(process.env.MONGO_URI)
 // USUARIOS NORMALES
 // =============================
 
-// Registro usuario
+// 🔹 Registro usuario (ahora guarda todos los campos)
 app.post("/api/register", async (req, res) => {
   try {
-    const { nombre, email, password } = req.body;
+    const { nombre, email, password, telefono, direccion, documento, fechaNacimiento, sexo } = req.body;
+
     const usuarioExistente = await User.findOne({ email });
-    if (usuarioExistente) return res.status(400).json({ mensaje: "El usuario ya existe" });
+    if (usuarioExistente)
+      return res.status(400).json({ mensaje: "El usuario ya existe" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const nuevoUsuario = new User({ nombre, email, password: hashedPassword });
-    await nuevoUsuario.save();
 
+    const nuevoUsuario = new User({
+      nombre,
+      email,
+      password: hashedPassword,
+      telefono,
+      direccion,
+      documento,
+      fechaNacimiento,
+      sexo
+    });
+
+    await nuevoUsuario.save();
     res.status(201).json({ mensaje: "Usuario registrado exitosamente" });
   } catch (error) {
     console.error("❌ Error al registrar usuario:", error);
@@ -55,15 +66,17 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-// Login usuario
+// 🔹 Login usuario
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const usuario = await User.findOne({ email });
-    if (!usuario) return res.status(400).json({ mensaje: "Usuario no encontrado" });
+    if (!usuario)
+      return res.status(400).json({ mensaje: "Usuario no encontrado" });
 
     const esValido = await bcrypt.compare(password, usuario.password);
-    if (!esValido) return res.status(401).json({ mensaje: "Contraseña incorrecta" });
+    if (!esValido)
+      return res.status(401).json({ mensaje: "Contraseña incorrecta" });
 
     const token = jwt.sign({ id: usuario._id }, "secretito", { expiresIn: "1h" });
     res.json({ mensaje: "Login exitoso", token, nombre: usuario.nombre });
@@ -74,27 +87,30 @@ app.post("/api/login", async (req, res) => {
 });
 
 // =============================
-// PERFIL DE USUARIO (VER / EDITAR / ELIMINAR)
+// PERFIL DE USUARIO
 // =============================
 
-// Middleware para verificar token
+// Middleware autenticación
 function autenticarUsuario(req, res, next) {
   const authHeader = req.headers["authorization"];
-  if (!authHeader) return res.status(401).json({ mensaje: "Token no proporcionado" });
+  if (!authHeader)
+    return res.status(401).json({ mensaje: "Token no proporcionado" });
 
   const token = authHeader.split(" ")[1];
   jwt.verify(token, "secretito", (err, decoded) => {
-    if (err) return res.status(403).json({ mensaje: "Token inválido o expirado" });
+    if (err)
+      return res.status(403).json({ mensaje: "Token inválido o expirado" });
     req.userId = decoded.id;
     next();
   });
 }
 
-// Obtener perfil
+// 🔹 Obtener perfil completo
 app.get("/api/user", autenticarUsuario, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select("-password");
-    if (!user) return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    if (!user)
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
     res.json(user);
   } catch (error) {
     console.error("❌ Error al obtener perfil:", error);
@@ -102,21 +118,20 @@ app.get("/api/user", autenticarUsuario, async (req, res) => {
   }
 });
 
-// Actualizar perfil
+// 🔹 Actualizar perfil
 app.put("/api/user", autenticarUsuario, async (req, res) => {
   try {
     const { nombre, email, password, telefono, direccion, fechaNacimiento, documento, sexo } = req.body;
-
     const datosActualizados = { nombre, email, telefono, direccion, fechaNacimiento, documento, sexo };
 
-    // Si cambia contraseña
     if (password && password.trim() !== "") {
       const hashedPassword = await bcrypt.hash(password, 10);
       datosActualizados.password = hashedPassword;
     }
 
     const user = await User.findByIdAndUpdate(req.userId, datosActualizados, { new: true }).select("-password");
-    if (!user) return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    if (!user)
+      return res.status(404).json({ mensaje: "Usuario no encontrado" });
 
     res.json({ mensaje: "Perfil actualizado correctamente", user });
   } catch (error) {
@@ -125,7 +140,7 @@ app.put("/api/user", autenticarUsuario, async (req, res) => {
   }
 });
 
-// Eliminar cuenta
+// 🔹 Eliminar cuenta
 app.delete("/api/user", autenticarUsuario, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.userId);
@@ -142,7 +157,8 @@ app.delete("/api/user", autenticarUsuario, async (req, res) => {
 app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
-    if (!message) return res.status(400).json({ error: "No se recibió ningún mensaje" });
+    if (!message)
+      return res.status(400).json({ error: "No se recibió ningún mensaje" });
 
     const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
     const model = process.env.OPENROUTER_MODEL || "openai/gpt-3.5-turbo";
@@ -169,14 +185,16 @@ app.post("/api/chat", async (req, res) => {
 // =============================
 const SECRET_KEY = "clave_super_segura";
 
-// Registrar médico
+// 🔹 Registrar médico
 app.post("/api/medicos/register", async (req, res) => {
   try {
     const { nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña } = req.body;
     const medicoExistente = await Medico.findOne({ correo });
-    if (medicoExistente) return res.status(400).json({ mensaje: "Ya existe un médico con ese correo" });
+    if (medicoExistente)
+      return res.status(400).json({ mensaje: "Ya existe un médico con ese correo" });
 
-    const nuevoMedico = new Medico({ nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña });
+    const hashed = await bcrypt.hash(contraseña, 10);
+    const nuevoMedico = new Medico({ nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña: hashed });
     await nuevoMedico.save();
 
     res.status(201).json({ mensaje: "Médico registrado exitosamente" });
@@ -186,15 +204,17 @@ app.post("/api/medicos/register", async (req, res) => {
   }
 });
 
-// Login médico
+// 🔹 Login médico
 app.post("/api/medicos/login", async (req, res) => {
   try {
     const { correo, contraseña } = req.body;
     const medico = await Medico.findOne({ correo });
-    if (!medico) return res.status(404).json({ mensaje: "Correo no encontrado" });
+    if (!medico)
+      return res.status(404).json({ mensaje: "Correo no encontrado" });
 
     const match = await bcrypt.compare(contraseña, medico.contraseña);
-    if (!match) return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+    if (!match)
+      return res.status(400).json({ mensaje: "Contraseña incorrecta" });
 
     const token = jwt.sign({ id: medico._id }, SECRET_KEY, { expiresIn: "2h" });
     res.json({ mensaje: "Login exitoso", token, medicoId: medico._id });
@@ -204,52 +224,32 @@ app.post("/api/medicos/login", async (req, res) => {
   }
 });
 
-// Obtener todos los médicos
-app.get("/api/medicos", async (req, res) => {
-  try {
-    const medicos = await Medico.find().select("-contraseña");
-    res.json(medicos);
-  } catch (error) {
-    console.error("❌ Error al obtener médicos:", error);
-    res.status(500).json({ mensaje: "Error al obtener médicos" });
-  }
-});
-
-// Obtener médico por ID
+// 🔹 Obtener médico por ID
 app.get("/api/medicos/:id", async (req, res) => {
   try {
     const medico = await Medico.findById(req.params.id).select("-contraseña");
     if (!medico) return res.status(404).json({ mensaje: "Médico no encontrado" });
     res.json(medico);
   } catch (error) {
-    res.status(500).json({ mensaje: "Error al obtener médico" });
+    console.error("❌ Error al obtener el médico:", error);
+    res.status(500).json({ mensaje: "Error al obtener el médico" });
   }
 });
 
-// Actualizar perfil médico
-app.put("/api/medicos/:id", async (req, res) => {
-  try {
-    const medico = await Medico.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!medico) return res.status(404).json({ mensaje: "Médico no encontrado" });
-    res.json({ mensaje: "Perfil actualizado", medico });
-  } catch (error) {
-    res.status(500).json({ mensaje: "Error al actualizar perfil" });
-  }
-});
 
 // =============================
 // 📅 CITAS
 // =============================
+
+// Crear cita
 app.post("/api/citas", async (req, res) => {
   try {
     const { pacienteNombre, pacienteCorreo, medicoId, fecha, hora, motivo } = req.body;
-    if (!pacienteNombre || !pacienteCorreo || !medicoId || !fecha || !hora || !motivo) {
+    if (!pacienteNombre || !pacienteCorreo || !medicoId || !fecha || !hora || !motivo)
       return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
-    }
 
     const nuevaCita = new Cita({ pacienteNombre, pacienteCorreo, medicoId, fecha, hora, motivo });
     await nuevaCita.save();
-
     res.status(201).json({ mensaje: "Cita registrada exitosamente" });
   } catch (error) {
     console.error("❌ Error al registrar cita:", error);
@@ -257,16 +257,32 @@ app.post("/api/citas", async (req, res) => {
   }
 });
 
+// Obtener citas por médico
 app.get("/api/citas", async (req, res) => {
   try {
     const { medicoId } = req.query;
-    if (!medicoId) return res.status(400).json({ mensaje: "Falta el ID del médico" });
+    if (!medicoId)
+      return res.status(400).json({ mensaje: "Falta el ID del médico" });
 
     const citas = await Cita.find({ medicoId }).sort({ fecha: 1 });
     res.json(citas);
   } catch (error) {
     console.error("❌ Error al obtener citas:", error);
     res.status(500).json({ mensaje: "Error al obtener citas" });
+  }
+});
+
+// Eliminar cita
+app.delete("/api/citas/:id", async (req, res) => {
+  try {
+    const citaEliminada = await Cita.findByIdAndDelete(req.params.id);
+    if (!citaEliminada)
+      return res.status(404).json({ mensaje: "Cita no encontrada" });
+
+    res.json({ mensaje: "Cita eliminada correctamente" });
+  } catch (error) {
+    console.error("❌ Error al eliminar cita:", error);
+    res.status(500).json({ mensaje: "Error al eliminar cita" });
   }
 });
 

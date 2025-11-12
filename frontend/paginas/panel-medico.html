@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel del Médico | Tu Salud a un Clic</title>
 
-  <!-- CSS general -->
   <link rel="stylesheet" href="../css/styles.css">
-  <!-- CSS específico del panel -->
   <link rel="stylesheet" href="../css/panel-medico.css">
 </head>
 
@@ -15,7 +13,6 @@
   <div class="panel-medico">
     <h1>Bienvenido, <span id="nombreMedico">Médico</span></h1>
 
-    <!-- 👇 Foto del médico (predeterminada o personalizada) -->
     <div class="foto-container" style="text-align:center; margin-bottom: 20px;">
       <img id="fotoMedico" 
            src="../img/LogosPrincipales/doctor.png" 
@@ -23,7 +20,6 @@
            style="width:130px; height:130px; border-radius:50%; object-fit:cover; border:2px solid #ccc;">
     </div>
 
-    <!-- Información personal -->
     <div class="info-personal">
       <h2>Información Personal</h2>
       <p><strong>Especialidad:</strong> <span id="especialidad"></span></p>
@@ -32,14 +28,12 @@
       <p><strong>Horario:</strong> <span id="horario"></span></p>
     </div>
 
-    <!-- Botones -->
     <div class="acciones">
       <button id="editarPerfil">✏️ Editar Perfil</button>
       <button id="irPrincipal">🏠 Ir a Página Principal</button>
       <button id="cerrarSesion">🚪 Cerrar Sesión</button>
     </div>
 
-    <!-- Citas -->
     <div class="citas">
       <h2>Citas Asignadas</h2>
       <div id="listaCitas">
@@ -49,9 +43,6 @@
   </div>
 
   <script>
-    // =============================
-    // VERIFICAR SESIÓN DEL MÉDICO
-    // =============================
     const medicoLogueado = JSON.parse(localStorage.getItem("medicoLogueado"));
     const token = localStorage.getItem("tokenMedico");
 
@@ -65,7 +56,6 @@
       document.getElementById("telefono").textContent = medicoLogueado.telefono;
       document.getElementById("horario").textContent = medicoLogueado.horario;
 
-      // 👇 Mostrar foto del médico si existe, o usar la predeterminada
       const foto = medicoLogueado.foto || "../img/LogosPrincipales/doctor.png";
       document.getElementById("fotoMedico").src = foto;
     }
@@ -98,9 +88,41 @@
             <p><strong>Fecha:</strong> ${new Date(cita.fecha).toLocaleDateString()}</p>
             <p><strong>Hora:</strong> ${cita.hora}</p>
             <p><strong>Motivo:</strong> ${cita.motivo}</p>
+            <button class="eliminar-cita" data-id="${cita._id}" style="
+              background-color: #dc3545;
+              color: white;
+              border: none;
+              padding: 8px 14px;
+              border-radius: 6px;
+              cursor: pointer;
+              margin-top: 10px;
+            ">🗑️ Eliminar Cita</button>
             <hr>
           `;
           lista.appendChild(div);
+        });
+
+        // ✅ Activar botón de eliminación
+        document.querySelectorAll(".eliminar-cita").forEach(boton => {
+          boton.addEventListener("click", async (e) => {
+            const idCita = e.target.getAttribute("data-id");
+            const confirmar = confirm("¿Seguro que deseas eliminar esta cita?");
+            if (!confirmar) return;
+
+            try {
+              const res = await fetch(`http://localhost:5000/api/citas/${idCita}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` }
+              });
+
+              if (!res.ok) throw new Error("Error al eliminar la cita");
+              alert("✅ Cita eliminada correctamente.");
+              cargarCitas(); // recarga lista
+            } catch (err) {
+              alert("❌ No se pudo eliminar la cita.");
+              console.error(err);
+            }
+          });
         });
 
       } catch (error) {
@@ -112,7 +134,7 @@
     cargarCitas();
 
     // =============================
-    // BOTONES
+    // BOTONES DEL PANEL
     // =============================
     document.getElementById("editarPerfil").addEventListener("click", () => {
       window.location.href = "editar-perfil-medico.html";

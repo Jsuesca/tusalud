@@ -37,6 +37,17 @@ const userSchema = new mongoose.Schema({
     enum: ["Masculino", "Femenino", "Otro"],
     default: "Otro",
   },
+
+  // recuperación de contraseña
+  resetToken: {
+    type: String,
+    default: null
+  },
+  resetTokenExpire: {
+    type: Date,
+    default: null
+  }
+
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

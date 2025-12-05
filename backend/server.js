@@ -6,11 +6,15 @@ import bodyParser from "body-parser";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import axios from "axios";
+import path from "path";
+import { fileURLToPath } from "url";
+
 import User from "./models/user.js";
 import Medico from "./models/medico.js";
 import Cita from "./models/cita.js";
-import path from "path";
-import { fileURLToPath } from "url";
+
+import passwordRoutes from "./routes/password.js";
+import authRoutes from "./routes/auth.js";
 
 // =============================
 // CONFIGURACIÓN INICIAL
@@ -25,6 +29,10 @@ app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "frontend")));
 
+// 🔹 Routers correctos
+app.use("/api/password", passwordRoutes);
+app.use("/api", authRoutes);
+
 // =============================
 // CONEXIÓN A MONGODB
 // =============================
@@ -36,7 +44,7 @@ mongoose.connect(process.env.MONGO_URI)
 // USUARIOS NORMALES
 // =============================
 
-// 🔹 Registro usuario (ahora guarda todos los campos)
+// Registro usuario
 app.post("/api/register", async (req, res) => {
   try {
     const { nombre, email, password, telefono, direccion, documento, fechaNacimiento, sexo } = req.body;
@@ -66,7 +74,7 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-// 🔹 Login usuario
+// Login usuario
 app.post("/api/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -89,36 +97,28 @@ app.post("/api/login", async (req, res) => {
 // =============================
 // PERFIL DE USUARIO
 // =============================
-
-// Middleware autenticación
 function autenticarUsuario(req, res, next) {
   const authHeader = req.headers["authorization"];
-  if (!authHeader)
-    return res.status(401).json({ mensaje: "Token no proporcionado" });
+  if (!authHeader) return res.status(401).json({ mensaje: "Token no proporcionado" });
 
   const token = authHeader.split(" ")[1];
   jwt.verify(token, "secretito", (err, decoded) => {
-    if (err)
-      return res.status(403).json({ mensaje: "Token inválido o expirado" });
+    if (err) return res.status(403).json({ mensaje: "Token inválido" });
     req.userId = decoded.id;
     next();
   });
 }
 
-// 🔹 Obtener perfil completo
+// Obtener perfil
 app.get("/api/user", autenticarUsuario, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select("-password");
-    if (!user)
-      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    if (!user) return res.status(404).json({ mensaje: "No existe" });
     res.json(user);
-  } catch (error) {
-    console.error("❌ Error al obtener perfil:", error);
-    res.status(500).json({ mensaje: "Error al obtener perfil" });
-  }
+  } catch (error) { res.status(500).json({ mensaje: "Error" }); }
 });
 
-// 🔹 Actualizar perfil
+// Actualizar perfil
 app.put("/api/user", autenticarUsuario, async (req, res) => {
   try {
     const { nombre, email, password, telefono, direccion, fechaNacimiento, documento, sexo } = req.body;
@@ -130,54 +130,38 @@ app.put("/api/user", autenticarUsuario, async (req, res) => {
     }
 
     const user = await User.findByIdAndUpdate(req.userId, datosActualizados, { new: true }).select("-password");
-    if (!user)
-      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    if (!user) return res.status(404).json({ mensaje: "No existe" });
 
-    res.json({ mensaje: "Perfil actualizado correctamente", user });
-  } catch (error) {
-    console.error("❌ Error al actualizar perfil:", error);
-    res.status(500).json({ mensaje: "Error al actualizar perfil" });
-  }
+    res.json({ mensaje: "Perfil actualizado", user });
+  } catch (error) { res.status(500).json({ mensaje: "Error" }); }
 });
 
-// 🔹 Eliminar cuenta
+// Eliminar usuario
 app.delete("/api/user", autenticarUsuario, async (req, res) => {
-  try {
-    await User.findByIdAndDelete(req.userId);
-    res.json({ mensaje: "Cuenta eliminada exitosamente" });
-  } catch (error) {
-    console.error("❌ Error al eliminar cuenta:", error);
-    res.status(500).json({ mensaje: "Error al eliminar cuenta" });
+  try { 
+    await User.findByIdAndDelete(req.userId); 
+    res.json({ mensaje: "Cuenta eliminada" }); 
   }
+  catch { res.status(500).json({ mensaje: "Error" }); }
 });
 
 // =============================
-// CHAT IA (OpenRouter)
+// CHAT IA - OpenRouter
 // =============================
 app.post("/api/chat", async (req, res) => {
   try {
     const { message } = req.body;
-    if (!message)
-      return res.status(400).json({ error: "No se recibió ningún mensaje" });
+    if (!message) return res.status(400).json({ error: "No message" });
 
-    const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
-    const model = process.env.OPENROUTER_MODEL || "openai/gpt-3.5-turbo";
+    const orResp = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+      model: process.env.OPENROUTER_MODEL || "openai/gpt-3.5-turbo",
+      messages: [{ role: "user", content: message }]
+    }, {
+      headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` }
+    });
 
-    const payload = { model, messages: [{ role: "user", content: message }], max_tokens: 400 };
-    const headers = {
-      "Authorization": `Bearer ${OPENROUTER_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "http://localhost:5000",
-      "X-Title": "TuSalud",
-    };
-
-    const orResp = await axios.post("https://openrouter.ai/api/v1/chat/completions", payload, { headers });
-    const reply = orResp.data?.choices?.[0]?.message?.content || "No se obtuvo respuesta de la IA.";
-    res.json({ reply });
-  } catch (error) {
-    console.error("❌ Error en /api/chat:", error?.response?.data || error.message);
-    res.status(500).json({ error: "Error al conectar con OpenRouter" });
-  }
+    res.json({ reply: orResp.data?.choices?.[0]?.message?.content });
+  } catch { res.status(500).json({ error: "Error con IA" }); }
 });
 
 // =============================
@@ -185,105 +169,76 @@ app.post("/api/chat", async (req, res) => {
 // =============================
 const SECRET_KEY = "clave_super_segura";
 
-// 🔹 Registrar médico
+// Registro médico
 app.post("/api/medicos/register", async (req, res) => {
   try {
     const { nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña } = req.body;
     const medicoExistente = await Medico.findOne({ correo });
-    if (medicoExistente)
-      return res.status(400).json({ mensaje: "Ya existe un médico con ese correo" });
+    if (medicoExistente) return res.status(400).json({ mensaje: "Ya existe" });
 
     const hashed = await bcrypt.hash(contraseña, 10);
     const nuevoMedico = new Medico({ nombre, especialidad, foto, experiencia, descripcion, horario, correo, telefono, contraseña: hashed });
     await nuevoMedico.save();
 
-    res.status(201).json({ mensaje: "Médico registrado exitosamente" });
-  } catch (error) {
-    console.error("❌ Error al registrar médico:", error);
-    res.status(500).json({ mensaje: "Error en el servidor" });
-  }
+    res.status(201).json({ mensaje: "Registrado" });
+  } catch { res.status(500).json({ mensaje: "Error" }); }
 });
 
-// 🔹 Login médico
+// Login médico
 app.post("/api/medicos/login", async (req, res) => {
   try {
     const { correo, contraseña } = req.body;
     const medico = await Medico.findOne({ correo });
-    if (!medico)
-      return res.status(404).json({ mensaje: "Correo no encontrado" });
+    if (!medico) return res.status(404).json({ mensaje: "No existe" });
 
     const match = await bcrypt.compare(contraseña, medico.contraseña);
-    if (!match)
-      return res.status(400).json({ mensaje: "Contraseña incorrecta" });
+    if (!match) return res.status(400).json({ mensaje: "Incorrecta" });
 
     const token = jwt.sign({ id: medico._id }, SECRET_KEY, { expiresIn: "2h" });
-    res.json({ mensaje: "Login exitoso", token, medicoId: medico._id });
-  } catch (error) {
-    console.error("❌ Error al iniciar sesión médico:", error);
-    res.status(500).json({ mensaje: "Error en el servidor" });
-  }
+    res.json({ mensaje: "Login", token, medicoId: medico._id });
+  } catch { res.status(500).json({ mensaje: "Error" }); }
 });
 
-// 🔹 Obtener médico por ID
+// Obtener médico
 app.get("/api/medicos/:id", async (req, res) => {
   try {
     const medico = await Medico.findById(req.params.id).select("-contraseña");
-    if (!medico) return res.status(404).json({ mensaje: "Médico no encontrado" });
+    if (!medico) return res.status(404).json({ mensaje: "No existe" });
     res.json(medico);
-  } catch (error) {
-    console.error("❌ Error al obtener el médico:", error);
-    res.status(500).json({ mensaje: "Error al obtener el médico" });
-  }
+  } catch { res.status(500).json({ mensaje: "Error" }); }
 });
 
-
 // =============================
-// 📅 CITAS
+// CITAS
 // =============================
-
-// Crear cita
 app.post("/api/citas", async (req, res) => {
   try {
     const { pacienteNombre, pacienteCorreo, medicoId, fecha, hora, motivo } = req.body;
     if (!pacienteNombre || !pacienteCorreo || !medicoId || !fecha || !hora || !motivo)
-      return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
+      return res.status(400).json({ mensaje: "Faltan datos" });
 
     const nuevaCita = new Cita({ pacienteNombre, pacienteCorreo, medicoId, fecha, hora, motivo });
     await nuevaCita.save();
-    res.status(201).json({ mensaje: "Cita registrada exitosamente" });
-  } catch (error) {
-    console.error("❌ Error al registrar cita:", error);
-    res.status(500).json({ mensaje: "Error al registrar cita" });
-  }
+    res.status(201).json({ mensaje: "Guardada" });
+  } catch { res.status(500).json({ mensaje: "Error" }); }
 });
 
-// Obtener citas por médico
 app.get("/api/citas", async (req, res) => {
   try {
     const { medicoId } = req.query;
-    if (!medicoId)
-      return res.status(400).json({ mensaje: "Falta el ID del médico" });
+    if (!medicoId) return res.status(400).json({ mensaje: "Falta ID" });
 
-    const citas = await Cita.find({ medicoId }).sort({ fecha: 1 });
+    const citas = await Cita.find({ medicoId });
     res.json(citas);
-  } catch (error) {
-    console.error("❌ Error al obtener citas:", error);
-    res.status(500).json({ mensaje: "Error al obtener citas" });
-  }
+  } catch { res.status(500).json({ mensaje: "Error" }); }
 });
 
-// Eliminar cita
 app.delete("/api/citas/:id", async (req, res) => {
   try {
     const citaEliminada = await Cita.findByIdAndDelete(req.params.id);
-    if (!citaEliminada)
-      return res.status(404).json({ mensaje: "Cita no encontrada" });
-
-    res.json({ mensaje: "Cita eliminada correctamente" });
-  } catch (error) {
-    console.error("❌ Error al eliminar cita:", error);
-    res.status(500).json({ mensaje: "Error al eliminar cita" });
-  }
+    if (!citaEliminada) return res.status(404).json({ mensaje: "No existe" });
+    res.json({ mensaje: "Eliminada" });
+  } catch { res.status(500).json({ mensaje: "Error" }); }
 });
 
 // =============================

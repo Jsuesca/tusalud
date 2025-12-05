@@ -10,7 +10,17 @@ const medicoSchema = new mongoose.Schema({
   horario: { type: String, required: true },
   correo: { type: String, required: true, unique: true },
   telefono: { type: String, required: true },
-  contraseña: { type: String, required: true } // 🔐 nueva
+  contraseña: { type: String, required: true },
+
+  // 🟦 Campos para recuperar contraseña
+  resetToken: {
+    type: String,
+    default: null
+  },
+  resetTokenExpire: {
+    type: Date,
+    default: null
+  }
 });
 
 // Antes de guardar, encripta la contraseña
@@ -27,3 +37,4 @@ medicoSchema.methods.compararContraseña = async function (password) {
 };
 
 export default mongoose.model("Medico", medicoSchema);
+

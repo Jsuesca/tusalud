@@ -2505,3 +2505,206 @@ body {
   transform: scale(1.05);
 }
 
+/* ================================
+   🔹 Estilos exclusivos para forgot-password.html
+   ================================ */
+
+/* Fondo general con temática médica */
+.forgot-body {
+    background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #fff;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor principal con efecto tarjeta */
+.forgot-container {
+    background: rgba(255, 255, 255, 0.92);
+    width: 380px;
+    padding: 35px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.25);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Títulos */
+.forgot-container h2 {
+    color: #1e3fa5;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Inputs */
+.forgot-input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    outline: none;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.forgot-input:focus {
+    border-color: #2e63e9;
+    box-shadow: 0px 0px 6px #2e63e9aa;
+}
+
+/* Botón enviar */
+.forgot-btn {
+    width: 100%;
+    background-color: #3467ff;
+    color: white;
+    padding: 12px;
+    border: none;
+    margin-top: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: .3s;
+}
+
+.forgot-btn:hover {
+    background-color: #1e49d6;
+}
+
+/* Enlace volver al login */
+.forgot-links a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #1e49d6;
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+
+.forgot-links a:hover {
+    text-decoration: underline;
+}
+
+/* Suave animación al aparecer */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ================= RESET PASSWORD | DISEÑO EXCLUSIVO ================= */
+
+.reset-body{
+   background: 
+    linear-gradient(
+      to bottom right, 
+      rgba(0, 27, 54, 0.6),   /* azul oscuro semitransparente */
+      rgba(0, 102, 204, 0.6),  /* azul medio */
+      rgba(255, 255, 255, 0.3) /* blanco translúcido */
+    ),
+    url("../img/LogosPrincipales/fondo\ 1.jpeg"); /* 🖼️ Cambia la ruta según tu carpeta */
+
+  background-size: cover;        /* La imagen cubre toda la pantalla */
+  background-position: center;   /* Centra la imagen */
+  background-attachment: fixed;  /* Fija el fondo al hacer scroll */
+  background-repeat: no-repeat;  /* Evita que se repita */
+  color: #fff;                   /* Hace que el texto contraste bien */
+  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor principal */
+.reset-container{
+    background: #fff;
+    width: 350px;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,.25);
+    text-align: center;
+    animation: fadeIn .6s ease;
+}
+
+/* Título */
+.reset-container h2{
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #001A4E;
+}
+
+/* Input */
+.reset-input{
+    width: 100%;
+    padding: 12px;
+    margin-top: 14px;
+    border-radius: 6px;
+    border: 1.7px solid #dcdcdc;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.reset-input:focus{
+    border-color:#2560ff;
+    box-shadow: 0px 0px 4px #2560ff85;
+    outline: none;
+}
+
+/* Botón */
+.reset-btn{
+    width: 100%;
+    padding: 12px;
+    background: #2560ff;
+    border: none;
+    color: #fff;
+    margin-top: 18px;
+    border-radius: 6px;
+    cursor:pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition:.3s;
+}
+
+.reset-btn:hover{
+    background:#093ee9;
+    transform: translateY(-2px);
+}
+
+/* Mensajes */
+.estado-text{
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.estado-text.success{ color: #0ca522; }
+.estado-text.error{ color:#dc1b1b; }
+
+/* Animación */
+@keyframes fadeIn{
+    from{ opacity:0; transform: translateY(10px);}
+    to{ opacity:1; transform: translateY(0);}
+}
